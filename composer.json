@@ -1,0 +1,87 @@
+{
+	"name": "yardinternet/yard-deepl",
+	"description": "This plugin registers secure API endpoints that allows you to request translations directly from DeepL",
+	"homepage": "https://www.yard.nl",
+	"type": "wordpress-plugin",
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
+	"require": {
+		"deeplcom/deepl-php": "*",
+		"jenssegers/blade": "^1.4",
+		"nyholm/psr7": "^1.8",
+		"php": "^7.4|^8.0",
+		"php-di/php-di": "^6.0",
+		"symfony/http-client": "^5.4"
+	},
+	"require-dev": {
+		"10up/wp_mock": "^0.5.0",
+		"brianhenryie/strauss": "^0.15.0",
+		"friendsofphp/php-cs-fixer": "^3.0",
+		"symfony/var-dumper": "^5.1",
+		"wp-coding-standards/wpcs": "^3.0"
+	},
+	"extra": {
+		"strauss": {
+			"target_directory": "vendor-prefixed",
+			"namespace_prefix": "YardDeepl\\Vendor_Prefixed\\",
+			"classmap_prefix": "Yard_Deepl_Vendor_Prefixed_",
+			"constant_prefix": "YDPL_VENDOR_",
+			"packages": [],
+			"update_call_sites": true,
+			"override_autoload": {},
+			"exclude_from_copy": {
+				"packages": [],
+				"namespaces": [],
+				"file_patterns": []
+			},
+			"exclude_from_prefix": {
+				"packages": [],
+				"namespaces": [],
+				"file_patterns": []
+			},
+			"namespace_replacement_patterns": {},
+			"delete_vendor_packages": false,
+			"delete_vendor_files": false
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"YardDeepl\\": "./src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Yard\\Deepl\\Tests\\": "./tests"
+		}
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"@strauss",
+			"rm -rf vendor",
+			"composer dump-autoload",
+			"rm -rf vendor"
+		],
+		"post-update-cmd": [
+			"@strauss",
+			"rm -rf vendor",
+			"composer dump-autoload",
+			"rm -rf vendor"
+		],
+		"strauss": [
+			"vendor/bin/strauss"
+		],
+		"phpcs": "./vendor/squizlabs/php_codesniffer/bin/phpcs",
+		"phpcbf": "./vendor/squizlabs/php_codesniffer/bin/phpcbf"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true,
+			"php-http/discovery": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}

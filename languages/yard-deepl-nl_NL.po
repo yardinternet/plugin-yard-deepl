@@ -1,0 +1,189 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-09-06T17:21:36+00:00\n"
+"PO-Revision-Date: 2024-09-06T17:21:36+00:00\n"
+"Language: \n"
+
+#. Plugin Name of the plugin
+#: src/Providers/SettingsServiceProvider.php:44
+#: src/Providers/SettingsServiceProvider.php:45
+msgid "Yard Deepl"
+msgstr "Yard Deepl"
+
+#. Description of the plugin
+msgid "This plugin registers secure API endpoints that allows you to request translations directly from DeepL"
+msgstr ""
+
+#. Author of the plugin
+msgid "Yard | Digital"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.yard.nl"
+msgstr "https://www.yard.nl"
+
+#: src/Providers/SettingsServiceProvider.php:66
+msgid "Settings"
+msgstr "Instellingen"
+
+#: src/Providers/SettingsServiceProvider.php:73
+msgid "Deepl API key"
+msgstr "Deepl API-sleutel"
+
+#: src/Providers/SettingsServiceProvider.php:82
+msgid "Deepl supported languages"
+msgstr "Deepl ondersteunde talen"
+
+#: src/Views/cache/cdb4d3930df9485905320a23274ce4ad20c1a537.php:7
+#: src/Views/admin/settings-page.blade.php:7
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/Views/cache/ed309190fe0196f713cf3f16fcc5cfe6d6788831.php:3
+#: src/Views/admin/partials/settings/settings-description.blade.php:3
+msgid "website"
+msgstr "website"
+
+#: src/Views/cache/ed309190fe0196f713cf3f16fcc5cfe6d6788831.php:7
+#: src/Views/admin/partials/settings/settings-description.blade.php:7
+msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
+msgstr "Om de Deepl API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
+
+#: config/php-di.php:25
+msgid "Arabic"
+msgstr "Arabisch"
+
+#: config/php-di.php:29
+msgid "Bulgarian"
+msgstr "Bulgaars"
+
+#: config/php-di.php:33
+msgid "Czech"
+msgstr "Tsjechisch"
+
+#: config/php-di.php:37
+msgid "Danish"
+msgstr "Deens"
+
+#: config/php-di.php:41
+msgid "German"
+msgstr "Duits"
+
+#: config/php-di.php:45
+msgid "Greek"
+msgstr "Grieks"
+
+#: config/php-di.php:49
+msgid "English (British)"
+msgstr "Engels (Brits)"
+
+#: config/php-di.php:53
+msgid "English (American)"
+msgstr "Engels (Amerikaans)"
+
+#: config/php-di.php:57
+msgid "Spanish"
+msgstr "Spaans"
+
+#: config/php-di.php:61
+msgid "Estonian"
+msgstr "Estisch"
+
+#: config/php-di.php:65
+msgid "Finnish"
+msgstr "Fins"
+
+#: config/php-di.php:69
+msgid "French"
+msgstr "Frans"
+
+#: config/php-di.php:73
+msgid "Hungarian"
+msgstr "Hongaars"
+
+#: config/php-di.php:77
+msgid "Indonesian"
+msgstr "Indonesisch"
+
+#: config/php-di.php:81
+msgid "Italian"
+msgstr "Italiaans"
+
+#: config/php-di.php:85
+msgid "Japanese"
+msgstr "Japans"
+
+#: config/php-di.php:89
+msgid "Korean"
+msgstr "Koreaans"
+
+#: config/php-di.php:93
+msgid "Lithuanian"
+msgstr "Litouws"
+
+#: config/php-di.php:97
+msgid "Latvian"
+msgstr "Lets"
+
+#: config/php-di.php:101
+msgid "Norwegian Bokmål"
+msgstr "Noors Bokmål"
+
+#: config/php-di.php:105
+msgid "Dutch"
+msgstr "Nederlands"
+
+#: config/php-di.php:109
+msgid "Polish"
+msgstr "Pools"
+
+#: config/php-di.php:113
+msgid "Portuguese (Brazilian)"
+msgstr "Portugees (Braziliaans)"
+
+#: config/php-di.php:117
+msgid "Portuguese (Portugal)"
+msgstr "Portugees (Portugal)"
+
+#: config/php-di.php:121
+msgid "Romanian"
+msgstr "Roemeens"
+
+#: config/php-di.php:125
+msgid "Russian"
+msgstr "Russisch"
+
+#: config/php-di.php:129
+msgid "Slovak"
+msgstr "Slowaaks"
+
+#: config/php-di.php:133
+msgid "Slovenian"
+msgstr "Sloveens"
+
+#: config/php-di.php:137
+msgid "Swedish"
+msgstr "Zweeds"
+
+#: config/php-di.php:141
+msgid "Turkish"
+msgstr "Turks"
+
+#: config/php-di.php:145
+msgid "Ukrainian"
+msgstr "Oekraïens"
+
+#: config/php-di.php:149
+msgid "Chinese (Simplified)"
+msgstr "Chinees (vereenvoudigd)"
+
+#: config/php-di.php:153
+msgid "Chinese (Traditional)"
+msgstr "Chinees (traditioneel)"
