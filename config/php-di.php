@@ -4,21 +4,22 @@
  * PHP DI.
  *
  * @package Yard_Deepl
+ *
  * @author  Yard | Digital Agency
+ *
  * @since   0.0.1
  */
 
 /**
  * Exit when accessed directly.
  */
-
 if ( ! defined( 'ABSPATH' )) {
 	exit;
 }
 
 return array(
-	'ydpl.blade_compiler'             => YardDeepl\Singletons\BladeSingleton::getInstance(),
-	'ydpl.site_options'               => YardDeepl\Singletons\SiteOptionsSingleton::getInstance( get_option( YDPL_SITE_OPTION_NAME, array() ) ),
+	'ydpl.blade_compiler'             => YardDeepl\Singletons\BladeSingleton::get_instance(),
+	'ydpl.site_options'               => YardDeepl\Singletons\SiteOptionsSingleton::get_instance( get_option( YDPL_SITE_OPTION_NAME, array() ) ),
 	'ydpl.supported_target.languages' => array(
 		array(
 			'iso_alpha2' => 'AR',

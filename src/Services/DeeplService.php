@@ -13,6 +13,9 @@ use Exception;
 use YardDeepl\Singletons\SiteOptionsSingleton;
 use YardDeepl\Vendor_Prefixed\DeepL\Translator;
 
+/**
+ * @since 0.0.1
+ */
 class DeeplService
 {
 	private static $instance = null;
@@ -22,18 +25,23 @@ class DeeplService
 	private function __construct()
 	{
 		$this->options = yard_deepl_resolve_from_container( 'ydpl.site_options' );
-		$this->startService();
+		$this->start_service();
 	}
 
-	private function __clone() {}
-	private function __wakeup() {}
+	private function __clone()
+	{
+	}
+
+	private function __wakeup()
+	{
+	}
 
 	/**
 	 * @since 0.0.1
 	 */
-	public static function getInstance(): self
+	public static function get_instance(): self
 	{
-		if (self::$instance === null) {
+		if (null === self::$instance) {
 			self::$instance = new DeeplService();
 		}
 
@@ -43,7 +51,7 @@ class DeeplService
 	/**
 	 * @since 0.0.1
 	 */
-	private function startService(): void
+	private function start_service(): void
 	{
 		$this->translator = new Translator( $this->options->api_key() );
 	}
@@ -61,13 +69,13 @@ class DeeplService
 			throw new Exception( 'Failed to translate text.' );
 		}
 
-		return $this->combineResultWithText( $result, $text );
+		return $this->combine_result_with_initial_text( $result, $text );
 	}
 
 	/**
 	 * @since 0.0.1
 	 */
-	protected function combineResultWithText(array $result, array $text ): array
+	protected function combine_result_with_initial_text(array $result, array $text ): array
 	{
 		$result = array_map(
 			function ($item ) use ($text ) {

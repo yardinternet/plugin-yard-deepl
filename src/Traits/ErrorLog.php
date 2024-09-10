@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' )) {
 	exit;
 }
 
+/**
+ * @since 0.0.1
+ */
 trait ErrorLog
 {
 	public function logError(string $message ): void

@@ -22,15 +22,20 @@ class SiteOptionsSingleton
 		$this->options = $options;
 	}
 
-	private function __clone() {}
-	private function __wakeup() {}
+	private function __clone()
+	{
+	}
+
+	private function __wakeup()
+	{
+	}
 
 	/**
 	 * @since 0.0.1
 	 */
-	public static function getInstance(array $options ): self
+	public static function get_instance(array $options ): self
 	{
-		if (self::$instance == null) {
+		if (null == self::$instance) {
 			self::$instance = new SiteOptionsSingleton( $options );
 		}
 

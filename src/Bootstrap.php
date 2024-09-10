@@ -17,6 +17,9 @@ use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerInterface;
 
 require_once __DIR__ . '/helpers.php';
 
+/**
+ * @since 0.0.1
+ */
 class Bootstrap
 {
 	/**
@@ -70,7 +73,7 @@ class Bootstrap
 	 */
 	protected function register_providers(): void
 	{
-		foreach ( $this->providers as $provider ) {
+		foreach ($this->providers as $provider) {
 			$provider->register();
 		}
 	}

@@ -26,15 +26,20 @@ class BladeSingleton
 		$this->blade = new Blade( $views, $cache );
 	}
 
-	private function __clone() {}
-	private function __wakeup() {}
+	private function __clone()
+	{
+	}
+
+	private function __wakeup()
+	{
+	}
 
 	/**
 	 * @since 0.0.1
 	 */
-	public static function getInstance()
+	public static function get_instance()
 	{
-		if (self::$instance == null) {
+		if (null == self::$instance) {
 			self::$instance = new BladeSingleton();
 		}
 

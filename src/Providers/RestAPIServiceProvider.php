@@ -46,15 +46,32 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 				'permission_callback' => array( $this, 'verify_nonce' ),
 				'args'                => array(
 					'text'        => array(
-						'description' => 'An array of texts to translate.',
-						'type'        => 'array',
-						'default'     => array(),
+						'description'       => 'An array of texts to translate.',
+						'type'              => 'array',
+						'default'           => array(),
+						'required'          => true,
+						'sanitize_callback' => function ($value, $request, $param ) {
+							return array_map( 'sanitize_text_field', $value );
+						},
 					),
 					'target_lang' => array(
-						'description' => 'The target language in which the provided text should be translated to.',
-						'type'        => 'string',
-						'default'     => 'NL',
-						'required'    => true,
+						'description'       => 'The target language in which the provided text should be translated to.',
+						'type'              => 'string',
+						'default'           => 'NL',
+						'required'          => true,
+						'sanitize_callback' => function ($value, $request, $param ) {
+							return sanitize_text_field( $value );
+						},
+					),
+					'object_id'   => array(
+						'description'       => 'The ID of the object to translate.',
+						'required'          => true,
+						'validate_callback' => function ($value, $request, $param ) {
+							return is_numeric( $value );
+						},
+						'sanitize_callback' => function ($value, $request, $param ) {
+							return intval( $value );
+						},
 					),
 				),
 			)
@@ -66,6 +83,6 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 	 */
 	public function verify_nonce(): bool
 	{
-		return wp_verify_nonce( sanitize_text_field( wp_unslash( $_SERVER['HTTP_NONCE'] ?? '' ) ), YDPL_NONCE_REST_NAME );
+		return wp_verify_nonce( sanitize_text_field( wp_unslash( $_SERVER['HTTP_NONCE'] ?? '' ) ), YDPL_NONCE_REST_NAME ) || is_user_logged_in();
 	}
 }

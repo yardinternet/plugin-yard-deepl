@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' )) {
 use Exception;
 use WP_REST_Request;
 use WP_REST_Response;
-use YardDeepl\Services\DeeplService;
+use YardDeepl\Services\TranslationService;
 use YardDeepl\Traits\ErrorLog;
 
 /**
@@ -22,20 +22,28 @@ class RestAPIController
 {
 	use ErrorLog;
 
+	protected TranslationService $service;
+
+	public function __construct()
+	{
+		$this->service = new TranslationService();
+	}
+
 	/**
 	 * @since 0.0.1
 	 */
 	public function handle_translate_request(WP_REST_Request $request ): WP_REST_Response
 	{
-		$text        = array_map( 'sanitize_text_field', $request->get_param( 'text' ) );
-		$target_lang = sanitize_text_field( $request->get_param( 'target_lang' ) );
+		$text        = $request->get_param( 'text' );
+		$target_lang = $request->get_param( 'target_lang' );
+		$object_id   = $request->get_param( 'object_id' );
 
-		if (empty( $text ) || empty( $target_lang )) {
+		if (empty( $text ) || empty( $target_lang ) || empty( $object_id )) {
 			return $this->set_failure_response( 400, 'Invalid input parameters.' );
 		}
 
 		try {
-			$translation = DeeplService::getInstance()->translate( $text, $target_lang );
+			$translation = $this->service->handle_translation( $object_id, $text, $target_lang );
 
 			if (empty( $translation )) {
 				throw new Exception( 'Failed to translate text.', 500 );
