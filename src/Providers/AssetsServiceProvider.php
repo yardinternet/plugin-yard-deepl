@@ -5,7 +5,7 @@ namespace YardDeepl\Providers;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -55,7 +55,7 @@ class AssetsServiceProvider implements ServiceProviderInterface
 
 		$filtered = array_filter(
 			$supported_languages,
-			function ($supported_language ) use ($configured_supported_languages ) {
+			function ( $supported_language ) use ( $configured_supported_languages ) {
 				return in_array( $supported_language['iso_alpha2'], $configured_supported_languages );
 			}
 		);

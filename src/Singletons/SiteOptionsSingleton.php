@@ -5,7 +5,7 @@ namespace YardDeepl\Singletons;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -17,7 +17,7 @@ class SiteOptionsSingleton
 	private static $instance = null;
 	private array $options;
 
-	private function __construct(array $options )
+	private function __construct( array $options )
 	{
 		$this->options = $options;
 	}
@@ -33,9 +33,9 @@ class SiteOptionsSingleton
 	/**
 	 * @since 0.0.1
 	 */
-	public static function get_instance(array $options ): self
+	public static function get_instance( array $options ): self
 	{
-		if (null == self::$instance) {
+		if ( null == self::$instance ) {
 			self::$instance = new SiteOptionsSingleton( $options );
 		}
 

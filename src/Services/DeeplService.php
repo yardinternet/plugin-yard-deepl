@@ -5,7 +5,7 @@ namespace YardDeepl\Services;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -41,7 +41,7 @@ class DeeplService
 	 */
 	public static function get_instance(): self
 	{
-		if (null === self::$instance) {
+		if ( null === self::$instance ) {
 			self::$instance = new DeeplService();
 		}
 
@@ -61,11 +61,11 @@ class DeeplService
 	 *
 	 * @throws Exception
 	 */
-	public function translate(array $text, string $target_lang ): array
+	public function translate( array $text, string $target_lang ): array
 	{
 		$result = $this->translator->translateText( $text, null, $target_lang );
 
-		if ( ! $result) {
+		if ( ! $result ) {
 			throw new Exception( 'Failed to translate text.' );
 		}
 
@@ -75,17 +75,17 @@ class DeeplService
 	/**
 	 * @since 0.0.1
 	 */
-	protected function combine_result_with_initial_text(array $result, array $text ): array
+	protected function combine_result_with_initial_text( array $result, array $text ): array
 	{
 		$result = array_map(
-			function ($item ) use ($text ) {
+			function ( $item ) use ( $text ) {
 				return $item->text ?? '';
 			},
 			$result
 		);
 
 		return array_map(
-			function ($target_lang, $translated_to_lang ) {
+			function ( $target_lang, $translated_to_lang ) {
 				return array(
 					'text'        => $target_lang,
 					'translation' => $translated_to_lang,

@@ -5,7 +5,7 @@ namespace YardDeepl\Controllers;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -33,7 +33,7 @@ class SettingsController
 	/**
 	 * @since 0.0.1
 	 */
-	public function section_fields_render(array $args ): void
+	public function section_fields_render( array $args ): void
 	{
 		yard_deepl_render_view(
 			'admin.partials.settings.settings-fields',

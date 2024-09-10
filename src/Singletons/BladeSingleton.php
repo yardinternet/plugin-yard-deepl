@@ -5,7 +5,7 @@ namespace YardDeepl\Singletons;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -39,7 +39,7 @@ class BladeSingleton
 	 */
 	public static function get_instance()
 	{
-		if (null == self::$instance) {
+		if ( null == self::$instance ) {
 			self::$instance = new BladeSingleton();
 		}
 
@@ -49,7 +49,7 @@ class BladeSingleton
 	/**
 	 * @since 0.0.1
 	 */
-	public function render($view, $data = array() )
+	public function render( $view, $data = array() )
 	{
 		return $this->blade->render( $view, $data );
 	}

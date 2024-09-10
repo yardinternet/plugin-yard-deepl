@@ -13,7 +13,7 @@
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' )) {
  *
  * @since   0.0.1
  */
-if ( ! function_exists( 'yard_deepl_prefix' )) {
-	function yard_deepl_prefix($name ): string
+if ( ! function_exists( 'yard_deepl_prefix' ) ) {
+	function yard_deepl_prefix( $name ): string
 	{
 		return 'yard-deepl-' . $name;
 	}
@@ -42,8 +42,8 @@ if ( ! function_exists( 'yard_deepl_prefix' )) {
  *
  * @since   0.0.1
  */
-if ( ! function_exists( 'yard_deepl_url' )) {
-	function yard_deepl_url(string $path ): string
+if ( ! function_exists( 'yard_deepl_url' ) ) {
+	function yard_deepl_url( string $path ): string
 	{
 		return YDPL_PLUGIN_URL . $path;
 	}
@@ -58,8 +58,8 @@ if ( ! function_exists( 'yard_deepl_url' )) {
  *
  * @since   0.0.1
  */
-if ( ! function_exists( 'yard_deepl_asset_url' )) {
-	function yard_deepl_asset_url(string $path ): string
+if ( ! function_exists( 'yard_deepl_asset_url' ) ) {
+	function yard_deepl_asset_url( string $path ): string
 	{
 		return yard_deepl_url( 'dist/' . $path );
 	}
@@ -74,8 +74,8 @@ if ( ! function_exists( 'yard_deepl_asset_url' )) {
  *
  * @since   0.0.1
  */
-if ( ! function_exists( 'yard_deepl_render_view' )) {
-	function yard_deepl_render_view(string $file_path, $data = array() ): void
+if ( ! function_exists( 'yard_deepl_render_view' ) ) {
+	function yard_deepl_render_view( string $file_path, $data = array() ): void
 	{
 		// Escape the data array
 		$escaped_data = array_map( 'yard_deepl_escape_data', $data );
@@ -94,8 +94,8 @@ if ( ! function_exists( 'yard_deepl_render_view' )) {
  *
  * @since   0.0.1
  */
-if ( ! function_exists( 'yard_deepl_resolve_from_container' )) {
-	function yard_deepl_resolve_from_container(string $container )
+if ( ! function_exists( 'yard_deepl_resolve_from_container' ) ) {
+	function yard_deepl_resolve_from_container( string $container )
 	{
 		return YardDeepl\Bootstrap::get_container()->get( $container );
 	}
@@ -108,15 +108,15 @@ if ( ! function_exists( 'yard_deepl_resolve_from_container' )) {
  *
  * @return mixed The escaped data.
  */
-if ( ! function_exists( 'yard_deepl_escape_data' )) {
-	function yard_deepl_escape_data($data )
+if ( ! function_exists( 'yard_deepl_escape_data' ) ) {
+	function yard_deepl_escape_data( $data )
 	{
-		if (is_array( $data )) {
+		if ( is_array( $data ) ) {
 			// Recursively escape arrays
 			return array_map( 'yard_deepl_escape_data', $data );
 		}
 
-		if (is_string( $data )) {
+		if ( is_string( $data ) ) {
 			return esc_html( $data );
 		}
 

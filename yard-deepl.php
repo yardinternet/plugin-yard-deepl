@@ -18,7 +18,7 @@
 /**
  * If this file is called directly, abort.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -35,7 +35,7 @@ define( 'YDPL_NONCE_REST_NAME', 'ydpl_rest' );
 /**
  * Require autoloader.
  */
-if (file_exists( __DIR__ . '/vendor-prefixed/autoload.php' )) {
+if ( file_exists( __DIR__ . '/vendor-prefixed/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor-prefixed/autoload.php';
 }
 require_once __DIR__ . '/src/autoloader.php';

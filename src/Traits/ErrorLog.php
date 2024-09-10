@@ -5,7 +5,7 @@ namespace YardDeepl\Traits;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' )) {
  */
 trait ErrorLog
 {
-	public function logError(string $message ): void
+	public function logError( string $message ): void
 	{
-		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG) {
+		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
 			return;
 		}
 

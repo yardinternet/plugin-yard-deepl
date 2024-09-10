@@ -5,7 +5,7 @@ namespace YardDeepl\Providers;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -50,7 +50,7 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						'type'              => 'array',
 						'default'           => array(),
 						'required'          => true,
-						'sanitize_callback' => function ($value, $request, $param ) {
+						'sanitize_callback' => function ( $value, $request, $param ) {
 							return array_map( 'sanitize_text_field', $value );
 						},
 					),
@@ -59,17 +59,17 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						'type'              => 'string',
 						'default'           => 'NL',
 						'required'          => true,
-						'sanitize_callback' => function ($value, $request, $param ) {
+						'sanitize_callback' => function ( $value, $request, $param ) {
 							return sanitize_text_field( $value );
 						},
 					),
 					'object_id'   => array(
 						'description'       => 'The ID of the object to translate.',
 						'required'          => true,
-						'validate_callback' => function ($value, $request, $param ) {
+						'validate_callback' => function ( $value, $request, $param ) {
 							return is_numeric( $value );
 						},
-						'sanitize_callback' => function ($value, $request, $param ) {
+						'sanitize_callback' => function ( $value, $request, $param ) {
 							return intval( $value );
 						},
 					),

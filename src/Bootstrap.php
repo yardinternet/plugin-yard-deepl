@@ -5,7 +5,7 @@ namespace YardDeepl;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -73,7 +73,7 @@ class Bootstrap
 	 */
 	protected function register_providers(): void
 	{
-		foreach ($this->providers as $provider) {
+		foreach ( $this->providers as $provider ) {
 			$provider->register();
 		}
 	}

@@ -5,7 +5,7 @@ namespace YardDeepl\Services;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' )) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -16,7 +16,7 @@ use YardDeepl\Repositories\TranslationRepository;
  */
 class TranslationService
 {
-	protected $repository;
+	protected TranslationRepository $repository;
 
 	public function __construct()
 	{
@@ -26,11 +26,11 @@ class TranslationService
 	/**
 	 * @since 0.0.1
 	 */
-	public function handle_translation(int $object_id, array $text, string $target_lang )
+	public function handle_translation( int $object_id, array $text, string $target_lang )
 	{
 		$cached_translation = $this->repository->get_cached_translation( $object_id, $target_lang );
 
-		if ($cached_translation) {
+		if ( $cached_translation ) {
 			return $cached_translation;
 		}
 
