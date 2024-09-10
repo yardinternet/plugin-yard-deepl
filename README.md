@@ -18,6 +18,15 @@ This plugin registers secure API endpoints that allows you to request translatio
 This plugin registers secure API endpoints that allows you to request translations directly from DeepL. These endpoints are only accessible when a valid nonce is provided.
 When providing translations to website visitors, you can configure which languages are supported for translation.
 
+## Caching Mechanism
+
+Each object that is translated will store its cached translation in the `wp_postmeta` table within the database. This caching mechanism ensures that translations are efficiently reused, reducing unnecessary API requests to DeepL and saving costs.
+
+- **Serving Cached Translations:** If a cached translation is newer than the `post_modified` date of the object, the cached version is served.
+- **Fetching New Translations:** When the `post_modified` date of the object is more recent than the cached translation, a new translation is fetched from DeepL. Once retrieved, this translation is immediately cached for future use.
+
+This approach minimizes the number of API calls to DeepL, ensuring translations are kept up to date only when necessary.
+
 ## Installation
 
 1. Upload plugin directory to the `/wp-content/plugins/` directory
