@@ -46,144 +46,142 @@ msgstr "Deepl ondersteunde talen"
 msgid "Save"
 msgstr "Opslaan"
 
-#: src/Views/cache/ed309190fe0196f713cf3f16fcc5cfe6d6788831.php:3
-#: src/Views/admin/partials/settings/settings-description.blade.php:3
+#: src/Views/admin/partials/settings/settings-description.blade.php:4
 msgid "website"
 msgstr "website"
 
-#: src/Views/cache/ed309190fe0196f713cf3f16fcc5cfe6d6788831.php:7
-#: src/Views/admin/partials/settings/settings-description.blade.php:7
+#: src/Views/admin/partials/settings/settings-description.blade.php:10
 msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
 msgstr "Om de Deepl API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
 
-#: config/php-di.php:25
+#: config/php-di.php:26
 msgid "Arabic"
 msgstr "Arabisch"
 
-#: config/php-di.php:29
+#: config/php-di.php:30
 msgid "Bulgarian"
 msgstr "Bulgaars"
 
-#: config/php-di.php:33
+#: config/php-di.php:34
 msgid "Czech"
 msgstr "Tsjechisch"
 
-#: config/php-di.php:37
+#: config/php-di.php:38
 msgid "Danish"
 msgstr "Deens"
 
-#: config/php-di.php:41
+#: config/php-di.php:42
 msgid "German"
 msgstr "Duits"
 
-#: config/php-di.php:45
+#: config/php-di.php:46
 msgid "Greek"
 msgstr "Grieks"
 
-#: config/php-di.php:49
+#: config/php-di.php:50
 msgid "English (British)"
 msgstr "Engels (Brits)"
 
-#: config/php-di.php:53
+#: config/php-di.php:54
 msgid "English (American)"
 msgstr "Engels (Amerikaans)"
 
-#: config/php-di.php:57
+#: config/php-di.php:58
 msgid "Spanish"
 msgstr "Spaans"
 
-#: config/php-di.php:61
+#: config/php-di.php:62
 msgid "Estonian"
 msgstr "Estisch"
 
-#: config/php-di.php:65
+#: config/php-di.php:66
 msgid "Finnish"
 msgstr "Fins"
 
-#: config/php-di.php:69
+#: config/php-di.php:70
 msgid "French"
 msgstr "Frans"
 
-#: config/php-di.php:73
+#: config/php-di.php:74
 msgid "Hungarian"
 msgstr "Hongaars"
 
-#: config/php-di.php:77
+#: config/php-di.php:78
 msgid "Indonesian"
 msgstr "Indonesisch"
 
-#: config/php-di.php:81
+#: config/php-di.php:82
 msgid "Italian"
 msgstr "Italiaans"
 
-#: config/php-di.php:85
+#: config/php-di.php:86
 msgid "Japanese"
 msgstr "Japans"
 
-#: config/php-di.php:89
+#: config/php-di.php:90
 msgid "Korean"
 msgstr "Koreaans"
 
-#: config/php-di.php:93
+#: config/php-di.php:94
 msgid "Lithuanian"
 msgstr "Litouws"
 
-#: config/php-di.php:97
+#: config/php-di.php:98
 msgid "Latvian"
 msgstr "Lets"
 
-#: config/php-di.php:101
+#: config/php-di.php:102
 msgid "Norwegian Bokmål"
 msgstr "Noors Bokmål"
 
-#: config/php-di.php:105
+#: config/php-di.php:106
 msgid "Dutch"
 msgstr "Nederlands"
 
-#: config/php-di.php:109
+#: config/php-di.php:110
 msgid "Polish"
 msgstr "Pools"
 
-#: config/php-di.php:113
+#: config/php-di.php:114
 msgid "Portuguese (Brazilian)"
 msgstr "Portugees (Braziliaans)"
 
-#: config/php-di.php:117
+#: config/php-di.php:118
 msgid "Portuguese (Portugal)"
 msgstr "Portugees (Portugal)"
 
-#: config/php-di.php:121
+#: config/php-di.php:122
 msgid "Romanian"
 msgstr "Roemeens"
 
-#: config/php-di.php:125
+#: config/php-di.php:126
 msgid "Russian"
 msgstr "Russisch"
 
-#: config/php-di.php:129
+#: config/php-di.php:130
 msgid "Slovak"
 msgstr "Slowaaks"
 
-#: config/php-di.php:133
+#: config/php-di.php:134
 msgid "Slovenian"
 msgstr "Sloveens"
 
-#: config/php-di.php:137
+#: config/php-di.php:138
 msgid "Swedish"
 msgstr "Zweeds"
 
-#: config/php-di.php:141
+#: config/php-di.php:142
 msgid "Turkish"
 msgstr "Turks"
 
-#: config/php-di.php:145
+#: config/php-di.php:146
 msgid "Ukrainian"
 msgstr "Oekraïens"
 
-#: config/php-di.php:149
+#: config/php-di.php:150
 msgid "Chinese (Simplified)"
 msgstr "Chinees (vereenvoudigd)"
 
-#: config/php-di.php:153
+#: config/php-di.php:154
 msgid "Chinese (Traditional)"
 msgstr "Chinees (traditioneel)"
