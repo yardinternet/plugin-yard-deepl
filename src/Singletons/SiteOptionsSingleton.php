@@ -57,4 +57,14 @@ class SiteOptionsSingleton
 	{
 		return $this->options['ydpl_supported_target_languages'] ?? array();
 	}
+
+	/**
+	 * @since 0.0.1
+	 */
+	public function rest_api_param_object_id_is_mandatory(): bool
+	{
+		$value = $this->options['ydpl_rest_api_param_object_id_is_mandatory'] ?? '';
+
+		return 'on' === $value;
+	}
 }

@@ -13,6 +13,7 @@ use Exception;
 use WP_REST_Request;
 use WP_REST_Response;
 use YardDeepl\Services\TranslationService;
+use YardDeepl\Singletons\SiteOptionsSingleton;
 use YardDeepl\Traits\ErrorLog;
 
 /**
@@ -23,10 +24,12 @@ class RestAPIController
 	use ErrorLog;
 
 	protected TranslationService $service;
+	protected SiteOptionsSingleton $options;
 
 	public function __construct()
 	{
 		$this->service = new TranslationService();
+		$this->options = yard_deepl_resolve_from_container( 'ydpl.site_options' );
 	}
 
 	/**
@@ -38,7 +41,13 @@ class RestAPIController
 		$target_lang = $request->get_param( 'target_lang' );
 		$object_id   = $request->get_param( 'object_id' );
 
-		if ( empty( $text ) || empty( $target_lang ) || empty( $object_id ) ) {
+		// Are required by Deepl.
+		if ( empty( $text ) || empty( $target_lang ) ) {
+			return $this->set_failure_response( 400, 'Invalid input parameters.' );
+		}
+
+		// Is required when configured as such in the plugin settings.
+		if ( $this->options->rest_api_param_object_id_is_mandatory() && empty( $object_id ) ) {
 			return $this->set_failure_response( 400, 'Invalid input parameters.' );
 		}
 

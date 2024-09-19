@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use YardDeepl\Contracts\ServiceProviderInterface;
 use YardDeepl\Controllers\RestAPIController;
+use YardDeepl\Singletons\SiteOptionsSingleton;
 
 /**
  * @since 0.0.1
@@ -18,10 +19,12 @@ use YardDeepl\Controllers\RestAPIController;
 class RestAPIServiceProvider implements ServiceProviderInterface
 {
 	private RestAPIController $controller;
+	protected SiteOptionsSingleton $options;
 
 	public function __construct()
 	{
 		$this->controller = new RestAPIController();
+		$this->options    = yard_deepl_resolve_from_container( 'ydpl.site_options' );
 	}
 
 	/**
@@ -65,7 +68,7 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 					),
 					'object_id'   => array(
 						'description'       => 'The ID of the object to translate.',
-						'required'          => true,
+						'required'          => $this->options->rest_api_param_object_id_is_mandatory(),
 						'validate_callback' => function ( $value, $request, $param ) {
 							return is_numeric( $value );
 						},

@@ -3,6 +3,7 @@
 	$settings_field_id = $settings_field_id ?? '';
 	$supported_languages = $supported_languages ?? [];
 	$configured_supported_languages = $configured_supported_languages ?? [];
+	$rest_api_param_object_id_is_mandatory = $rest_api_param_object_id_is_mandatory ?? true;
 @endphp
 
 @if ($settings_field_id === 'ydpl_api_key')
@@ -18,4 +19,9 @@
 			</option>
 		@endforeach
 	</select>
+@endif
+
+@if ($settings_field_id === 'ydpl_rest_api_param_object_id_is_mandatory')
+	<input type="checkbox" name="ydpl_options[ydpl_rest_api_param_object_id_is_mandatory]"
+		{{ !empty($rest_api_param_object_id_is_mandatory) ? 'checked' : '' }}>
 @endif

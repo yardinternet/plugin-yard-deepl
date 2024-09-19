@@ -62,9 +62,9 @@ class SettingsServiceProvider implements ServiceProviderInterface
 		);
 
 		add_settings_section(
-			'ydpl_section_id',
+			'ydpl_section_general',
 			__( 'Settings', 'yard-deepl' ),
-			array( $this->controller, 'section_description' ),
+			array( $this->controller, 'section_description_general' ),
 			'yard-deepl'
 		);
 
@@ -73,7 +73,7 @@ class SettingsServiceProvider implements ServiceProviderInterface
 			__( 'Deepl API key', 'yard-deepl' ),
 			array( $this->controller, 'section_fields_render' ),
 			'yard-deepl',
-			'ydpl_section_id',
+			'ydpl_section_general',
 			array( 'settings_field_id' => 'ydpl_api_key' )
 		);
 
@@ -82,8 +82,24 @@ class SettingsServiceProvider implements ServiceProviderInterface
 			__( 'Deepl supported languages', 'yard-deepl' ),
 			array( $this->controller, 'section_fields_render' ),
 			'yard-deepl',
-			'ydpl_section_id',
+			'ydpl_section_general',
 			array( 'settings_field_id' => 'ydpl_supported_target_languages' )
+		);
+
+		add_settings_section(
+			'ydpl_section_rest_api',
+			'REST API',
+			array( $this->controller, 'section_description_rest_api' ),
+			'yard-deepl'
+		);
+
+		add_settings_field(
+			'ydpl_rest_api_param_object_id_is_mandatory',
+			__( 'Parameter object_id mandatory', 'yard-deepl' ),
+			array( $this->controller, 'section_fields_render' ),
+			'yard-deepl',
+			'ydpl_section_rest_api',
+			array( 'settings_field_id' => 'ydpl_rest_api_param_object_id_is_mandatory' )
 		);
 	}
 }

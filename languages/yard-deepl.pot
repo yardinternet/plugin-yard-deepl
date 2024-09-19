@@ -44,7 +44,10 @@ msgstr ""
 msgid "Deepl supported languages"
 msgstr ""
 
-#: src/Views/cache/cdb4d3930df9485905320a23274ce4ad20c1a537.php:7
+#: src/Providers/SettingsServiceProvider.php:98
+msgid "Parameter object_id mandatory"
+msgstr ""
+
 #: src/Views/admin/settings-page.blade.php:7
 msgid "Save"
 msgstr ""
