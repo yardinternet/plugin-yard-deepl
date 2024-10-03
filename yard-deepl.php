@@ -6,7 +6,7 @@
  *
  * Plugin Name: Yard Deepl
  * Description: This plugin registers secure API endpoints that allows you to request translations directly from DeepL
- * Version: 0.0.1
+ * Version: 0.0.2
  * Author: Yard | Digital
  * Author URI: https://www.yard.nl
  * License: GPLv2 or later
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'YDPL_VERSION', '0.0.1' );
+define( 'YDPL_VERSION', '0.0.2' );
 define( 'YDPL_REQUIRED_WP_VERSION', '6.0' );
 define( 'YDPL_PLUGIN_NAME', basename( __DIR__ ) );
 define( 'YDPL_PLUGIN_FILE', __FILE__ );
