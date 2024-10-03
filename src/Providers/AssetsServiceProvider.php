@@ -40,7 +40,7 @@ class AssetsServiceProvider implements ServiceProviderInterface
 			'ydpl-main',
 			'ydpl',
 			array(
-				'ydpl_translate_post_id'   => get_the_ID() ?: null,
+				'ydpl_translate_post_id'   => get_the_ID() ?: 0,
 				'ydpl_rest_translate_url'  => esc_url_raw( rest_url( YDPL_API_NAMESPACE . '/translate' ) ),
 				'ydpl_supported_languages' => $this->format_selected_supported_languages(),
 				'ydpl_api_request_nonce'   => wp_create_nonce( YDPL_NONCE_REST_NAME ),

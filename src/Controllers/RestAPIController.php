@@ -52,7 +52,7 @@ class RestAPIController
 		}
 
 		try {
-			$translation = $this->service->handle_translation( $object_id, $text, $target_lang );
+			$translation = $this->service->handle_translation( (int) $object_id, $text, $target_lang );
 
 			if ( empty( $translation ) ) {
 				throw new Exception( 'Failed to translate text.', 500 );
