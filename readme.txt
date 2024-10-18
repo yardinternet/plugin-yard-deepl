@@ -6,15 +6,15 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 0.0.1
-Tags: yunits, community, integrate community
-Tested up to: 6.6.1
+Stable tag: 1.0.0
+Tags: deepl, translating, secure
+Tested up to: 6.6.2
 
-This plugin registers secure API endpoints that allow you to request translations directly from DeepL.
+This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key.
 
 == Description ==
 
-This plugin registers secure API endpoints that allows you to request translations directly from DeepL. These endpoints are only accessible when a valid nonce is provided. When providing translations to website visitors, you can configure which languages are supported for translation.
+This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key. These endpoints are only accessible when a valid nonce is provided. When providing translations to website visitors, you can configure which languages are supported for translation.
 
 == Caching Mechanism ==
 
@@ -85,3 +85,7 @@ xhr.send(data);
 ```
 
 == Changelog ==
+
+= 1.0.0: Oct 18, 2024 =
+
+* Init: first release!

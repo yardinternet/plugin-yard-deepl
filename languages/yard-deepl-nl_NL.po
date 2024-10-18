@@ -18,12 +18,12 @@ msgid "Yard Deepl"
 msgstr "Yard Deepl"
 
 #. Description of the plugin
-msgid "This plugin registers secure API endpoints that allows you to request translations directly from DeepL"
-msgstr ""
+msgid "This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key"
+msgstr "Deze plugin registreert beveiligde API-eindpunten waarmee je vertalingen direct bij DeepL kunt opvragen zonder je DeepL API-sleutel bloot te stellen aan de buitenwereld"
 
 #. Author of the plugin
 msgid "Yard | Digital"
-msgstr ""
+msgstr "Yard | Digital"
 
 #. Author URI of the plugin
 msgid "https://www.yard.nl"
