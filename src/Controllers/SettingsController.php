@@ -19,7 +19,7 @@ class SettingsController
 	 */
 	public function render_page(): void
 	{
-		yard_deepl_render_view( 'admin.settings-page' );
+		echo yard_deepl_render_view( 'admin.settings-page' );
 	}
 
 	/**
@@ -27,7 +27,7 @@ class SettingsController
 	 */
 	public function section_description_general(): void
 	{
-		yard_deepl_render_view( 'admin.partials.settings.settings-description-general' );
+		echo yard_deepl_render_view( 'admin.partials.settings.settings-description-general' );
 	}
 
 	/**
@@ -35,7 +35,7 @@ class SettingsController
 	 */
 	public function section_description_rest_api(): void
 	{
-		yard_deepl_render_view( 'admin.partials.settings.settings-description-rest-api' );
+		echo yard_deepl_render_view( 'admin.partials.settings.settings-description-rest-api' );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class SettingsController
 	 */
 	public function section_fields_render( array $args ): void
 	{
-		yard_deepl_render_view(
+		echo yard_deepl_render_view(
 			'admin.partials.settings.settings-fields',
 			array(
 				'api_key'                               => yard_deepl_resolve_from_container( 'ydpl.site_options' )->api_key(),

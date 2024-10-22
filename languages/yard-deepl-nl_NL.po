@@ -53,7 +53,7 @@ msgstr "Opslaan"
 msgid "website"
 msgstr "website"
 
-#: src/Views/admin/partials/settings/settings-description.blade.php:10
+#: src/Views/admin/partials/settings/settings-description.blade.php:11
 msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
 msgstr "Om de Deepl API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
 
