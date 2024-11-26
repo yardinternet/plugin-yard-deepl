@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Exception;
+use YardDeepl\Clients\DeeplClient;
 use YardDeepl\Singletons\SiteOptionsSingleton;
-use YardDeepl\Vendor_Prefixed\DeepL\Translator;
 
 /**
  * @since 0.0.1
@@ -20,7 +20,7 @@ class DeeplService
 {
 	private static $instance = null;
 	protected SiteOptionsSingleton $options;
-	protected Translator $translator;
+	protected DeeplClient $client;
 
 	private function __construct()
 	{
@@ -53,7 +53,7 @@ class DeeplService
 	 */
 	private function start_service(): void
 	{
-		$this->translator = new Translator( $this->options->api_key() );
+		$this->client = new DeeplClient( $this->options->api_key() );
 	}
 
 	/**
@@ -63,7 +63,7 @@ class DeeplService
 	 */
 	public function translate( array $text, string $target_lang ): array
 	{
-		$result = $this->translator->translateText( $text, null, $target_lang );
+		$result = $this->client->translateText( $text, $target_lang );
 
 		if ( ! $result ) {
 			throw new Exception( 'Failed to translate text.' );
@@ -79,7 +79,7 @@ class DeeplService
 	{
 		$result = array_map(
 			function ( $item ) use ( $text ) {
-				return $item->text ?? '';
+				return $item['text'] ?? '';
 			},
 			$result
 		);
