@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -21,7 +21,7 @@ use ReflectionNamedType;
  */
 class ReflectionBasedAutowiring implements DefinitionSource, Autowiring
 {
-    public function autowire(string $name, ObjectDefinition $definition = null)
+    public function autowire(string $name, ?ObjectDefinition $definition = null) : ObjectDefinition|null
     {
         $className = $definition ? $definition->getClassName() : $name;
 
@@ -42,7 +42,7 @@ class ReflectionBasedAutowiring implements DefinitionSource, Autowiring
         return $definition;
     }
 
-    public function getDefinition(string $name)
+    public function getDefinition(string $name) : ObjectDefinition|null
     {
         return $this->autowire($name);
     }

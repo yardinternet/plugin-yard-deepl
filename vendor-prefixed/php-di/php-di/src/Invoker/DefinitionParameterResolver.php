@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -23,14 +23,9 @@ use ReflectionFunctionAbstract;
  */
 class DefinitionParameterResolver implements ParameterResolver
 {
-    /**
-     * @var DefinitionResolver
-     */
-    private $definitionResolver;
-
-    public function __construct(DefinitionResolver $definitionResolver)
-    {
-        $this->definitionResolver = $definitionResolver;
+    public function __construct(
+        private DefinitionResolver $definitionResolver
+    ) {
     }
 
     public function getParameters(

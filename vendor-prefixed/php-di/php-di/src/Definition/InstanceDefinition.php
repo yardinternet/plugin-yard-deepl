@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -18,24 +18,12 @@ namespace YardDeepl\Vendor_Prefixed\DI\Definition;
 class InstanceDefinition implements Definition
 {
     /**
-     * Instance on which to inject dependencies.
-     *
-     * @var object
+     * @param object $instance Instance on which to inject dependencies.
      */
-    private $instance;
-
-    /**
-     * @var ObjectDefinition
-     */
-    private $objectDefinition;
-
-    /**
-     * @param object $instance
-     */
-    public function __construct($instance, ObjectDefinition $objectDefinition)
-    {
-        $this->instance = $instance;
-        $this->objectDefinition = $objectDefinition;
+    public function __construct(
+        private object $instance,
+        private ObjectDefinition $objectDefinition,
+    ) {
     }
 
     public function getName() : string
@@ -44,15 +32,12 @@ class InstanceDefinition implements Definition
         return '';
     }
 
-    public function setName(string $name)
+    public function setName(string $name) : void
     {
         // Name are superfluous for instance definitions
     }
 
-    /**
-     * @return object
-     */
-    public function getInstance()
+    public function getInstance() : object
     {
         return $this->instance;
     }
@@ -62,12 +47,12 @@ class InstanceDefinition implements Definition
         return $this->objectDefinition;
     }
 
-    public function replaceNestedDefinitions(callable $replacer)
+    public function replaceNestedDefinitions(callable $replacer) : void
     {
         $this->objectDefinition->replaceNestedDefinitions($replacer);
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return 'Instance';
     }

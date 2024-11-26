@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace YardDeepl\Vendor_Prefixed\DI\Definition\Helper;
 
 use YardDeepl\Vendor_Prefixed\DI\Definition\DecoratorDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Definition;
 use YardDeepl\Vendor_Prefixed\DI\Definition\FactoryDefinition;
 
 /**
@@ -25,31 +24,20 @@ class FactoryDefinitionHelper implements DefinitionHelper
      */
     private $factory;
 
-    /**
-     * @var bool
-     */
-    private $decorate;
+    private bool $decorate;
+
+    private array $parameters = [];
 
     /**
-     * @var array
-     */
-    private $parameters = [];
-
-    /**
-     * @param callable $factory
      * @param bool $decorate Is the factory decorating a previous definition?
      */
-    public function __construct($factory, bool $decorate = false)
+    public function __construct(callable|array|string $factory, bool $decorate = false)
     {
         $this->factory = $factory;
         $this->decorate = $decorate;
     }
 
-    /**
-     * @param string $entryName Container entry name
-     * @return FactoryDefinition
-     */
-    public function getDefinition(string $entryName) : Definition
+    public function getDefinition(string $entryName) : FactoryDefinition
     {
         if ($this->decorate) {
             return new DecoratorDefinition($entryName, $this->factory, $this->parameters);
@@ -61,7 +49,7 @@ class FactoryDefinitionHelper implements DefinitionHelper
     /**
      * Defines arguments to pass to the factory.
      *
-     * Because factory methods do not yet support annotations or autowiring, this method
+     * Because factory methods do not yet support attributes or autowiring, this method
      * should be used to define all parameters except the ContainerInterface and RequestedEntry.
      *
      * Multiple calls can be made to the method to override individual values.
@@ -71,7 +59,7 @@ class FactoryDefinitionHelper implements DefinitionHelper
      *
      * @return $this
      */
-    public function parameter(string $parameter, $value)
+    public function parameter(string $parameter, mixed $value) : self
     {
         $this->parameters[$parameter] = $value;
 

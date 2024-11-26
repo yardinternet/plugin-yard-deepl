@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -18,9 +18,8 @@ class FactoryDefinition implements Definition
 {
     /**
      * Entry name.
-     * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * Callable that returns the value.
@@ -32,14 +31,14 @@ class FactoryDefinition implements Definition
      * Factory parameters.
      * @var mixed[]
      */
-    private $parameters = [];
+    private array $parameters;
 
     /**
      * @param string $name Entry name
-     * @param callable $factory Callable that returns the value associated to the entry name.
+     * @param callable|array|string $factory Callable that returns the value associated to the entry name.
      * @param array $parameters Parameters to be passed to the callable
      */
-    public function __construct(string $name, $factory, array $parameters = [])
+    public function __construct(string $name, callable|array|string $factory, array $parameters = [])
     {
         $this->name = $name;
         $this->factory = $factory;
@@ -51,15 +50,15 @@ class FactoryDefinition implements Definition
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(string $name) : void
     {
         $this->name = $name;
     }
 
     /**
-     * @return callable Callable that returns the value associated to the entry name.
+     * @return callable|array|string Callable that returns the value associated to the entry name.
      */
-    public function getCallable()
+    public function getCallable() : callable|array|string
     {
         return $this->factory;
     }
@@ -72,12 +71,12 @@ class FactoryDefinition implements Definition
         return $this->parameters;
     }
 
-    public function replaceNestedDefinitions(callable $replacer)
+    public function replaceNestedDefinitions(callable $replacer) : void
     {
         $this->parameters = array_map($replacer, $this->parameters);
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return 'Factory';
     }

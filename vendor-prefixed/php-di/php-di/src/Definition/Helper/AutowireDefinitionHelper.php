@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -18,14 +18,14 @@ use YardDeepl\Vendor_Prefixed\DI\Definition\AutowireDefinition;
  */
 class AutowireDefinitionHelper extends CreateDefinitionHelper
 {
-    const DEFINITION_CLASS = AutowireDefinition::class;
+    public const DEFINITION_CLASS = AutowireDefinition::class;
 
     /**
      * Defines a value for a specific argument of the constructor.
      *
-     * This method is usually used together with annotations or autowiring, when a parameter
+     * This method is usually used together with attributes or autowiring, when a parameter
      * is not (or cannot be) type-hinted. Using this method instead of constructor() allows to
-     * avoid defining all the parameters (letting them being resolved using annotations or autowiring)
+     * avoid defining all the parameters (letting them being resolved using attributes or autowiring)
      * and only define one.
      *
      * @param string|int $parameter Parameter name of position for which the value will be given.
@@ -33,7 +33,7 @@ class AutowireDefinitionHelper extends CreateDefinitionHelper
      *
      * @return $this
      */
-    public function constructorParameter($parameter, $value)
+    public function constructorParameter(string|int $parameter, mixed $value) : self
     {
         $this->constructor[$parameter] = $value;
 
@@ -43,9 +43,9 @@ class AutowireDefinitionHelper extends CreateDefinitionHelper
     /**
      * Defines a method to call and a value for a specific argument.
      *
-     * This method is usually used together with annotations or autowiring, when a parameter
+     * This method is usually used together with attributes or autowiring, when a parameter
      * is not (or cannot be) type-hinted. Using this method instead of method() allows to
-     * avoid defining all the parameters (letting them being resolved using annotations or
+     * avoid defining all the parameters (letting them being resolved using attributes or
      * autowiring) and only define one.
      *
      * If multiple calls to the method have been configured already (e.g. in a previous definition)
@@ -57,7 +57,7 @@ class AutowireDefinitionHelper extends CreateDefinitionHelper
      *
      * @return $this
      */
-    public function methodParameter(string $method, $parameter, $value)
+    public function methodParameter(string $method, string|int $parameter, mixed $value) : self
     {
         // Special case for the constructor
         if ($method === '__construct') {

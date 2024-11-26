@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -16,14 +16,9 @@ use YardDeepl\Vendor_Prefixed\DI\Factory\RequestedEntry;
  */
 class RequestedEntryHolder implements RequestedEntry
 {
-    /**
-     * @var string
-     */
-    private $name;
-
-    public function __construct(string $name)
-    {
-        $this->name = $name;
+    public function __construct(
+        private string $name,
+    ) {
     }
 
     public function getName() : string

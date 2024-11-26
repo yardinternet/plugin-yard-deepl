@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -17,31 +17,23 @@ use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerInterface;
 /**
  * Resolves a decorator definition to a value.
  *
+ * @template-implements DefinitionResolver<DecoratorDefinition>
+ *
  * @since 5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
 class DecoratorResolver implements DefinitionResolver
 {
     /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    /**
-     * @var DefinitionResolver
-     */
-    private $definitionResolver;
-
-    /**
      * The resolver needs a container. This container will be passed to the factory as a parameter
      * so that the factory can access other entries of the container.
      *
      * @param DefinitionResolver $definitionResolver Used to resolve nested definitions.
      */
-    public function __construct(ContainerInterface $container, DefinitionResolver $definitionResolver)
-    {
-        $this->container = $container;
-        $this->definitionResolver = $definitionResolver;
+    public function __construct(
+        private ContainerInterface $container,
+        private DefinitionResolver $definitionResolver
+    ) {
     }
 
     /**
@@ -51,7 +43,7 @@ class DecoratorResolver implements DefinitionResolver
      *
      * @param DecoratorDefinition $definition
      */
-    public function resolve(Definition $definition, array $parameters = [])
+    public function resolve(Definition $definition, array $parameters = []) : mixed
     {
         $callable = $definition->getCallable();
 
@@ -77,7 +69,7 @@ class DecoratorResolver implements DefinitionResolver
 
         $decorated = $this->definitionResolver->resolve($decoratedDefinition, $parameters);
 
-        return call_user_func($callable, $decorated, $this->container);
+        return $callable($decorated, $this->container);
     }
 
     public function isResolvable(Definition $definition, array $parameters = []) : bool

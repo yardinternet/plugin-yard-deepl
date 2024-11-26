@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -20,10 +20,8 @@ interface SelfResolvingDefinition
 {
     /**
      * Resolve the definition and return the resulting value.
-     *
-     * @return mixed
      */
-    public function resolve(ContainerInterface $container);
+    public function resolve(ContainerInterface $container) : mixed;
 
     /**
      * Check if a definition can be resolved.

@@ -5,10 +5,10 @@ Contributors: yarddigitalagency
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 6.0
-Requires PHP: 7.4
+Requires PHP: 8.0
 Stable tag: 1.0.0
 Tags: deepl, translating, secure
-Tested up to: 6.6.2
+Tested up to: 6.7.1
 
 This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key.
 

@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -21,20 +21,12 @@ use YardDeepl\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
  */
 class StringDefinition implements Definition, SelfResolvingDefinition
 {
-    /**
-     * Entry name.
-     * @var string
-     */
-    private $name = '';
+    /** Entry name. */
+    private string $name = '';
 
-    /**
-     * @var string
-     */
-    private $expression;
-
-    public function __construct(string $expression)
-    {
-        $this->expression = $expression;
+    public function __construct(
+        private string $expression,
+    ) {
     }
 
     public function getName() : string
@@ -42,7 +34,7 @@ class StringDefinition implements Definition, SelfResolvingDefinition
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(string $name) : void
     {
         $this->name = $name;
     }
@@ -62,12 +54,12 @@ class StringDefinition implements Definition, SelfResolvingDefinition
         return true;
     }
 
-    public function replaceNestedDefinitions(callable $replacer)
+    public function replaceNestedDefinitions(callable $replacer) : void
     {
         // no nested definitions
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return $this->expression;
     }
@@ -81,6 +73,7 @@ class StringDefinition implements Definition, SelfResolvingDefinition
         ContainerInterface $container
     ) : string {
         $callback = function (array $matches) use ($entryName, $container) {
+            /** @psalm-suppress InvalidCatch */
             try {
                 return $container->get($matches[1]);
             } catch (NotFoundExceptionInterface $e) {
@@ -92,7 +85,7 @@ class StringDefinition implements Definition, SelfResolvingDefinition
             }
         };
 
-        $result = preg_replace_callback('#\{([^\{\}]+)\}#', $callback, $expression);
+        $result = preg_replace_callback('#\{([^{}]+)}#', $callback, $expression);
         if ($result === null) {
             throw new \RuntimeException(sprintf('An unknown error occurred while parsing the string definition: \'%s\'', $expression));
         }

@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -17,44 +17,19 @@ namespace YardDeepl\Vendor_Prefixed\DI\Definition;
  */
 class EnvironmentVariableDefinition implements Definition
 {
-    /**
-     * Entry name.
-     * @var string
-     */
-    private $name = '';
-
-    /**
-     * The name of the environment variable.
-     * @var string
-     */
-    private $variableName;
-
-    /**
-     * Whether or not the environment variable definition is optional.
-     *
-     * If true and the environment variable given by $variableName has not been
-     * defined, $defaultValue is used.
-     *
-     * @var bool
-     */
-    private $isOptional;
-
-    /**
-     * The default value to use if the environment variable is optional and not provided.
-     * @var mixed
-     */
-    private $defaultValue;
+    /** Entry name. */
+    private string $name = '';
 
     /**
      * @param string $variableName The name of the environment variable
-     * @param bool $isOptional Whether or not the environment variable definition is optional
+     * @param bool $isOptional Whether or not the environment variable definition is optional. If true and the environment variable given by $variableName has not been defined, $defaultValue is used.
      * @param mixed $defaultValue The default value to use if the environment variable is optional and not provided
      */
-    public function __construct(string $variableName, bool $isOptional = false, $defaultValue = null)
-    {
-        $this->variableName = $variableName;
-        $this->isOptional = $isOptional;
-        $this->defaultValue = $defaultValue;
+    public function __construct(
+        private string $variableName,
+        private bool $isOptional = false,
+        private mixed $defaultValue = null,
+    ) {
     }
 
     public function getName() : string
@@ -62,7 +37,7 @@ class EnvironmentVariableDefinition implements Definition
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(string $name) : void
     {
         $this->name = $name;
     }
@@ -86,17 +61,17 @@ class EnvironmentVariableDefinition implements Definition
     /**
      * @return mixed The default value to use if the environment variable is optional and not provided
      */
-    public function getDefaultValue()
+    public function getDefaultValue() : mixed
     {
         return $this->defaultValue;
     }
 
-    public function replaceNestedDefinitions(callable $replacer)
+    public function replaceNestedDefinitions(callable $replacer) : void
     {
         $this->defaultValue = $replacer($this->defaultValue);
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         $str = '    variable = ' . $this->variableName . \PHP_EOL
             . '    optional = ' . ($this->isOptional ? 'yes' : 'no');

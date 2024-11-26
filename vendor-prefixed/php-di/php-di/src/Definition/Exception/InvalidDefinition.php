@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -19,7 +19,7 @@ use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerExceptionInterface;
  */
 class InvalidDefinition extends \Exception implements ContainerExceptionInterface
 {
-    public static function create(Definition $definition, string $message, \Exception $previous = null) : self
+    public static function create(Definition $definition, string $message, ?\Exception $previous = null) : self
     {
         return new self(sprintf(
             '%s' . \PHP_EOL . 'Full definition:' . \PHP_EOL . '%s',

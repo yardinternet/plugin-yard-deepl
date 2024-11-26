@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -17,30 +17,24 @@ namespace YardDeepl\Vendor_Prefixed\DI\Definition;
  */
 class DecoratorDefinition extends FactoryDefinition implements Definition, ExtendsPreviousDefinition
 {
-    /**
-     * @var Definition|null
-     */
-    private $decorated;
+    private ?Definition $decorated = null;
 
-    public function setExtendedDefinition(Definition $definition)
+    public function setExtendedDefinition(Definition $definition) : void
     {
         $this->decorated = $definition;
     }
 
-    /**
-     * @return Definition|null
-     */
-    public function getDecoratedDefinition()
+    public function getDecoratedDefinition() : ?Definition
     {
         return $this->decorated;
     }
 
-    public function replaceNestedDefinitions(callable $replacer)
+    public function replaceNestedDefinitions(callable $replacer) : void
     {
         // no nested definitions
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return 'Decorate(' . $this->getName() . ')';
     }

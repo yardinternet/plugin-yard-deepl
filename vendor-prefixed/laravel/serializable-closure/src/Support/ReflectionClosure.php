@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support;
@@ -811,7 +811,7 @@ class ReflectionClosure extends ReflectionFunction
     }
 
     /**
-     * The the hash of the current file name.
+     * The hash of the current file name.
      *
      * @return string
      */

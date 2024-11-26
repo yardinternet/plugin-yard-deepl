@@ -48,146 +48,146 @@ msgstr ""
 msgid "Parameter object_id mandatory"
 msgstr ""
 
-#: src/Views/admin/settings-page.blade.php:7
+#: src/Views/admin/settings-page.php:15
 msgid "Save"
 msgstr ""
 
-#: src/Views/admin/partials/settings/settings-description.blade.php:4
+#: src/Views/admin/partials/settings/settings-description-general.php:10
 msgid "website"
 msgstr ""
 
-#: src/Views/admin/partials/settings/settings-description.blade.php:11
+#: src/Views/admin/partials/settings/settings-description-general.php:16
 msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
 msgstr ""
 
-#: config/php-di.php:26
+#: config/php-di.php:25
 msgid "Arabic"
 msgstr ""
 
-#: config/php-di.php:30
+#: config/php-di.php:29
 msgid "Bulgarian"
 msgstr ""
 
-#: config/php-di.php:34
+#: config/php-di.php:33
 msgid "Czech"
 msgstr ""
 
-#: config/php-di.php:38
+#: config/php-di.php:37
 msgid "Danish"
 msgstr ""
 
-#: config/php-di.php:42
+#: config/php-di.php:41
 msgid "German"
 msgstr ""
 
-#: config/php-di.php:46
+#: config/php-di.php:45
 msgid "Greek"
 msgstr ""
 
-#: config/php-di.php:50
+#: config/php-di.php:49
 msgid "English (British)"
 msgstr ""
 
-#: config/php-di.php:54
+#: config/php-di.php:53
 msgid "English (American)"
 msgstr ""
 
-#: config/php-di.php:58
+#: config/php-di.php:57
 msgid "Spanish"
 msgstr ""
 
-#: config/php-di.php:62
+#: config/php-di.php:61
 msgid "Estonian"
 msgstr ""
 
-#: config/php-di.php:66
+#: config/php-di.php:65
 msgid "Finnish"
 msgstr ""
 
-#: config/php-di.php:70
+#: config/php-di.php:69
 msgid "French"
 msgstr ""
 
-#: config/php-di.php:74
+#: config/php-di.php:73
 msgid "Hungarian"
 msgstr ""
 
-#: config/php-di.php:78
+#: config/php-di.php:77
 msgid "Indonesian"
 msgstr ""
 
-#: config/php-di.php:82
+#: config/php-di.php:81
 msgid "Italian"
 msgstr ""
 
-#: config/php-di.php:86
+#: config/php-di.php:85
 msgid "Japanese"
 msgstr ""
 
-#: config/php-di.php:90
+#: config/php-di.php:89
 msgid "Korean"
 msgstr ""
 
-#: config/php-di.php:94
+#: config/php-di.php:93
 msgid "Lithuanian"
 msgstr ""
 
-#: config/php-di.php:98
+#: config/php-di.php:97
 msgid "Latvian"
 msgstr ""
 
-#: config/php-di.php:102
+#: config/php-di.php:101
 msgid "Norwegian Bokmål"
 msgstr ""
 
-#: config/php-di.php:106
+#: config/php-di.php:105
 msgid "Dutch"
 msgstr ""
 
-#: config/php-di.php:110
+#: config/php-di.php:109
 msgid "Polish"
 msgstr ""
 
-#: config/php-di.php:114
+#: config/php-di.php:113
 msgid "Portuguese (Brazilian)"
 msgstr ""
 
-#: config/php-di.php:118
+#: config/php-di.php:117
 msgid "Portuguese (Portugal)"
 msgstr ""
 
-#: config/php-di.php:122
+#: config/php-di.php:121
 msgid "Romanian"
 msgstr ""
 
-#: config/php-di.php:126
+#: config/php-di.php:125
 msgid "Russian"
 msgstr ""
 
-#: config/php-di.php:130
+#: config/php-di.php:129
 msgid "Slovak"
 msgstr ""
 
-#: config/php-di.php:134
+#: config/php-di.php:133
 msgid "Slovenian"
 msgstr ""
 
-#: config/php-di.php:138
+#: config/php-di.php:137
 msgid "Swedish"
 msgstr ""
 
-#: config/php-di.php:142
+#: config/php-di.php:141
 msgid "Turkish"
 msgstr ""
 
-#: config/php-di.php:146
+#: config/php-di.php:145
 msgid "Ukrainian"
 msgstr ""
 
-#: config/php-di.php:150
+#: config/php-di.php:149
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: config/php-di.php:154
+#: config/php-di.php:153
 msgid "Chinese (Traditional)"
 msgstr ""

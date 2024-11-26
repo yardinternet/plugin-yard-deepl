@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -30,7 +30,6 @@ interface FactoryInterface
      * @throws \InvalidArgumentException The name parameter must be of type string.
      * @throws DependencyException       Error while resolving the entry.
      * @throws NotFoundException         No entry or class found for the given name.
-     * @return mixed
      */
-    public function make($name, array $parameters = []);
+    public function make(string $name, array $parameters = []) : mixed;
 }

@@ -10,12 +10,8 @@
 		}
 	],
 	"require": {
-		"deeplcom/deepl-php": "*",
-		"jenssegers/blade": "^1.4",
-		"nyholm/psr7": "^1.8",
-		"php": "^7.4|^8.0",
-		"php-di/php-di": "^6.0",
-		"symfony/http-client": "^5.4"
+		"php": "^8.0",
+		"php-di/php-di": "^7.0"
 	},
 	"require-dev": {
 		"10up/wp_mock": "^0.5.0",
@@ -30,7 +26,7 @@
 			"namespace_prefix": "YardDeepl\\Vendor_Prefixed\\",
 			"classmap_prefix": "Yard_Deepl_Vendor_Prefixed_",
 			"constant_prefix": "YDPL_VENDOR_",
-			"packages": [],
+      "packages": [],
 			"update_call_sites": true,
 			"override_autoload": {},
 			"exclude_from_copy": {
@@ -45,7 +41,8 @@
 			},
 			"namespace_replacement_patterns": {},
 			"delete_vendor_packages": false,
-			"delete_vendor_files": false
+			"delete_vendor_files": false,
+      "delete_vendor_directories": true
 		}
 	},
 	"autoload": {

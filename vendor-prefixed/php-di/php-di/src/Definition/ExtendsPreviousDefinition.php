@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -16,5 +16,5 @@ namespace YardDeepl\Vendor_Prefixed\DI\Definition;
  */
 interface ExtendsPreviousDefinition extends Definition
 {
-    public function setExtendedDefinition(Definition $definition);
+    public function setExtendedDefinition(Definition $definition) : void;
 }

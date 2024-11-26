@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -17,18 +17,22 @@ use YardDeepl\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
 /**
  * Injects dependencies on an existing instance.
  *
+ * @template-implements DefinitionResolver<InstanceDefinition>
+ *
  * @since 5.0
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-class InstanceInjector extends ObjectCreator
+class InstanceInjector extends ObjectCreator implements DefinitionResolver
 {
     /**
      * Injects dependencies on an existing instance.
      *
      * @param InstanceDefinition $definition
+     * @psalm-suppress ImplementedParamTypeMismatch
      */
-    public function resolve(Definition $definition, array $parameters = [])
+    public function resolve(Definition $definition, array $parameters = []) : ?object
     {
+        /** @psalm-suppress InvalidCatch */
         try {
             $this->injectMethodsAndProperties($definition->getInstance(), $definition->getObjectDefinition());
         } catch (NotFoundExceptionInterface $e) {

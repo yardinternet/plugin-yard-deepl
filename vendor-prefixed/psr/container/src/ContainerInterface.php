@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -37,5 +37,5 @@ interface ContainerInterface
      *
      * @return bool
      */
-    public function has(string $id);
+    public function has(string $id): bool;
 }

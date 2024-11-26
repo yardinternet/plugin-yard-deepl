@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -23,7 +23,6 @@ interface Autowiring
      * Autowire the given definition.
      *
      * @throws InvalidDefinition An invalid definition was found.
-     * @return ObjectDefinition|null
      */
-    public function autowire(string $name, ObjectDefinition $definition = null);
+    public function autowire(string $name, ?ObjectDefinition $definition = null) : ObjectDefinition|null;
 }

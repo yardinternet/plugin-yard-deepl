@@ -18,7 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'ydpl.blade_compiler'             => YardDeepl\Singletons\BladeSingleton::get_instance(),
 	'ydpl.site_options'               => YardDeepl\Singletons\SiteOptionsSingleton::get_instance( get_option( YDPL_SITE_OPTION_NAME, array() ) ),
 	'ydpl.supported_target.languages' => array(
 		array(

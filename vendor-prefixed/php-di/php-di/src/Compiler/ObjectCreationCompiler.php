@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -24,20 +24,17 @@ use ReflectionProperty;
  */
 class ObjectCreationCompiler
 {
-    /**
-     * @var Compiler
-     */
-    private $compiler;
-
-    public function __construct(Compiler $compiler)
-    {
-        $this->compiler = $compiler;
+    public function __construct(
+        private Compiler $compiler,
+    ) {
     }
 
     public function compile(ObjectDefinition $definition) : string
     {
         $this->assertClassIsNotAnonymous($definition);
         $this->assertClassIsInstantiable($definition);
+        /** @var class-string $className At this point we have checked the class is valid */
+        $className = $definition->getClassName();
 
         // Lazy?
         if ($definition->isLazy()) {
@@ -45,7 +42,7 @@ class ObjectCreationCompiler
         }
 
         try {
-            $classReflection = new ReflectionClass($definition->getClassName());
+            $classReflection = new ReflectionClass($className);
             $constructorArguments = $this->resolveParameters($definition->getConstructorInjection(), $classReflection->getConstructor());
             $dumpedConstructorArguments = array_map(function ($value) {
                 return $this->compiler->compileValue($value);
@@ -54,7 +51,7 @@ class ObjectCreationCompiler
             $code = [];
             $code[] = sprintf(
                 '$object = new %s(%s);',
-                $definition->getClassName(),
+                $className,
                 implode(', ', $dumpedConstructorArguments)
             );
 
@@ -63,12 +60,12 @@ class ObjectCreationCompiler
                 $value = $propertyInjection->getValue();
                 $value = $this->compiler->compileValue($value);
 
-                $className = $propertyInjection->getClassName() ?: $definition->getClassName();
-                $property = new ReflectionProperty($className, $propertyInjection->getPropertyName());
-                if ($property->isPublic()) {
+                $propertyClassName = $propertyInjection->getClassName() ?: $className;
+                $property = new ReflectionProperty($propertyClassName, $propertyInjection->getPropertyName());
+                if ($property->isPublic() && !(\PHP_VERSION_ID >= 80100 && $property->isReadOnly())) {
                     $code[] = sprintf('$object->%s = %s;', $propertyInjection->getPropertyName(), $value);
                 } else {
-                    // Private/protected property
+                    // Private/protected/readonly property
                     $code[] = sprintf(
                         '\YardDeepl\Vendor_Prefixed\DI\Definition\Resolver\ObjectCreator::setPrivatePropertyValue(%s, $object, \'%s\', %s);',
                         var_export($propertyInjection->getClassName(), true),
@@ -80,7 +77,7 @@ class ObjectCreationCompiler
 
             // Method injections
             foreach ($definition->getMethodInjections() as $methodInjection) {
-                $methodReflection = new \ReflectionMethod($definition->getClassName(), $methodInjection->getMethodName());
+                $methodReflection = new ReflectionMethod($className, $methodInjection->getMethodName());
                 $parameters = $this->resolveParameters($methodInjection, $methodReflection);
 
                 $dumpedParameters = array_map(function ($value) {
@@ -104,7 +101,7 @@ class ObjectCreationCompiler
         return implode("\n        ", $code);
     }
 
-    public function resolveParameters(MethodInjection $definition = null, ReflectionMethod $method = null) : array
+    public function resolveParameters(?MethodInjection $definition, ?ReflectionMethod $method) : array
     {
         $args = [];
 
@@ -142,31 +139,33 @@ class ObjectCreationCompiler
         $subDefinition->setLazy(false);
         $subDefinition = $this->compiler->compileValue($subDefinition);
 
-        $this->compiler->getProxyFactory()->generateProxyClass($definition->getClassName());
+        /** @var class-string $className At this point we have checked the class is valid */
+        $className = $definition->getClassName();
 
-        return <<<PHP
-        \$object = \$this->proxyFactory->createProxy(
-            '{$definition->getClassName()}',
-            function (&\$wrappedObject, \$proxy, \$method, \$params, &\$initializer) {
-                \$wrappedObject = $subDefinition;
-                \$initializer = null; // turning off further lazy initialization
-                return true;
-            }
-        );
-PHP;
+        $this->compiler->getProxyFactory()->generateProxyClass($className);
+
+        return <<<STR
+                    \$object = \$this->proxyFactory->createProxy(
+                        '{$definition->getClassName()}',
+                        function (&\$wrappedObject, \$proxy, \$method, \$params, &\$initializer) {
+                            \$wrappedObject = $subDefinition;
+                            \$initializer = null; // turning off further lazy initialization
+                            return true;
+                        }
+                    );
+            STR;
     }
 
     /**
      * Returns the default value of a function parameter.
      *
      * @throws InvalidDefinition Can't get default values from PHP internal classes and functions
-     * @return mixed
      */
-    private function getParameterDefaultValue(ReflectionParameter $parameter, ReflectionMethod $function)
+    private function getParameterDefaultValue(ReflectionParameter $parameter, ReflectionMethod $function) : mixed
     {
         try {
             return $parameter->getDefaultValue();
-        } catch (\ReflectionException $e) {
+        } catch (\ReflectionException) {
             throw new InvalidDefinition(sprintf(
                 'The parameter "%s" of %s has no type defined or guessable. It has a default value, '
                 . 'but the default value can\'t be read through Reflection because it is a PHP internal class.',
@@ -181,9 +180,9 @@ PHP;
         return $method->getName() . '()';
     }
 
-    private function assertClassIsNotAnonymous(ObjectDefinition $definition)
+    private function assertClassIsNotAnonymous(ObjectDefinition $definition) : void
     {
-        if (strpos($definition->getClassName(), '@') !== false) {
+        if (str_contains($definition->getClassName(), '@')) {
             throw InvalidDefinition::create($definition, sprintf(
                 'Entry "%s" cannot be compiled: anonymous classes cannot be compiled',
                 $definition->getName()
@@ -191,7 +190,7 @@ PHP;
         }
     }
 
-    private function assertClassIsInstantiable(ObjectDefinition $definition)
+    private function assertClassIsInstantiable(ObjectDefinition $definition) : void
     {
         if ($definition->isInstantiable()) {
             return;

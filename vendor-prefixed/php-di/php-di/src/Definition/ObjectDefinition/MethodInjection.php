@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -19,19 +19,12 @@ use YardDeepl\Vendor_Prefixed\DI\Definition\Definition;
 class MethodInjection implements Definition
 {
     /**
-     * @var string
+     * @param mixed[] $parameters
      */
-    private $methodName;
-
-    /**
-     * @var mixed[]
-     */
-    private $parameters = [];
-
-    public function __construct(string $methodName, array $parameters = [])
-    {
-        $this->methodName = $methodName;
-        $this->parameters = $parameters;
+    public function __construct(
+        private string $methodName,
+        private array $parameters = [],
+    ) {
     }
 
     public static function constructor(array $parameters = []) : self
@@ -55,15 +48,15 @@ class MethodInjection implements Definition
     /**
      * Replace the parameters of the definition by a new array of parameters.
      */
-    public function replaceParameters(array $parameters)
+    public function replaceParameters(array $parameters) : void
     {
         $this->parameters = $parameters;
     }
 
-    public function merge(self $definition)
+    public function merge(self $definition) : void
     {
         // In case of conflicts, the current definition prevails.
-        $this->parameters = $this->parameters + $definition->parameters;
+        $this->parameters += $definition->parameters;
     }
 
     public function getName() : string
@@ -71,20 +64,17 @@ class MethodInjection implements Definition
         return '';
     }
 
-    public function setName(string $name)
+    public function setName(string $name) : void
     {
         // The name does not matter for method injections
     }
 
-    public function replaceNestedDefinitions(callable $replacer)
+    public function replaceNestedDefinitions(callable $replacer) : void
     {
         $this->parameters = array_map($replacer, $this->parameters);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __toString()
+    public function __toString() : string
     {
         return sprintf('method(%s)', $this->methodName);
     }

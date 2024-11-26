@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -21,10 +21,8 @@ use YardDeepl\Vendor_Prefixed\DI\Definition\ValueDefinition;
 if (! function_exists('YardDeepl\Vendor_Prefixed\DI\value')) {
     /**
      * Helper for defining a value.
-     *
-     * @param mixed $value
      */
-    function value($value) : ValueDefinition
+    function value(mixed $value) : ValueDefinition
     {
         return new ValueDefinition($value);
     }
@@ -37,7 +35,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\create')) {
      * @param string|null $className Class name of the object.
      *                               If null, the name of the entry (in the container) will be used as class name.
      */
-    function create(string $className = null) : CreateDefinitionHelper
+    function create(?string $className = null) : CreateDefinitionHelper
     {
         return new CreateDefinitionHelper($className);
     }
@@ -50,7 +48,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\autowire')) {
      * @param string|null $className Class name of the object.
      *                               If null, the name of the entry (in the container) will be used as class name.
      */
-    function autowire(string $className = null) : AutowireDefinitionHelper
+    function autowire(?string $className = null) : AutowireDefinitionHelper
     {
         return new AutowireDefinitionHelper($className);
     }
@@ -60,10 +58,10 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\factory')) {
     /**
      * Helper for defining a container entry using a factory function/callable.
      *
-     * @param callable $factory The factory is a callable that takes the container as parameter
-     *                          and returns the value to register in the container.
+     * @param callable|array|string $factory The factory is a callable that takes the container as parameter
+     *        and returns the value to register in the container.
      */
-    function factory($factory) : FactoryDefinitionHelper
+    function factory(callable|array|string $factory) : FactoryDefinitionHelper
     {
         return new FactoryDefinitionHelper($factory);
     }
@@ -82,7 +80,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\decorate')) {
      * @param callable $callable The callable takes the decorated object as first parameter and
      *                           the container as second.
      */
-    function decorate($callable) : FactoryDefinitionHelper
+    function decorate(callable|array|string $callable) : FactoryDefinitionHelper
     {
         return new FactoryDefinitionHelper($callable, true);
     }
@@ -105,7 +103,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\env')) {
      * @param string $variableName The name of the environment variable.
      * @param mixed $defaultValue The default value to be used if the environment variable is not defined.
      */
-    function env(string $variableName, $defaultValue = null) : EnvironmentVariableDefinition
+    function env(string $variableName, mixed $defaultValue = null) : EnvironmentVariableDefinition
     {
         // Only mark as optional if the default value was *explicitly* provided.
         $isOptional = 2 === func_num_args();

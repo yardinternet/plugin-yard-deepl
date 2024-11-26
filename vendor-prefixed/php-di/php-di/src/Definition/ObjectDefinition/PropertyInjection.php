@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
@@ -16,31 +16,25 @@ namespace YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition;
  */
 class PropertyInjection
 {
-    /**
-     * Property name.
-     * @var string
-     */
-    private $propertyName;
+    private string $propertyName;
 
     /**
      * Value that should be injected in the property.
-     * @var mixed
      */
-    private $value;
+    private mixed $value;
 
     /**
      * Use for injecting in properties of parent classes: the class name
      * must be the name of the parent class because private properties
      * can be attached to the parent classes, not the one we are resolving.
-     * @var string|null
      */
-    private $className;
+    private ?string $className;
 
     /**
      * @param string $propertyName Property name
      * @param mixed $value Value that should be injected in the property
      */
-    public function __construct(string $propertyName, $value, string $className = null)
+    public function __construct(string $propertyName, mixed $value, ?string $className = null)
     {
         $this->propertyName = $propertyName;
         $this->value = $value;
@@ -55,20 +49,17 @@ class PropertyInjection
     /**
      * @return mixed Value that should be injected in the property
      */
-    public function getValue()
+    public function getValue() : mixed
     {
         return $this->value;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getClassName()
+    public function getClassName() : ?string
     {
         return $this->className;
     }
 
-    public function replaceNestedDefinition(callable $replacer)
+    public function replaceNestedDefinition(callable $replacer) : void
     {
         $this->value = $replacer($this->value);
     }

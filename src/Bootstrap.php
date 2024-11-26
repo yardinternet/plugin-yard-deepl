@@ -5,7 +5,7 @@ namespace YardDeepl;
 /**
  * Exit when accessed directly.
  */
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 	exit;
 }
 
@@ -37,10 +37,10 @@ class Bootstrap
 	 */
 	public function __construct()
 	{
+		$this->register_plugin_text_domain();
 		self::$container = $this->build_container();
 		$this->providers = $this->get_providers();
 		$this->register_providers();
-		$this->register_plugin_text_domain();
 	}
 
 	/**
@@ -49,8 +49,7 @@ class Bootstrap
 	protected function build_container(): ContainerInterface
 	{
 		$builder = new ContainerBuilder();
-		$builder->addDefinitions( YDPL_PLUGIN_DIR_PATH . 'config/php-di.php' );
-		$builder->useAnnotations( true );
+		$builder->addDefinitions(YDPL_PLUGIN_DIR_PATH . 'config/php-di.php');
 		$container = $builder->build();
 
 		return $container;
@@ -61,11 +60,11 @@ class Bootstrap
 	 */
 	protected function get_providers(): array
 	{
-		return array(
+		return [
 			new AssetsServiceProvider(),
 			new SettingsServiceProvider(),
 			new RestAPIServiceProvider(),
-		);
+		];
 	}
 
 	/**
@@ -73,7 +72,7 @@ class Bootstrap
 	 */
 	protected function register_providers(): void
 	{
-		foreach ( $this->providers as $provider ) {
+		foreach ($this->providers as $provider) {
 			$provider->register();
 		}
 	}
@@ -83,7 +82,7 @@ class Bootstrap
 	 */
 	protected function register_plugin_text_domain(): void
 	{
-		load_plugin_textdomain( YDPL_PLUGIN_NAME, false, YDPL_PLUGIN_NAME . '/languages/' );
+		load_plugin_textdomain(YDPL_PLUGIN_NAME, false, YDPL_PLUGIN_NAME . '/languages/');
 	}
 
 	/**

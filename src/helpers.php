@@ -74,7 +74,14 @@ function yard_deepl_asset_url( string $path ): string
  */
 function yard_deepl_render_view( string $file_path, $data = array() )
 {
-	return yard_deepl_resolve_from_container( 'ydpl.blade_compiler' )->render( $file_path, $data );
+	$full_path = YDPL_PLUGIN_DIR_PATH . 'src/Views/' . $file_path . '.php';
+
+	if ( ! file_exists( $full_path ) ) {
+		return '';
+	}
+	extract( $data, EXTR_SKIP );
+
+	return require $full_path;
 }
 
 /**

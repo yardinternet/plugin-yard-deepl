@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 09-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Serializers;
@@ -506,6 +506,10 @@ class Native implements Serializable
                     $property->setAccessible(true);
 
                     if (PHP_VERSION >= 7.4 && ! $property->isInitialized($instance)) {
+                        continue;
+                    }
+
+                    if (PHP_VERSION >= 8.1 && $property->isReadOnly() && $property->class !== $reflection->name) {
                         continue;
                     }
 
