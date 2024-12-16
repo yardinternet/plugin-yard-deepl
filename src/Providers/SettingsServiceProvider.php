@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Providers;
+namespace YDPL\Providers;
 
 /**
  * Exit when accessed directly.
@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use YardDeepl\Contracts\ServiceProviderInterface;
-use YardDeepl\Controllers\SettingsController;
+use YDPL\Contracts\ServiceProviderInterface;
+use YDPL\Controllers\SettingsController;
 
 /**
  * @since 0.0.1
@@ -58,7 +58,10 @@ class SettingsServiceProvider implements ServiceProviderInterface
 	{
 		register_setting(
 			'ydpl_options_group',
-			YDPL_SITE_OPTION_NAME
+			YDPL_SITE_OPTION_NAME,
+			array(
+				'sanitize_callback' => array( $this->controller, 'sanitize_plugin_options_settings' ),
+			)
 		);
 
 		add_settings_section(

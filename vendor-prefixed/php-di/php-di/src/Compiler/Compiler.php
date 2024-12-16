@@ -2,31 +2,31 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI\Compiler;
+namespace YDPL\Vendor_Prefixed\DI\Compiler;
 
 use function chmod;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ArrayDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\DecoratorDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Definition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\EnvironmentVariableDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\FactoryDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Reference;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\DefinitionSource;
-use YardDeepl\Vendor_Prefixed\DI\Definition\StringDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ValueDefinition;
-use YardDeepl\Vendor_Prefixed\DI\DependencyException;
-use YardDeepl\Vendor_Prefixed\DI\Proxy\ProxyFactory;
+use YDPL\Vendor_Prefixed\DI\Definition\ArrayDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\DecoratorDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Definition;
+use YDPL\Vendor_Prefixed\DI\Definition\EnvironmentVariableDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\FactoryDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Reference;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\DefinitionSource;
+use YDPL\Vendor_Prefixed\DI\Definition\StringDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ValueDefinition;
+use YDPL\Vendor_Prefixed\DI\DependencyException;
+use YDPL\Vendor_Prefixed\DI\Proxy\ProxyFactory;
 use function dirname;
 use function file_put_contents;
 use InvalidArgumentException;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support\ReflectionClosure;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support\ReflectionClosure;
 use function rename;
 use function sprintf;
 use function tempnam;
@@ -221,7 +221,7 @@ class Compiler
             case $definition instanceof StringDefinition:
                 $entryName = $this->compileValue($definition->getName());
                 $expression = $this->compileValue($definition->getExpression());
-                $code = 'return \YardDeepl\Vendor_Prefixed\DI\Definition\StringDefinition::resolveExpression(' . $entryName . ', ' . $expression . ', $this->delegateContainer);';
+                $code = 'return \YDPL\Vendor_Prefixed\DI\Definition\StringDefinition::resolveExpression(' . $entryName . ', ' . $expression . ', $this->delegateContainer);';
                 break;
             case $definition instanceof EnvironmentVariableDefinition:
                 $variableName = $this->compileValue($definition->getVariableName());
@@ -231,7 +231,7 @@ class Compiler
                             \$value = \$_ENV[$variableName] ?? \$_SERVER[$variableName] ?? getenv($variableName);
                             if (false !== \$value) return \$value;
                             if (!$isOptional) {
-                                throw new \YardDeepl\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition("The environment variable '{$definition->getVariableName()}' has not been defined");
+                                throw new \YDPL\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition("The environment variable '{$definition->getVariableName()}' has not been defined");
                             }
                             return $defaultValue;
                     PHP;

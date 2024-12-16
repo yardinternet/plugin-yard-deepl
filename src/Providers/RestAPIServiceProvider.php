@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Providers;
+namespace YDPL\Providers;
 
 /**
  * Exit when accessed directly.
@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use YardDeepl\Contracts\ServiceProviderInterface;
-use YardDeepl\Controllers\RestAPIController;
-use YardDeepl\Singletons\SiteOptionsSingleton;
+use YDPL\Contracts\ServiceProviderInterface;
+use YDPL\Controllers\RestAPIController;
+use YDPL\Singletons\SiteOptionsSingleton;
 
 /**
  * @since 0.0.1
@@ -24,7 +24,7 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 	public function __construct()
 	{
 		$this->controller = new RestAPIController();
-		$this->options    = yard_deepl_resolve_from_container( 'ydpl.site_options' );
+		$this->options    = ydpl_resolve_from_container( 'ydpl.site_options' );
 	}
 
 	/**

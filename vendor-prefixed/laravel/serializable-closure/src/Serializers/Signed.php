@@ -2,21 +2,21 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
-namespace YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Serializers;
+namespace YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Serializers;
 
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\InvalidSignatureException;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\MissingSecretKeyException;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\InvalidSignatureException;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\MissingSecretKeyException;
 
 class Signed implements Serializable
 {
     /**
      * The signer that will sign and verify the closure's signature.
      *
-     * @var \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Signer|null
+     * @var \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Signer|null
      */
     public static $signer;
 
@@ -80,7 +80,7 @@ class Signed implements Serializable
      * @param  array  $signature
      * @return void
      *
-     * @throws \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\InvalidSignatureException
+     * @throws \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\InvalidSignatureException
      */
     public function __unserialize($signature)
     {
@@ -88,7 +88,7 @@ class Signed implements Serializable
             throw new InvalidSignatureException();
         }
 
-        /** @var \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable $serializable */
+        /** @var \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable $serializable */
         $serializable = unserialize($signature['serializable']);
 
         $this->closure = $serializable->getClosure();

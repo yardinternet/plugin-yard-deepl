@@ -2,24 +2,24 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI\Definition\Resolver;
+namespace YDPL\Vendor_Prefixed\DI\Definition\Resolver;
 
-use YardDeepl\Vendor_Prefixed\DI\Definition\ArrayDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\DecoratorDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Definition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\EnvironmentVariableDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\FactoryDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\InstanceDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\SelfResolvingDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Proxy\ProxyFactory;
-use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerInterface;
+use YDPL\Vendor_Prefixed\DI\Definition\ArrayDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\DecoratorDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Definition;
+use YDPL\Vendor_Prefixed\DI\Definition\EnvironmentVariableDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\FactoryDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\InstanceDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\SelfResolvingDefinition;
+use YDPL\Vendor_Prefixed\DI\Proxy\ProxyFactory;
+use YDPL\Vendor_Prefixed\Psr\Container\ContainerInterface;
 
 /**
  * Dispatches to more specific resolvers.

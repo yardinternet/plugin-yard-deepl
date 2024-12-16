@@ -23,7 +23,7 @@
 	"extra": {
 		"strauss": {
 			"target_directory": "vendor-prefixed",
-			"namespace_prefix": "YardDeepl\\Vendor_Prefixed\\",
+			"namespace_prefix": "YDPL\\Vendor_Prefixed\\",
 			"classmap_prefix": "Yard_Deepl_Vendor_Prefixed_",
 			"constant_prefix": "YDPL_VENDOR_",
       "packages": [],
@@ -47,7 +47,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"YardDeepl\\": "./src"
+			"YDPL\\": "./src"
 		}
 	},
 	"autoload-dev": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Clients;
+namespace YDPL\Clients;
 
 use Exception;
 

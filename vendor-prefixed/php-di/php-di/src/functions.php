@@ -2,23 +2,23 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI;
+namespace YDPL\Vendor_Prefixed\DI;
 
-use YardDeepl\Vendor_Prefixed\DI\Definition\ArrayDefinitionExtension;
-use YardDeepl\Vendor_Prefixed\DI\Definition\EnvironmentVariableDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Helper\AutowireDefinitionHelper;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Helper\CreateDefinitionHelper;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Helper\FactoryDefinitionHelper;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Reference;
-use YardDeepl\Vendor_Prefixed\DI\Definition\StringDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ValueDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ArrayDefinitionExtension;
+use YDPL\Vendor_Prefixed\DI\Definition\EnvironmentVariableDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Helper\AutowireDefinitionHelper;
+use YDPL\Vendor_Prefixed\DI\Definition\Helper\CreateDefinitionHelper;
+use YDPL\Vendor_Prefixed\DI\Definition\Helper\FactoryDefinitionHelper;
+use YDPL\Vendor_Prefixed\DI\Definition\Reference;
+use YDPL\Vendor_Prefixed\DI\Definition\StringDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ValueDefinition;
 
-if (! function_exists('YardDeepl\Vendor_Prefixed\DI\value')) {
+if (! function_exists('YDPL\Vendor_Prefixed\DI\value')) {
     /**
      * Helper for defining a value.
      */
@@ -28,7 +28,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\value')) {
     }
 }
 
-if (! function_exists('YardDeepl\Vendor_Prefixed\DI\create')) {
+if (! function_exists('YDPL\Vendor_Prefixed\DI\create')) {
     /**
      * Helper for defining an object.
      *
@@ -41,7 +41,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\create')) {
     }
 }
 
-if (! function_exists('YardDeepl\Vendor_Prefixed\DI\autowire')) {
+if (! function_exists('YDPL\Vendor_Prefixed\DI\autowire')) {
     /**
      * Helper for autowiring an object.
      *
@@ -54,7 +54,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\autowire')) {
     }
 }
 
-if (! function_exists('YardDeepl\Vendor_Prefixed\DI\factory')) {
+if (! function_exists('YDPL\Vendor_Prefixed\DI\factory')) {
     /**
      * Helper for defining a container entry using a factory function/callable.
      *
@@ -67,7 +67,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\factory')) {
     }
 }
 
-if (! function_exists('YardDeepl\Vendor_Prefixed\DI\decorate')) {
+if (! function_exists('YDPL\Vendor_Prefixed\DI\decorate')) {
     /**
      * Decorate the previous definition using a callable.
      *
@@ -86,7 +86,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\decorate')) {
     }
 }
 
-if (! function_exists('YardDeepl\Vendor_Prefixed\DI\get')) {
+if (! function_exists('YDPL\Vendor_Prefixed\DI\get')) {
     /**
      * Helper for referencing another container entry in an object definition.
      */
@@ -96,7 +96,7 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\get')) {
     }
 }
 
-if (! function_exists('YardDeepl\Vendor_Prefixed\DI\env')) {
+if (! function_exists('YDPL\Vendor_Prefixed\DI\env')) {
     /**
      * Helper for referencing environment variables.
      *
@@ -112,17 +112,17 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\env')) {
     }
 }
 
-if (! function_exists('YardDeepl\Vendor_Prefixed\DI\add')) {
+if (! function_exists('YDPL\Vendor_Prefixed\DI\add')) {
     /**
      * Helper for extending another definition.
      *
      * Example:
      *
-     *     'log.backends' => \YardDeepl\Vendor_Prefixed\DI\add(\YardDeepl\Vendor_Prefixed\DI\get('My\Custom\LogBackend'))
+     *     'log.backends' => \YDPL\Vendor_Prefixed\DI\add(\YDPL\Vendor_Prefixed\DI\get('My\Custom\LogBackend'))
      *
      * or:
      *
-     *     'log.backends' => \YardDeepl\Vendor_Prefixed\DI\add([
+     *     'log.backends' => \YDPL\Vendor_Prefixed\DI\add([
      *         DI\get('My\Custom\LogBackend')
      *     ])
      *
@@ -140,13 +140,13 @@ if (! function_exists('YardDeepl\Vendor_Prefixed\DI\add')) {
     }
 }
 
-if (! function_exists('YardDeepl\Vendor_Prefixed\DI\string')) {
+if (! function_exists('YDPL\Vendor_Prefixed\DI\string')) {
     /**
      * Helper for concatenating strings.
      *
      * Example:
      *
-     *     'log.filename' => \YardDeepl\Vendor_Prefixed\DI\string('{app.path}/app.log')
+     *     'log.filename' => \YDPL\Vendor_Prefixed\DI\string('{app.path}/app.log')
      *
      * @param string $expression A string expression. Use the `{}` placeholders to reference other container entries.
      *

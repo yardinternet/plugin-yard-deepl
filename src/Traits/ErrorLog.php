@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Traits;
+namespace YDPL\Traits;
 
 /**
  * Exit when accessed directly.

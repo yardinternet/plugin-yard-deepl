@@ -2,22 +2,22 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI\Definition\Resolver;
+namespace YDPL\Vendor_Prefixed\DI\Definition\Resolver;
 
-use YardDeepl\Vendor_Prefixed\DI\Definition\Definition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition\PropertyInjection;
-use YardDeepl\Vendor_Prefixed\DI\DependencyException;
-use YardDeepl\Vendor_Prefixed\DI\Proxy\ProxyFactory;
+use YDPL\Vendor_Prefixed\DI\Definition\Definition;
+use YDPL\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition\PropertyInjection;
+use YDPL\Vendor_Prefixed\DI\DependencyException;
+use YDPL\Vendor_Prefixed\DI\Proxy\ProxyFactory;
 use Exception;
 use ProxyManager\Proxy\LazyLoadingInterface;
-use YardDeepl\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
+use YDPL\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
 use ReflectionClass;
 use ReflectionProperty;
 

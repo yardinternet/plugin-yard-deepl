@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package Yard_Deepl
  *
@@ -44,6 +45,6 @@ require_once __DIR__ . '/src/Bootstrap.php';
 add_action(
 	'plugins_loaded',
 	function () {
-		$init = new YardDeepl\Bootstrap();
+		$init = new YDPL\Bootstrap();
 	}
 );

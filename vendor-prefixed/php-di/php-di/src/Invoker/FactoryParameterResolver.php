@@ -2,15 +2,15 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI\Invoker;
+namespace YDPL\Vendor_Prefixed\DI\Invoker;
 
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\ParameterResolver;
-use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerInterface;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\ParameterResolver;
+use YDPL\Vendor_Prefixed\Psr\Container\ContainerInterface;
 use ReflectionFunctionAbstract;
 use ReflectionNamedType;
 
@@ -59,9 +59,9 @@ class FactoryParameterResolver implements ParameterResolver
 
             $parameterClass = $parameterType->getName();
 
-            if ($parameterClass === 'YardDeepl\Vendor_Prefixed\Psr\Container\ContainerInterface') {
+            if ($parameterClass === 'YDPL\Vendor_Prefixed\Psr\Container\ContainerInterface') {
                 $resolvedParameters[$index] = $this->container;
-            } elseif ($parameterClass === 'YardDeepl\Vendor_Prefixed\DI\Factory\RequestedEntry') {
+            } elseif ($parameterClass === 'YDPL\Vendor_Prefixed\DI\Factory\RequestedEntry') {
                 // By convention the second parameter is the definition
                 $resolvedParameters[$index] = $providedParameters[1];
             } elseif ($this->container->has($parameterClass)) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Repositories;
+namespace YDPL\Repositories;
 
 /**
  * Exit when accessed directly.
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use WP_Post;
-use YardDeepl\Exceptions\ObjectNotFoundException;
+use YDPL\Exceptions\ObjectNotFoundException;
 
 /**
  * @since 0.0.1

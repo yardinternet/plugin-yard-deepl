@@ -2,23 +2,23 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
-namespace YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure;
+namespace YDPL\Vendor_Prefixed\Laravel\SerializableClosure;
 
 use Closure;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\InvalidSignatureException;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\PhpVersionNotSupportedException;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Serializers\Signed;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Signers\Hmac;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\InvalidSignatureException;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\PhpVersionNotSupportedException;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Serializers\Signed;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Signers\Hmac;
 
 class SerializableClosure
 {
     /**
      * The closure's serializable.
      *
-     * @var \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable
+     * @var \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable
      */
     protected $serializable;
 
@@ -71,7 +71,7 @@ class SerializableClosure
      * Create a new unsigned serializable closure instance.
      *
      * @param  Closure  $closure
-     * @return \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\UnsignedSerializableClosure
+     * @return \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\UnsignedSerializableClosure
      */
     public static function unsigned(Closure $closure)
     {
@@ -131,7 +131,7 @@ class SerializableClosure
      * @param  array  $data
      * @return void
      *
-     * @throws \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\InvalidSignatureException
+     * @throws \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\InvalidSignatureException
      */
     public function __unserialize($data)
     {

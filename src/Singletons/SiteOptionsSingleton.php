@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Singletons;
+namespace YDPL\Singletons;
 
 /**
  * Exit when accessed directly.

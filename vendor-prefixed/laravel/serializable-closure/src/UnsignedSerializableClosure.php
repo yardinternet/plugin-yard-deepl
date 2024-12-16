@@ -2,20 +2,20 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
-namespace YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure;
+namespace YDPL\Vendor_Prefixed\Laravel\SerializableClosure;
 
 use Closure;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\PhpVersionNotSupportedException;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Exceptions\PhpVersionNotSupportedException;
 
 class UnsignedSerializableClosure
 {
     /**
      * The closure's serializable.
      *
-     * @var \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable
+     * @var \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable
      */
     protected $serializable;
 

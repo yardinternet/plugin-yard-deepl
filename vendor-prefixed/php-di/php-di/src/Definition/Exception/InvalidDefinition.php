@@ -2,15 +2,15 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI\Definition\Exception;
+namespace YDPL\Vendor_Prefixed\DI\Definition\Exception;
 
-use YardDeepl\Vendor_Prefixed\DI\Definition\Definition;
-use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerExceptionInterface;
+use YDPL\Vendor_Prefixed\DI\Definition\Definition;
+use YDPL\Vendor_Prefixed\Psr\Container\ContainerExceptionInterface;
 
 /**
  * Invalid DI definitions.

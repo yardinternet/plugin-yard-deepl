@@ -2,20 +2,20 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
-namespace YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Serializers;
+namespace YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Serializers;
 
 use Closure;
 use DateTimeInterface;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\SerializableClosure;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support\ClosureScope;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support\ClosureStream;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support\ReflectionClosure;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support\SelfReference;
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\UnsignedSerializableClosure;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Serializable;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\SerializableClosure;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support\ClosureScope;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support\ClosureStream;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support\ReflectionClosure;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support\SelfReference;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\UnsignedSerializableClosure;
 use ReflectionObject;
 use UnitEnum;
 
@@ -45,7 +45,7 @@ class Native implements Serializable
     /**
      * The closure's reflection.
      *
-     * @var \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support\ReflectionClosure|null
+     * @var \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support\ReflectionClosure|null
      */
     protected $reflector;
 
@@ -66,7 +66,7 @@ class Native implements Serializable
     /**
      * The closure's scope.
      *
-     * @var \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support\ClosureScope|null
+     * @var \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support\ClosureScope|null
      */
     protected $scope;
 
@@ -212,7 +212,7 @@ class Native implements Serializable
      * Ensures the given closures are serializable.
      *
      * @param  mixed  $data
-     * @param  \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support\ClosureScope  $storage
+     * @param  \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support\ClosureScope  $storage
      * @return void
      */
     public static function wrapClosures(&$data, $storage)
@@ -298,7 +298,7 @@ class Native implements Serializable
     /**
      * Gets the closure's reflector.
      *
-     * @return \YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support\ReflectionClosure
+     * @return \YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support\ReflectionClosure
      */
     public function getReflector()
     {

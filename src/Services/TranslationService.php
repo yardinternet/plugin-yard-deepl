@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Services;
+namespace YDPL\Services;
 
 /**
  * Exit when accessed directly.
@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use YardDeepl\Repositories\TranslationRepository;
+use YDPL\Repositories\TranslationRepository;
 
 /**
  * @since 0.0.1

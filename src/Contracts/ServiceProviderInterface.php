@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Contracts;
+namespace YDPL\Contracts;
 
 /**
  * Exit when accessed directly.

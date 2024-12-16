@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Exceptions;
+namespace YDPL\Exceptions;
 
 /**
  * Exit when accessed directly.

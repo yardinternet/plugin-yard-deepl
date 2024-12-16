@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Providers;
+namespace YDPL\Providers;
 
 /**
  * Exit when accessed directly.
@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use YardDeepl\Contracts\ServiceProviderInterface;
+use YDPL\Contracts\ServiceProviderInterface;
 
 /**
  * @since 0.0.1
@@ -29,13 +29,13 @@ class AssetsServiceProvider implements ServiceProviderInterface
 	 */
 	public function enqueue_assets(): void
 	{
-		$path         = yard_deepl_asset_url( 'main.asset.php' );
+		$path         = ydpl_asset_url( 'main.asset.php' );
 		$script_asset = file_exists( $path ) ? require $path : array(
 			'dependencies' => array(),
 			'version'      => round( microtime( true ) ),
 		);
 
-		wp_enqueue_script( 'ydpl-main', yard_deepl_asset_url( 'main.js' ), array( 'jquery' ), $script_asset['version'], true );
+		wp_enqueue_script( 'ydpl-main', ydpl_asset_url( 'main.js' ), array( 'jquery' ), $script_asset['version'], true );
 		wp_localize_script(
 			'ydpl-main',
 			'ydpl',
@@ -50,8 +50,8 @@ class AssetsServiceProvider implements ServiceProviderInterface
 
 	private function format_selected_supported_languages(): array
 	{
-		$supported_languages            = yard_deepl_resolve_from_container( 'ydpl.supported_target.languages' );
-		$configured_supported_languages = yard_deepl_resolve_from_container( 'ydpl.site_options' )->configured_supported_languages();
+		$supported_languages            = ydpl_resolve_from_container( 'ydpl.supported_target.languages' );
+		$configured_supported_languages = ydpl_resolve_from_container( 'ydpl.site_options' )->configured_supported_languages();
 
 		$filtered = array_filter(
 			$supported_languages,

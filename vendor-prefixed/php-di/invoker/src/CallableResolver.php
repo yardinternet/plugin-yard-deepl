@@ -2,15 +2,15 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */ declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\Invoker;
+namespace YDPL\Vendor_Prefixed\Invoker;
 
 use Closure;
-use YardDeepl\Vendor_Prefixed\Invoker\Exception\NotCallableException;
-use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerInterface;
-use YardDeepl\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
+use YDPL\Vendor_Prefixed\Invoker\Exception\NotCallableException;
+use YDPL\Vendor_Prefixed\Psr\Container\ContainerInterface;
+use YDPL\Vendor_Prefixed\Psr\Container\NotFoundExceptionInterface;
 use ReflectionException;
 use ReflectionMethod;
 

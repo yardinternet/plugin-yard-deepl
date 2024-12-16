@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'ydpl.site_options'               => YardDeepl\Singletons\SiteOptionsSingleton::get_instance( get_option( YDPL_SITE_OPTION_NAME, array() ) ),
+	'ydpl.site_options'               => YDPL\Singletons\SiteOptionsSingleton::get_instance( get_option( YDPL_SITE_OPTION_NAME, array() ) ?: array() ),
 	'ydpl.supported_target.languages' => array(
 		array(
 			'iso_alpha2' => 'AR',

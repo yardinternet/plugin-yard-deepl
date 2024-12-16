@@ -26,41 +26,37 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since   0.0.1
  */
-if ( ! function_exists( 'yard_deepl_prefix' ) ) {
-	function yard_deepl_prefix( $name ): string
-	{
-		return 'yard-deepl-' . $name;
-	}
-}
-
-/**
- * Add prefix for the given string.
- *
- * @package Yard_Deepl
- *
- * @author  Yard | Digital Agency
- *
- * @since   0.0.1
- */
-if ( ! function_exists( 'yard_deepl_url' ) ) {
-	function yard_deepl_url( string $path ): string
-	{
-		return YDPL_PLUGIN_URL . $path;
-	}
-}
-
-/**
- * Add prefix for the given string.
- *
- * @package Yard_Deepl
- *
- * @author  Yard | Digital Agency
- *
- * @since   0.0.1
- */
-function yard_deepl_asset_url( string $path ): string
+function ydpl_prefix( $name ): string
 {
-	return yard_deepl_url( 'dist/' . $path );
+	return 'yard-deepl-' . $name;
+}
+
+/**
+ * Add prefix for the given string.
+ *
+ * @package Yard_Deepl
+ *
+ * @author  Yard | Digital Agency
+ *
+ * @since   0.0.1
+ */
+function ydpl_url( string $path ): string
+{
+	return YDPL_PLUGIN_URL . $path;
+}
+
+/**
+ * Add prefix for the given string.
+ *
+ * @package Yard_Deepl
+ *
+ * @author  Yard | Digital Agency
+ *
+ * @since   0.0.1
+ */
+function ydpl_asset_url( string $path ): string
+{
+	return ydpl_url( 'dist/' . $path );
 }
 
 /**
@@ -72,7 +68,7 @@ function yard_deepl_asset_url( string $path ): string
  *
  * @since   0.0.1
  */
-function yard_deepl_render_view( string $file_path, $data = array() )
+function ydpl_render_view( string $file_path, $data = array() )
 {
 	$full_path = YDPL_PLUGIN_DIR_PATH . 'src/Views/' . $file_path . '.php';
 
@@ -93,9 +89,9 @@ function yard_deepl_render_view( string $file_path, $data = array() )
  *
  * @since   0.0.1
  */
-function yard_deepl_resolve_from_container( string $container )
+function ydpl_resolve_from_container( string $container )
 {
-	return YardDeepl\Bootstrap::get_container()->get( $container );
+	return YDPL\Bootstrap::get_container()->get( $container );
 }
 
 /**
@@ -105,11 +101,11 @@ function yard_deepl_resolve_from_container( string $container )
  *
  * @return mixed The escaped data.
  */
-function yard_deepl_escape_data( $data )
+function ydpl_escape_data( $data )
 {
 	if ( is_array( $data ) ) {
 		// Recursively escape arrays
-		return array_map( 'yard_deepl_escape_data', $data );
+		return array_map( 'ydpl_escape_data', $data );
 	}
 
 	if ( is_string( $data ) ) {

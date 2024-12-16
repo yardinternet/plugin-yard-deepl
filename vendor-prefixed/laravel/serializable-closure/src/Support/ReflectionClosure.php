@@ -2,10 +2,10 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
-namespace YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Support;
+namespace YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Support;
 
 defined('T_NAME_QUALIFIED') || define('T_NAME_QUALIFIED', -4);
 defined('T_NAME_FULLY_QUALIFIED') || define('T_NAME_FULLY_QUALIFIED', -5);

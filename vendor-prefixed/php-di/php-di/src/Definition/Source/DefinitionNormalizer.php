@@ -2,22 +2,22 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI\Definition\Source;
+namespace YDPL\Vendor_Prefixed\DI\Definition\Source;
 
-use YardDeepl\Vendor_Prefixed\DI\Definition\ArrayDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\AutowireDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\DecoratorDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Definition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\FactoryDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Helper\DefinitionHelper;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ValueDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ArrayDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\AutowireDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\DecoratorDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Definition;
+use YDPL\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\FactoryDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Helper\DefinitionHelper;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ValueDefinition;
 
 /**
  * Turns raw definitions/definition helpers into definitions ready

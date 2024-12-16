@@ -2,17 +2,17 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI\Definition;
+namespace YDPL\Vendor_Prefixed\DI\Definition;
 
-use YardDeepl\Vendor_Prefixed\DI\Definition\Dumper\ObjectDefinitionDumper;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition\MethodInjection;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition\PropertyInjection;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\DefinitionArray;
+use YDPL\Vendor_Prefixed\DI\Definition\Dumper\ObjectDefinitionDumper;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition\MethodInjection;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition\PropertyInjection;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\DefinitionArray;
 use ReflectionClass;
 
 /**

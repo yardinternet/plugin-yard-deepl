@@ -2,25 +2,25 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI;
+namespace YDPL\Vendor_Prefixed\DI;
 
-use YardDeepl\Vendor_Prefixed\DI\Compiler\RequestedEntryHolder;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Definition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Invoker\FactoryParameterResolver;
-use YardDeepl\Vendor_Prefixed\Invoker\Exception\NotCallableException;
-use YardDeepl\Vendor_Prefixed\Invoker\Exception\NotEnoughParametersException;
-use YardDeepl\Vendor_Prefixed\Invoker\Invoker;
-use YardDeepl\Vendor_Prefixed\Invoker\InvokerInterface;
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\AssociativeArrayResolver;
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\DefaultValueResolver;
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\NumericArrayResolver;
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\ResolverChain;
+use YDPL\Vendor_Prefixed\DI\Compiler\RequestedEntryHolder;
+use YDPL\Vendor_Prefixed\DI\Definition\Definition;
+use YDPL\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
+use YDPL\Vendor_Prefixed\DI\Invoker\FactoryParameterResolver;
+use YDPL\Vendor_Prefixed\Invoker\Exception\NotCallableException;
+use YDPL\Vendor_Prefixed\Invoker\Exception\NotEnoughParametersException;
+use YDPL\Vendor_Prefixed\Invoker\Invoker;
+use YDPL\Vendor_Prefixed\Invoker\InvokerInterface;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\AssociativeArrayResolver;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\DefaultValueResolver;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\NumericArrayResolver;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\ResolverChain;
 
 /**
  * Compiled version of the dependency injection container.

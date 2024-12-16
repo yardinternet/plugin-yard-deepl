@@ -2,14 +2,14 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI\Definition\Helper;
+namespace YDPL\Vendor_Prefixed\DI\Definition\Helper;
 
-use YardDeepl\Vendor_Prefixed\DI\Definition\AutowireDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\AutowireDefinition;
 
 /**
  * Helps defining how to create an instance of a class using autowiring.

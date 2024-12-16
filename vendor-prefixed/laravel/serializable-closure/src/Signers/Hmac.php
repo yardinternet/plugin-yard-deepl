@@ -2,12 +2,12 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
-namespace YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Signers;
+namespace YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Signers;
 
-use YardDeepl\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Signer;
+use YDPL\Vendor_Prefixed\Laravel\SerializableClosure\Contracts\Signer;
 
 class Hmac implements Signer
 {

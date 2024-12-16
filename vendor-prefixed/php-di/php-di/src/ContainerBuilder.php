@@ -2,25 +2,25 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI;
+namespace YDPL\Vendor_Prefixed\DI;
 
-use YardDeepl\Vendor_Prefixed\DI\Compiler\Compiler;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\AttributeBasedAutowiring;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\DefinitionArray;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\DefinitionFile;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\DefinitionSource;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\NoAutowiring;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\ReflectionBasedAutowiring;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\SourceCache;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\SourceChain;
-use YardDeepl\Vendor_Prefixed\DI\Proxy\ProxyFactory;
+use YDPL\Vendor_Prefixed\DI\Compiler\Compiler;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\AttributeBasedAutowiring;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\DefinitionArray;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\DefinitionFile;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\DefinitionSource;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\NoAutowiring;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\ReflectionBasedAutowiring;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\SourceCache;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\SourceChain;
+use YDPL\Vendor_Prefixed\DI\Proxy\ProxyFactory;
 use InvalidArgumentException;
-use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerInterface;
+use YDPL\Vendor_Prefixed\Psr\Container\ContainerInterface;
 
 /**
  * Helper to create and configure a Container.

@@ -2,16 +2,16 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI\Compiler;
+namespace YDPL\Vendor_Prefixed\DI\Compiler;
 
-use YardDeepl\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition\MethodInjection;
+use YDPL\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition\MethodInjection;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionParameter;
@@ -67,7 +67,7 @@ class ObjectCreationCompiler
                 } else {
                     // Private/protected/readonly property
                     $code[] = sprintf(
-                        '\YardDeepl\Vendor_Prefixed\DI\Definition\Resolver\ObjectCreator::setPrivatePropertyValue(%s, $object, \'%s\', %s);',
+                        '\YDPL\Vendor_Prefixed\DI\Definition\Resolver\ObjectCreator::setPrivatePropertyValue(%s, $object, \'%s\', %s);',
                         var_export($propertyInjection->getClassName(), true),
                         $propertyInjection->getPropertyName(),
                         $value

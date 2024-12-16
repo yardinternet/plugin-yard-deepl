@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Controllers;
+namespace YDPL\Controllers;
 
 /**
  * Exit when accessed directly.
@@ -19,7 +19,7 @@ class SettingsController
 	 */
 	public function render_page(): void
 	{
-		yard_deepl_render_view( 'admin/settings-page' );
+		ydpl_render_view( 'admin/settings-page' );
 	}
 
 	/**
@@ -27,7 +27,7 @@ class SettingsController
 	 */
 	public function section_description_general(): void
 	{
-		yard_deepl_render_view( 'admin/partials/settings/settings-description-general' );
+		ydpl_render_view( 'admin/partials/settings/settings-description-general' );
 	}
 
 	/**
@@ -35,7 +35,7 @@ class SettingsController
 	 */
 	public function section_description_rest_api(): void
 	{
-		yard_deepl_render_view( 'admin/partials/settings/settings-description-rest-api' );
+		ydpl_render_view( 'admin/partials/settings/settings-description-rest-api' );
 	}
 
 	/**
@@ -43,15 +43,39 @@ class SettingsController
 	 */
 	public function section_fields_render( array $args ): void
 	{
-		yard_deepl_render_view(
+		ydpl_render_view(
 			'admin/partials/settings/settings-fields',
 			array(
-				'api_key'                               => yard_deepl_resolve_from_container( 'ydpl.site_options' )->api_key(),
+				'api_key'                               => ydpl_resolve_from_container( 'ydpl.site_options' )->api_key(),
 				'settings_field_id'                     => $args['settings_field_id'] ?? '',
-				'supported_languages'                   => yard_deepl_resolve_from_container( 'ydpl.supported_target.languages' ),
-				'configured_supported_languages'        => yard_deepl_resolve_from_container( 'ydpl.site_options' )->configured_supported_languages(),
-				'rest_api_param_object_id_is_mandatory' => yard_deepl_resolve_from_container( 'ydpl.site_options' )->rest_api_param_object_id_is_mandatory(),
+				'supported_languages'                   => ydpl_resolve_from_container( 'ydpl.supported_target.languages' ),
+				'configured_supported_languages'        => ydpl_resolve_from_container( 'ydpl.site_options' )->configured_supported_languages(),
+				'rest_api_param_object_id_is_mandatory' => ydpl_resolve_from_container( 'ydpl.site_options' )->rest_api_param_object_id_is_mandatory(),
 			)
 		);
+	}
+
+	/**
+	 * @since 0.0.1
+	 */
+	public function sanitize_plugin_options_settings( $settings ): array
+	{
+		if ( ! is_array( $settings ) ) {
+			return array();
+		}
+
+		$sanitize_recursive = function ( $value ) use ( &$sanitize_recursive ) {
+			if ( is_array( $value ) ) {
+				return array_map( $sanitize_recursive, $value );
+			}
+
+			if ( is_string( $value ) ) {
+				return sanitize_text_field( $value );
+			}
+
+			return $value;
+		};
+
+		return array_map( $sanitize_recursive, $settings );
 	}
 }

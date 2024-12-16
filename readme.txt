@@ -25,6 +25,17 @@ Each object that is translated will store its cached translation in the `wp_post
 
 This approach minimizes the number of API calls to DeepL, ensuring translations are kept up to date only when necessary.
 
+== External Services ==
+
+This plugin connects to the DeepL API to provide translations for content.
+
+- **Service:** DeepL API (https://www.deepl.com)
+- **Purpose:** To translate text from one language to another based on the provided target language.
+- **Data Sent:** Text content for translation, the target language code, and the DeepL API key (handled securely and never exposed to users).
+- **Conditions:** Data is sent when a request for translation is initiated.
+- **Privacy Policy:** [DeepL Privacy Policy](https://www.deepl.com/privacy)
+- **Terms of Service:** [DeepL Terms of Service](https://www.deepl.com/pro-license)
+
 == Installation ==
 
 1. Upload plugin directory to the `/wp-content/plugins/` directory

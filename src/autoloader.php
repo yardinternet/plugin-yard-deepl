@@ -1,9 +1,12 @@
 <?php
+
 /**
  * Auto loader for classes.
  *
  * @package Yard_Deepl
+ *
  * @author  Yard | Digital Agency
+ *
  * @since   0.0.1
  */
 
@@ -15,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $classmap = array(
-	'YardDeepl' => __DIR__ . '/',
+	'YDPL' => __DIR__ . '/',
 );
 
 spl_autoload_register(

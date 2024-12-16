@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl;
+namespace YDPL;
 
 /**
  * Exit when accessed directly.
@@ -9,11 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use YardDeepl\Providers\AssetsServiceProvider;
-use YardDeepl\Providers\RestAPIServiceProvider;
-use YardDeepl\Providers\SettingsServiceProvider;
-use YardDeepl\Vendor_Prefixed\DI\ContainerBuilder;
-use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerInterface;
+use YDPL\Providers\AssetsServiceProvider;
+use YDPL\Providers\RestAPIServiceProvider;
+use YDPL\Providers\SettingsServiceProvider;
+use YDPL\Vendor_Prefixed\DI\ContainerBuilder;
+use YDPL\Vendor_Prefixed\Psr\Container\ContainerInterface;
 
 require_once __DIR__ . '/helpers.php';
 

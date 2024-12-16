@@ -2,37 +2,37 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 26-November-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 declare(strict_types=1);
 
-namespace YardDeepl\Vendor_Prefixed\DI;
+namespace YDPL\Vendor_Prefixed\DI;
 
-use YardDeepl\Vendor_Prefixed\DI\Definition\Definition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\FactoryDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Helper\DefinitionHelper;
-use YardDeepl\Vendor_Prefixed\DI\Definition\InstanceDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ObjectDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Resolver\DefinitionResolver;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Resolver\ResolverDispatcher;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\DefinitionArray;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\MutableDefinitionSource;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\ReflectionBasedAutowiring;
-use YardDeepl\Vendor_Prefixed\DI\Definition\Source\SourceChain;
-use YardDeepl\Vendor_Prefixed\DI\Definition\ValueDefinition;
-use YardDeepl\Vendor_Prefixed\DI\Invoker\DefinitionParameterResolver;
-use YardDeepl\Vendor_Prefixed\DI\Proxy\ProxyFactory;
+use YDPL\Vendor_Prefixed\DI\Definition\Definition;
+use YDPL\Vendor_Prefixed\DI\Definition\Exception\InvalidDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\FactoryDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Helper\DefinitionHelper;
+use YDPL\Vendor_Prefixed\DI\Definition\InstanceDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\ObjectDefinition;
+use YDPL\Vendor_Prefixed\DI\Definition\Resolver\DefinitionResolver;
+use YDPL\Vendor_Prefixed\DI\Definition\Resolver\ResolverDispatcher;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\DefinitionArray;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\MutableDefinitionSource;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\ReflectionBasedAutowiring;
+use YDPL\Vendor_Prefixed\DI\Definition\Source\SourceChain;
+use YDPL\Vendor_Prefixed\DI\Definition\ValueDefinition;
+use YDPL\Vendor_Prefixed\DI\Invoker\DefinitionParameterResolver;
+use YDPL\Vendor_Prefixed\DI\Proxy\ProxyFactory;
 use InvalidArgumentException;
-use YardDeepl\Vendor_Prefixed\Invoker\Invoker;
-use YardDeepl\Vendor_Prefixed\Invoker\InvokerInterface;
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\AssociativeArrayResolver;
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\Container\TypeHintContainerResolver;
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\DefaultValueResolver;
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\NumericArrayResolver;
-use YardDeepl\Vendor_Prefixed\Invoker\ParameterResolver\ResolverChain;
-use YardDeepl\Vendor_Prefixed\Psr\Container\ContainerInterface;
+use YDPL\Vendor_Prefixed\Invoker\Invoker;
+use YDPL\Vendor_Prefixed\Invoker\InvokerInterface;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\AssociativeArrayResolver;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\Container\TypeHintContainerResolver;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\DefaultValueResolver;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\NumericArrayResolver;
+use YDPL\Vendor_Prefixed\Invoker\ParameterResolver\ResolverChain;
+use YDPL\Vendor_Prefixed\Psr\Container\ContainerInterface;
 
 /**
  * Dependency Injection Container.
@@ -241,7 +241,7 @@ class Container implements ContainerInterface, FactoryInterface, InvokerInterfac
      * @param callable|array|string $callable Function to call.
      * @param array    $parameters Parameters to use. Can be indexed by the parameter names
      *                             or not indexed (same order as the parameters).
-     *                             The array can also contain DI definitions, e.g. \YardDeepl\Vendor_Prefixed\DI\get().
+     *                             The array can also contain DI definitions, e.g. \YDPL\Vendor_Prefixed\DI\get().
      *
      * @return mixed Result of the function.
      */

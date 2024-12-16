@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Controllers;
+namespace YDPL\Controllers;
 
 /**
  * Exit when accessed directly.
@@ -12,9 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Exception;
 use WP_REST_Request;
 use WP_REST_Response;
-use YardDeepl\Services\TranslationService;
-use YardDeepl\Singletons\SiteOptionsSingleton;
-use YardDeepl\Traits\ErrorLog;
+use YDPL\Services\TranslationService;
+use YDPL\Singletons\SiteOptionsSingleton;
+use YDPL\Traits\ErrorLog;
 
 /**
  * @since 0.0.1
@@ -29,7 +29,7 @@ class RestAPIController
 	public function __construct()
 	{
 		$this->service = new TranslationService();
-		$this->options = yard_deepl_resolve_from_container( 'ydpl.site_options' );
+		$this->options = ydpl_resolve_from_container( 'ydpl.site_options' );
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-namespace YardDeepl\Services;
+namespace YDPL\Services;
 
 /**
  * Exit when accessed directly.
@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Exception;
-use YardDeepl\Clients\DeeplClient;
-use YardDeepl\Singletons\SiteOptionsSingleton;
+use YDPL\Clients\DeeplClient;
+use YDPL\Singletons\SiteOptionsSingleton;
 
 /**
  * @since 0.0.1
@@ -24,7 +24,7 @@ class DeeplService
 
 	private function __construct()
 	{
-		$this->options = yard_deepl_resolve_from_container( 'ydpl.site_options' );
+		$this->options = ydpl_resolve_from_container( 'ydpl.site_options' );
 		$this->start_service();
 	}
 

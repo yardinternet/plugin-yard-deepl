@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="YardDeepl">
+<ruleset name="YDPL">
     <arg name="extensions" value="php"/>
 
 	<!-- Exclude some folders such as third-party code -->
