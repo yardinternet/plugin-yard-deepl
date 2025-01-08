@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 6.0
 Requires PHP: 8.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Tags: deepl, translating, secure
 Tested up to: 6.7.1
 
@@ -58,44 +58,44 @@ When making requests to the API, ensure that the nonce is included in the reques
 
 ### Request
 
-```javascript
-var xhr = new XMLHttpRequest();
-xhr.open('POST', ydpl.ydpl_rest_translate_url, true);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', ydpl.ydpl_rest_translate_url, true);
 
-// Set request headers
-xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.setRequestHeader('nonce', ydpl.ydpl_api_request_nonce);
+    // Set request headers
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('nonce', ydpl.ydpl_api_request_nonce);
 
-// Handle response
-xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        console.log('Translation:', JSON.parse(xhr.responseText));
-    } else if (xhr.readyState === 4) {
-        console.error('Error:', xhr.statusText);
-    }
-};
+    // Handle response
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log('Translation:', JSON.parse(xhr.responseText));
+        } else if (xhr.readyState === 4) {
+            console.error('Error:', xhr.statusText);
+        }
+    };
 
-// Prepare and send the request body
-var data = JSON.stringify({
-    text: ["Look another test"],
-    target_lang: "DE"
-});
+    // Prepare and send the request body
+    var data = JSON.stringify({
+        text: ["Look another test"],
+        target_lang: "DE"
+    });
 
-xhr.send(data);
-```
+    xhr.send(data);
 
 ### Response
 
-```javascript
-[
-    {
-        "text": "Look another test!",
-        "translation": "Sehen Sie sich einen weiteren Test an!"
-    }
-]
-```
+    [
+        {
+            "text": "Look another test!",
+            "translation": "Sehen Sie sich einen weiteren Test an!"
+        }
+    ]
 
 == Changelog ==
+
+= 1.0.1: Jan 07, 2025 =
+
+* Change: processed corrections
 
 = 1.0.0: Oct 18, 2024 =
 
