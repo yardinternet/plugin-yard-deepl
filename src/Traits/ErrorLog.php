@@ -20,6 +20,6 @@ trait ErrorLog
 			return;
 		}
 
-		error_log( sprintf( 'Yard Deepl: %s', $message ) );
+		error_log( sprintf( 'Yard DeepL: %s', $message ) );
 	}
 }

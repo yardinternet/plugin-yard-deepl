@@ -41,8 +41,8 @@ class SettingsServiceProvider implements ServiceProviderInterface
 	public function register_settings_page(): void
 	{
 		add_options_page(
-			__( 'Yard Deepl', 'yard-deepl' ),
-			__( 'Yard Deepl', 'yard-deepl' ),
+			__( 'Yard DeepL', 'yard-deepl' ),
+			__( 'Yard DeepL', 'yard-deepl' ),
 			'manage_options',
 			'yard-deepl',
 			array( $this->controller, 'render_page' )

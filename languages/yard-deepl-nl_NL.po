@@ -14,8 +14,8 @@ msgstr ""
 #. Plugin Name of the plugin
 #: src/Providers/SettingsServiceProvider.php:44
 #: src/Providers/SettingsServiceProvider.php:45
-msgid "Yard Deepl"
-msgstr "Yard Deepl"
+msgid "Yard DeepL"
+msgstr "Yard DeepL"
 
 #. Description of the plugin
 msgid "This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key"

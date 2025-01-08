@@ -1,4 +1,4 @@
-=== Yard Deepl ===
+=== Yard DeepL ===
 Author: Yard Digital Agency
 Author URI: https://www.yard.nl
 Contributors: yarddigitalagency, mvdhoek1
@@ -10,7 +10,7 @@ Stable tag: 1.0.1
 Tags: deepl, translating, secure
 Tested up to: 6.7.1
 
-This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key.
+This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your DeepL API-key.
 
 == Description ==
 

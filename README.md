@@ -1,4 +1,4 @@
-# Yard Deepl
+# Yard DeepL
 
 Author: Yard Digital Agency
 Author URI: <https://www.yard.nl>
@@ -11,11 +11,11 @@ Stable tag: 1.0.1
 Tags: deepl, translating, secure
 Tested up to: 6.7.1
 
-This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key.
+This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your DeepL API-key.
 
 ## Description
 
-This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key. These endpoints are only accessible when a valid nonce is provided.
+This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your DeepL API-key. These endpoints are only accessible when a valid nonce is provided.
 When providing translations to website visitors, you can configure which languages are supported for translation.
 
 ## Caching Mechanism

@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yard Deepl 0.0.1\n"
+"Project-Id-Version: Yard DeepL 0.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yard-deepl\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 #. Plugin Name of the plugin
 #: src/Providers/SettingsServiceProvider.php:44
 #: src/Providers/SettingsServiceProvider.php:45
-msgid "Yard Deepl"
-msgstr "Yard Deepl"
+msgid "Yard DeepL"
+msgstr "Yard DeepL"
 
 #. Description of the plugin
 msgid "This plugin registers secure API endpoints that allows you to request translations directly from DeepL"
