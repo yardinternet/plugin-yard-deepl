@@ -2,7 +2,7 @@
 /**
  * @license MIT
  *
- * Modified by yardinternet on 16-December-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by yardinternet on 08-January-2025 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace YDPL\Vendor_Prefixed\Psr\Container;
