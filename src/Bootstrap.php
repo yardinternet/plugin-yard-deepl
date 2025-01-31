@@ -37,10 +37,15 @@ class Bootstrap
 	 */
 	public function __construct()
 	{
-		$this->register_plugin_text_domain();
-		self::$container = $this->build_container();
-		$this->providers = $this->get_providers();
-		$this->register_providers();
+		add_action(
+			'init',
+			function () {
+				$this->register_plugin_text_domain();
+				self::$container = $this->build_container();
+				$this->providers = $this->get_providers();
+				$this->register_providers();
+			}
+		);
 	}
 
 	/**
