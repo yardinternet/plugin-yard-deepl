@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use YDPL\Providers\AssetsServiceProvider;
+use YDPL\Providers\MetaBoxServiceProvider;
 use YDPL\Providers\RestAPIServiceProvider;
 use YDPL\Providers\SettingsServiceProvider;
 use YDPL\Vendor_Prefixed\DI\ContainerBuilder;
@@ -69,6 +70,7 @@ class Bootstrap
 			new AssetsServiceProvider(),
 			new SettingsServiceProvider(),
 			new RestAPIServiceProvider(),
+			new MetaBoxServiceProvider(),
 		);
 	}
 

@@ -14,6 +14,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #: src/Providers/SettingsServiceProvider.php:44
 #: src/Providers/SettingsServiceProvider.php:45
+#: src/Providers/MetaboxServiceProvider.php:34
 msgid "Yard DeepL"
 msgstr "Yard DeepL"
 
@@ -28,6 +29,14 @@ msgstr "Yard | Digital"
 #. Author URI of the plugin
 msgid "https://www.yard.nl"
 msgstr "https://www.yard.nl"
+
+#: src/Providers/MetaboxServiceProvider.php:51
+msgid "Disable translation cache when this object contains dynamic content."
+msgstr "Schakel de vertalingscache uit wanneer dit object dynamische inhoud bevat."
+
+#: src/Providers/MetaboxServiceProvider.php:76
+msgid "Disable translation cache?"
+msgstr "Vertalingscache uitschakelen?"
 
 #: src/Providers/SettingsServiceProvider.php:66
 msgid "Settings"

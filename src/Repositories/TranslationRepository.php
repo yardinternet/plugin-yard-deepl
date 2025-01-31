@@ -28,6 +28,12 @@ class TranslationRepository
 			throw new ObjectNotFoundException( 'Translated object not found.', 404 );
 		}
 
+		$is_disabled = get_post_meta( $object_id, 'ydpl_disable_deepl_translation_cache', true );
+
+		if ( ! is_string( $is_disabled ) || ( 0 < strlen( $is_disabled ) && '1' === $is_disabled ) ) {
+			return null;
+		}
+
 		$post_modified        = get_post_field( 'post_modified', $object_id );
 		$cached_translation   = get_post_meta( $object_id, "_translation_$target_lang", true );
 		$translation_modified = get_post_meta( $object_id, "_translation_modified_$target_lang", true );

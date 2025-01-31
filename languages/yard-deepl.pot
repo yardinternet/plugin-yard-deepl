@@ -17,8 +17,9 @@ msgstr ""
 #. Plugin Name of the plugin
 #: src/Providers/SettingsServiceProvider.php:44
 #: src/Providers/SettingsServiceProvider.php:45
+#: src/Providers/MetaboxServiceProvider.php:34
 msgid "Yard DeepL"
-msgstr "Yard DeepL"
+msgstr ""
 
 #. Description of the plugin
 msgid "This plugin registers secure API endpoints that allows you to request translations directly from DeepL"
@@ -30,7 +31,15 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "https://www.yard.nl"
-msgstrmsgstr ""
+msgstr ""
+
+#: src/Providers/MetaboxServiceProvider.php:51
+msgid "Disable translation cache when this object contains dynamic content."
+msgstr ""
+
+#: src/Providers/MetaboxServiceProvider.php:76
+msgid "Disable translation cache?"
+msgstr ""
 
 #: src/Providers/SettingsServiceProvider.php:66
 msgid "Settings"
