@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 6.0
 Requires PHP: 8.0
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 Tags: deepl, translating, secure
 Tested up to: 6.7.1
 
@@ -92,6 +92,11 @@ When making requests to the API, ensure that the nonce is included in the reques
     ]
 
 == Changelog ==
+
+= 1.1.0: Jan 31, 2025 =
+
+* Add: disable DeepL translation cache metabox
+* Change: use init hook in plugin bootstrap construct, fixes translations for WordPress 6.7
 
 = 1.0.2: Jan 08, 2025 =
 
