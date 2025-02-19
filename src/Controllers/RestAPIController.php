@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Exception;
 use WP_REST_Request;
 use WP_REST_Response;
+use YDPL\Providers\TextExtractionServiceProvider;
 use YDPL\Services\TranslationService;
 use YDPL\Singletons\SiteOptionsSingleton;
 use YDPL\Traits\ErrorLog;
@@ -25,10 +26,12 @@ class RestAPIController
 
 	protected TranslationService $service;
 	protected SiteOptionsSingleton $options;
+	protected TextExtractionServiceProvider $texts;
 
 	public function __construct()
 	{
 		$this->service = new TranslationService();
+		$this->texts = new TextExtractionServiceProvider();
 		$this->options = ydpl_resolve_from_container( 'ydpl.site_options' );
 	}
 
@@ -44,6 +47,19 @@ class RestAPIController
 		// Are required by Deepl.
 		if ( empty( $text ) || empty( $target_lang ) ) {
 			return $this->set_failure_response( 400, 'Invalid input parameters.' );
+		}
+
+		// Secure mode prevents hijacking the DeepL credits.
+		if ( $this->options->secure_mode_enabled() ) {
+			$text_allowed = $this->texts->get_allowed_text( (int) $object_id );
+			if ( $text ) {
+				// In case we send texts to translate, only allow the ones that are actually in the content.
+				$text = $this->texts->array_intersect_loose( $text, $text_allowed );
+			} else {
+				// If we do not send texts to translate, we use the texts that are in the content.
+				$text = $text_allowed;
+			}
+			unset( $text_allowed );
 		}
 
 		// Is required when configured as such in the plugin settings.

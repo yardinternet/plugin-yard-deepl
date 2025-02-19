@@ -67,4 +67,14 @@ class SiteOptionsSingleton
 
 		return 'on' === $value;
 	}
+
+	/**
+	 * @since 0.0.1
+	 */
+	public function secure_mode_enabled(): bool
+	{
+		$value = $this->options['ydpl_secure_mode_enabled'] ?? '';
+
+		return 'on' === $value;
+	}
 }
