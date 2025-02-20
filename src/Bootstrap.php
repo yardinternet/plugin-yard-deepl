@@ -13,6 +13,7 @@ use YDPL\Providers\AssetsServiceProvider;
 use YDPL\Providers\MetaBoxServiceProvider;
 use YDPL\Providers\RestAPIServiceProvider;
 use YDPL\Providers\SettingsServiceProvider;
+use YDPL\Providers\TextExtractionServiceProvider;
 use YDPL\Vendor_Prefixed\DI\ContainerBuilder;
 use YDPL\Vendor_Prefixed\Psr\Container\ContainerInterface;
 
@@ -71,6 +72,7 @@ class Bootstrap
 			new SettingsServiceProvider(),
 			new RestAPIServiceProvider(),
 			new MetaBoxServiceProvider(),
+			new TextExtractionServiceProvider(),
 		);
 	}
 
