@@ -56,9 +56,15 @@ class RestAPIController
 			} else {
 				// get referer from request
 				$url = $request->get_header( 'referer' ) ?? false;
-				if ( $url ) {
+				$url_host = preg_replace( '/^www\./', '', wp_parse_url( $url, PHP_URL_HOST ) );
+				$website_host = preg_replace( '/^www\./', '', wp_parse_url( home_url(), PHP_URL_HOST ) );
+				// make sure the URL in on the same domain as this website.
+				if ( $url && $url_host === $website_host ) {
 					$object = "url-{$url}";
 				}
+			}
+			if (!isset($object)) {
+				return $this->set_failure_response( 400, 'Could not determine text-object.' );
 			}
 
 			$text_allowed = $this->texts->get_allowed_text( $object );
