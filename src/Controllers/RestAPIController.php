@@ -51,7 +51,17 @@ class RestAPIController
 
 		// Secure mode prevents hijacking the DeepL credits.
 		if ( $this->options->secure_mode_enabled() ) {
-			$text_allowed = $this->texts->get_allowed_text( (int) $object_id );
+			if ( is_numeric( $object_id ) && (int) $object_id > 0 ) {
+				$object = "post-" . $object_id;
+			} else {
+				// get referer from request
+				$url = $request->get_header( 'referer' ) ?? false;
+				if ( $url ) {
+					$object = "url-{$url}";
+				}
+			}
+
+			$text_allowed = $this->texts->get_allowed_text( $object );
 			if ( $text ) {
 				// In case we send texts to translate, only allow the ones that are actually in the content.
 				$text = $this->texts->array_intersect_loose( $text, $text_allowed );
