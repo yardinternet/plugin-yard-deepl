@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use YDPL\Exceptions\ObjectNotFoundException;
 use YDPL\Repositories\TranslationRepository;
 
 /**
@@ -40,7 +41,7 @@ class TranslationService
 	 */
 	public function handle_translation_with_object_id( int $object_id, array $text, string $target_lang ): array
 	{
-		$cached_translation = $this->repository->get_cached_translation( $object_id, $target_lang );
+		$cached_translation = $this->object_has_cached_translation( $object_id, $target_lang );
 
 		if ( $cached_translation ) {
 			return $cached_translation;
@@ -61,5 +62,17 @@ class TranslationService
 		$translation = DeeplService::get_instance()->translate( $text, $target_lang );
 
 		return $translation;
+	}
+
+	/**
+	 * @since 1.1.1
+	 */
+	public function object_has_cached_translation( int $object_id, string $target_lang ): ?array
+	{
+		try {
+			return $this->repository->get_cached_translation( $object_id, $target_lang );
+		} catch ( ObjectNotFoundException $e ) {
+			return null;
+		}
 	}
 }

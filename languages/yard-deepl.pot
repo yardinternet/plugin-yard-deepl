@@ -33,12 +33,20 @@ msgstr ""
 msgid "https://www.yard.nl"
 msgstr ""
 
-#: src/Providers/MetaboxServiceProvider.php:51
+#: src/Providers/MetaboxServiceProvider.php:72
 msgid "Disable translation cache when this object contains dynamic content."
 msgstr ""
 
-#: src/Providers/MetaboxServiceProvider.php:76
+#: src/Providers/MetaboxServiceProvider.php:75
 msgid "Disable translation cache?"
+msgstr ""
+
+#: src/Providers/MetaboxServiceProvider.php:78
+msgid "Clear cached translations on save."
+msgstr ""
+
+#: src/Providers/MetaboxServiceProvider.php:80
+msgid "Clear translation cache?"
 msgstr ""
 
 #: src/Providers/SettingsServiceProvider.php:66
