@@ -4,9 +4,7 @@
  * Plugin helpers.
  *
  * @package Yard_Deepl
- *
  * @author  Yard | Digital Agency
- *
  * @since   0.0.1
  */
 
@@ -21,9 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add prefix for the given string.
  *
  * @package Yard_Deepl
- *
  * @author  Yard | Digital Agency
- *
  * @since   0.0.1
  */
 function ydpl_prefix( $name ): string
@@ -32,12 +28,10 @@ function ydpl_prefix( $name ): string
 }
 
 /**
- * Add prefix for the given string.
+ * Generates a full plugin URL by appending the given path to the base plugin URL.
  *
  * @package Yard_Deepl
- *
  * @author  Yard | Digital Agency
- *
  * @since   0.0.1
  */
 function ydpl_url( string $path ): string
@@ -46,12 +40,22 @@ function ydpl_url( string $path ): string
 }
 
 /**
- * Add prefix for the given string.
+ * Generates a full plugin path by appending the given path to the base plugin URL.
  *
  * @package Yard_Deepl
- *
  * @author  Yard | Digital Agency
+ * @since   0.0.1
+ */
+function ydpl_path( string $path ): string
+{
+	return YDPL_PLUGIN_DIR_PATH . $path;
+}
+
+/**
+ * Generates a full asset URL by appending the given path to the plugin's asset directory.
  *
+ * @package Yard_Deepl
+ * @author  Yard | Digital Agency
  * @since   0.0.1
  */
 function ydpl_asset_url( string $path ): string
@@ -60,12 +64,22 @@ function ydpl_asset_url( string $path ): string
 }
 
 /**
+ * Generates a full asset path by appending the given path to the plugin's asset directory.
+ *
+ * @package Yard_Deepl
+ * @author  Yard | Digital Agency
+ * @since   1.1.1
+ */
+function ydpl_asset_path( string $path ): string
+{
+	return ydpl_path( 'dist/' . $path );
+}
+
+/**
  * Render a view file.
  *
  * @package Yard_Deepl
- *
  * @author  Yard | Digital Agency
- *
  * @since   0.0.1
  */
 function ydpl_render_view( string $file_path, $data = array() )
@@ -84,9 +98,7 @@ function ydpl_render_view( string $file_path, $data = array() )
  * Finds an entry of the container by its identifier and returns it.
  *
  * @package Yard_Deepl
- *
  * @author  Yard | Digital Agency
- *
  * @since   0.0.1
  */
 function ydpl_resolve_from_container( string $container )
