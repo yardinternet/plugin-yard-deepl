@@ -1,0 +1,7 @@
+.ydpl-metabox-row:not( :first-child ) {
+	margin-top: 1rem;
+}
+
+.ydpl-metabox-row > p {
+	font-weight: 500;
+}

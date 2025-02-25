@@ -21,6 +21,9 @@ use YDPL\Traits\ErrorLog;
  */
 class RestAPIController
 {
+	protected const RATE_LIMIT                        = 3;
+	protected const RATE_LIMIT_TIME_WINDOW_IN_SECONDS = 60;
+
 	use ErrorLog;
 
 	protected TranslationService $service;
@@ -40,6 +43,12 @@ class RestAPIController
 		$text        = $request->get_param( 'text' );
 		$target_lang = $request->get_param( 'target_lang' );
 		$object_id   = $request->get_param( 'object_id' );
+		$origin      = $request->get_header( 'origin' );
+		$referer     = (string) $request->get_header( 'referer' );
+
+		if ( is_null( $origin ) || home_url() !== $origin ) {
+			return $this->set_failure_response( 403, 'Invalid origin. Origin does not match the site URL.' );
+		}
 
 		// Are required by Deepl.
 		if ( empty( $text ) || empty( $target_lang ) ) {
@@ -49,6 +58,13 @@ class RestAPIController
 		// Is required when configured as such in the plugin settings.
 		if ( $this->options->rest_api_param_object_id_is_mandatory() && empty( $object_id ) ) {
 			return $this->set_failure_response( 400, 'Invalid input parameters.' );
+		}
+
+		// Apply rate limit check if object ID is absent or translation is not cached.
+		if ( empty( $object_id ) || ! $this->service->object_has_cached_translation( (int) $object_id, $target_lang ) ) {
+			if ( $this->is_rate_limit_exceeded( $referer ) ) {
+				return $this->set_failure_response( 429, 'Rate limit exceeded or could not be validated.' );
+			}
 		}
 
 		try {
@@ -66,6 +82,64 @@ class RestAPIController
 		return new WP_REST_Response(
 			$translation
 		);
+	}
+
+	/**
+	 * @since 1.1.1
+	 */
+	protected function is_rate_limit_exceeded( string $referer ): bool
+	{
+		$referer_host = wp_parse_url( $referer, PHP_URL_HOST );
+		$home_host    = wp_parse_url( home_url(), PHP_URL_HOST );
+
+		if ( $referer_host !== $home_host ) {
+			return true;
+		}
+
+		// Validate if requested page exists.
+		$result = wp_remote_get( $referer );
+
+		if ( is_wp_error( $result ) ) {
+			return true;
+		}
+
+		$response_code = wp_remote_retrieve_response_code( $result );
+
+		if ( ! is_int( $response_code ) || ! in_array( $response_code, array( 200, 201 ) ) ) {
+			return true;
+		}
+
+		$client_ip = $this->get_client_ip();
+
+		// Validate if client IP is valid.
+		if ( 1 > strlen( $client_ip ) ) {
+			return true;
+		}
+
+		$transient_key = 'ydpl_rate_limit_' . hash_hmac( 'sha256', $referer . $client_ip, SECURE_AUTH_KEY );
+		$request_count = (int) ( get_transient( $transient_key ) ?: 0 );
+
+		if ( self::RATE_LIMIT <= $request_count ) {
+			return true;
+		}
+
+		set_transient( $transient_key, $request_count + 1, self::RATE_LIMIT_TIME_WINDOW_IN_SECONDS );
+
+		return false;
+	}
+
+	/**
+	 * @since 1.1.1
+	 */
+	protected function get_client_ip(): string
+	{
+		$remote_address = $_SERVER['REMOTE_ADDR'] ?? '';
+
+		if ( filter_var( $remote_address, FILTER_VALIDATE_IP ) === false ) {
+			return '';
+		}
+
+		return $remote_address;
 	}
 
 	/**
