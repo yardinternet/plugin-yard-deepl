@@ -30,13 +30,21 @@ msgstr "Yard | Digital"
 msgid "https://www.yard.nl"
 msgstr "https://www.yard.nl"
 
-#: src/Providers/MetaboxServiceProvider.php:51
+#: src/Providers/MetaboxServiceProvider.php:72
 msgid "Disable translation cache when this object contains dynamic content."
 msgstr "Schakel de vertalingscache uit wanneer dit object dynamische inhoud bevat."
 
-#: src/Providers/MetaboxServiceProvider.php:76
+#: src/Providers/MetaboxServiceProvider.php:75
 msgid "Disable translation cache?"
 msgstr "Vertalingscache uitschakelen?"
+
+#: src/Providers/MetaboxServiceProvider.php:78
+msgid "Clear cached translations on save."
+msgstr "Verwijder vertaalcache bij opslaan."
+
+#: src/Providers/MetaboxServiceProvider.php:80
+msgid "Clear translation cache?"
+msgstr "Vertaalcache wissen?"
 
 #: src/Providers/SettingsServiceProvider.php:66
 msgid "Settings"
