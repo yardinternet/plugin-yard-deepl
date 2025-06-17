@@ -12,6 +12,10 @@ class DeeplClient
 	public function __construct( string $apiKey )
 	{
 		$this->apiKey = $apiKey;
+		$envUrl = trim((string) getenv('DEEPL_API_URL'));
+		if ($envUrl !== '') {
+			$this->baseUrl = rtrim($envUrl, '/');
+		}
 	}
 
 	/**
