@@ -3,7 +3,7 @@
 Author: Yard Digital Agency
 Author URI: <https://www.yard.nl>
 Contributors: yarddigitalagency, mvdhoek1
-License: GPLv2 or later
+License: EUPL v1.2
 License URI: <https://www.gnu.org/licenses/gpl-2.0.html>
 Requires at least: 6.0
 Requires PHP: 8.0
@@ -109,3 +109,7 @@ xhr.send(data);
     }
 ]
 ```
+
+## About us
+
+[![banner](https://raw.githubusercontent.com/yardinternet/.github/refs/heads/main/profile/assets/small-banner-github.svg)](https://www.yard.nl/werken-bij/)

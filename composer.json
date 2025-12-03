@@ -1,6 +1,7 @@
 {
 	"name": "yardinternet/yard-deepl",
 	"description": "This plugin registers secure API endpoints that allows you to request translations directly from DeepL",
+  "license": "EUPL-1.2",
 	"homepage": "https://www.yard.nl",
 	"type": "wordpress-plugin",
 	"repositories": [
