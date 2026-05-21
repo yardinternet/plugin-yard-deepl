@@ -59,17 +59,17 @@ class RestAPIController
 			return $this->set_failure_response( 400, 'Invalid input parameters.' );
 		}
 
+		$user_has_cache_capability = current_user_can( apply_filters( 'yard::deepl/cache_capability', 'edit_posts' ) );
+
 		// Apply rate limit check if object ID is absent or translation is not cached when an object ID is present.
 		if ( empty( $object_id ) || ! $this->service->object_has_cached_translation( (int) $object_id, $target_lang ) ) {
-			if ( $this->is_rate_limit_exceeded() ) {
+			if ( $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
 				return $this->set_failure_response( 429, 'Rate limit exceeded.' );
 			}
 		}
 
-		$cache = current_user_can( apply_filters( 'yard::deepl/cache_capability', 'edit_posts' ) );
-
 		try {
-			$translation = $this->service->handle_translation( (int) $object_id, $text, $target_lang, $cache );
+			$translation = $this->service->handle_translation( (int) $object_id, $text, $target_lang, $user_has_cache_capability );
 
 			if ( empty( $translation ) ) {
 				throw new Exception( 'Failed to translate text.', 500 );
