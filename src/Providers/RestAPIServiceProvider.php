@@ -86,6 +86,7 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 	 */
 	public function verify_nonce(): bool
 	{
-		return wp_verify_nonce( sanitize_text_field( wp_unslash( $_SERVER['HTTP_NONCE'] ?? '' ) ), YDPL_NONCE_REST_NAME ) || is_user_logged_in();
+		$nonce = sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_WP_NONCE'] ?? '' ) );
+		return (bool) wp_verify_nonce( $nonce, 'wp_rest' );
 	}
 }
