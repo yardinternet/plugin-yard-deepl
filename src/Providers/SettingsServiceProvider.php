@@ -104,5 +104,14 @@ class SettingsServiceProvider implements ServiceProviderInterface
 			'ydpl_section_rest_api',
 			array( 'settings_field_id' => 'ydpl_rest_api_param_object_id_is_mandatory' )
 		);
+
+		add_settings_field(
+			'ydpl_secure_mode_enabled',
+			__( 'Run translations in secure mode', 'yard-deepl' ),
+			array( $this->controller, 'section_fields_render' ),
+			'yard-deepl',
+			'ydpl_section_rest_api',
+			array( 'settings_field_id' => 'ydpl_secure_mode_enabled' )
+		);
 	}
 }

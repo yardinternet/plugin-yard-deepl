@@ -11,6 +11,7 @@ $settings_field_id                     = $settings_field_id ?? '';
 $supported_languages                   = is_array( $supported_languages ?? null ) ? $supported_languages : array();
 $configured_supported_languages        = is_array( $configured_supported_languages ?? null ) ? $configured_supported_languages : array();
 $rest_api_param_object_id_is_mandatory = $rest_api_param_object_id_is_mandatory ?? true;
+$secure_mode_enabled                   = $secure_mode_enabled ?? false;
 ?>
 
 <?php if ( $settings_field_id === 'ydpl_api_key' ) : ?>
@@ -29,4 +30,8 @@ $rest_api_param_object_id_is_mandatory = $rest_api_param_object_id_is_mandatory 
 
 <?php if ( $settings_field_id === 'ydpl_rest_api_param_object_id_is_mandatory' ) : ?>
 <input type="checkbox" name="ydpl_options[ydpl_rest_api_param_object_id_is_mandatory]" <?php echo $rest_api_param_object_id_is_mandatory ? 'checked' : ''; ?>>
+<?php endif; ?>
+
+<?php if ( $settings_field_id === 'ydpl_secure_mode_enabled' ) : ?>
+<input type="checkbox" name="ydpl_options[ydpl_secure_mode_enabled]" <?php echo $secure_mode_enabled ? 'checked' : ''; ?>>
 <?php endif; ?>

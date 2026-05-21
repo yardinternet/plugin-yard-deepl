@@ -51,6 +51,7 @@ class SettingsController
 				'supported_languages'                   => ydpl_resolve_from_container( 'ydpl.supported_target.languages' ),
 				'configured_supported_languages'        => ydpl_resolve_from_container( 'ydpl.site_options' )->configured_supported_languages(),
 				'rest_api_param_object_id_is_mandatory' => ydpl_resolve_from_container( 'ydpl.site_options' )->rest_api_param_object_id_is_mandatory(),
+				'secure_mode_enabled'                   => ydpl_resolve_from_container( 'ydpl.site_options' )->secure_mode_enabled(),
 			)
 		);
 	}
