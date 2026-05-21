@@ -5,7 +5,6 @@
 .phpunit.result.cache
 
 # Folders
-dist
 node_modules
 tests/coverage
 vendor
