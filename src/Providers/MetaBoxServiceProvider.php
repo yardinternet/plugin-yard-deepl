@@ -64,8 +64,7 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 	 */
 	private function translation_cache_metaboxes( WP_Post $post ): string
 	{
-		$cache_is_disabled       = get_post_meta( $post->ID, 'ydpl_disable_deepl_translation_cache', true );
-		$cache_clear_is_disabled = get_post_meta( $post->ID, 'ydpl_clear_deepl_translation_cache', true );
+		$cache_is_disabled = get_post_meta( $post->ID, 'ydpl_disable_deepl_translation_cache', true );
 
 		$html  = '<div class="ydpl-metabox-wrapper">';
 		$html .= '<div class="ydpl-metabox-row">';
@@ -77,7 +76,7 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 		$html .= '<div class="ydpl-metabox-row">';
 		$html .= sprintf( '<p>%s</p>', esc_html__( 'Clear cached translations on save.', 'yard-deepl' ) );
 		$html .= '<label for="ydpl_clear_deepl_translation_cache">';
-		$html .= sprintf( '<input type="checkbox" name="ydpl_clear_deepl_translation_cache" id="ydpl_clear_deepl_translation_cache" value="1"%s />', esc_attr( checked( $cache_clear_is_disabled, 1, false ) ) );
+		$html .= '<input type="checkbox" name="ydpl_clear_deepl_translation_cache" id="ydpl_clear_deepl_translation_cache" value="1" />';
 		$html .= sprintf( ' %s</label></div>', esc_html__( 'Clear translation cache?', 'yard-deepl' ) );
 		$html .= '</div>';
 
@@ -142,7 +141,7 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 		}
 
 		// Only allow updates for supported post types.
-		$post_types = apply_filters( 'yard::deepl/disable_cache_metabox_post_types', array( 'page' ) );
+		$post_types = apply_filters( 'yard::deepl/cache_metabox_post_types', array( 'page' ) );
 		if ( ! in_array( get_post_type( $post_id ), $post_types, true ) ) {
 			return false;
 		}
