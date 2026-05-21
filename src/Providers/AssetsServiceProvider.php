@@ -43,7 +43,7 @@ class AssetsServiceProvider implements ServiceProviderInterface
 				'ydpl_translate_post_id'   => get_the_ID() ?: get_queried_object_id() ?: 0,
 				'ydpl_rest_translate_url'  => esc_url_raw( rest_url( YDPL_API_NAMESPACE . '/translate' ) ),
 				'ydpl_supported_languages' => $this->format_selected_supported_languages(),
-				'ydpl_api_request_nonce'   => wp_create_nonce( YDPL_NONCE_REST_NAME ),
+				'ydpl_api_request_nonce'   => wp_create_nonce( 'wp_rest' ),
 			)
 		);
 	}
@@ -69,14 +69,18 @@ class AssetsServiceProvider implements ServiceProviderInterface
 	/**
 	 * @since 1.1.1
 	 */
-	public function enqueue_admin_assets(): void
+	public function enqueue_admin_assets( string $hook_suffix ): void
 	{
+		if ( ! in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) ) {
+			return;
+		}
+
 		$path         = ydpl_asset_path( 'editor.asset.php' );
 		$script_asset = file_exists( $path ) ? require $path : array(
 			'dependencies' => array(),
 			'version'      => round( microtime( true ) ),
 		);
 
-		wp_enqueue_style( 'ydpl-main', ydpl_asset_url( 'editor.css' ), $script_asset['dependencies'] ?? array(), $script_asset['version'] );
+		wp_enqueue_style( 'ydpl-editor', ydpl_asset_url( 'editor.css' ), $script_asset['dependencies'] ?? array(), $script_asset['version'] );
 	}
 }
