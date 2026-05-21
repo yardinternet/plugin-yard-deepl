@@ -67,7 +67,7 @@ class TranslationService
 	}
 
 	/**
-	 * @since 1.1.1
+	 * @since NEXT
 	 */
 	public function object_has_cached_translation( int $object_id, string $target_lang ): ?array
 	{
