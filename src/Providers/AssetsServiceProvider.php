@@ -67,7 +67,7 @@ class AssetsServiceProvider implements ServiceProviderInterface
 	}
 
 	/**
-	 * @since 1.1.1
+	 * @since NEXT
 	 */
 	public function enqueue_admin_assets( string $hook_suffix ): void
 	{

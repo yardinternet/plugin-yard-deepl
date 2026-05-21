@@ -86,7 +86,7 @@ class RestAPIController
 	}
 
 	/**
-	 * @since 1.1.1
+	 * @since NEXT
 	 */
 	protected function is_rate_limit_exceeded(): bool
 	{
@@ -109,7 +109,7 @@ class RestAPIController
 	}
 
 	/**
-	 * @since 1.1.1
+	 * @since NEXT
 	 */
 	protected function get_client_ip(): string
 	{
