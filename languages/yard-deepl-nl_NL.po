@@ -2,30 +2,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yard-deepl\n"
-"POT-Creation-Date: 2026-05-21T12:17:13+00:00\n"
-"PO-Revision-Date: 2024-09-06T17:21:36+00:00\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-05-21T12:17:13+00:00\n"
+"PO-Revision-Date: 2026-05-26T08:32:35+00:00\n"
+"Language: \n"
 
 #. Plugin Name of the plugin
-#: yard-deepl.php:8 src/Providers/SettingsServiceProvider.php:44
+#: yard-deepl.php:8
+#: src/Providers/MetaBoxServiceProvider.php:34
+#: src/Providers/SettingsServiceProvider.php:44
 #: src/Providers/SettingsServiceProvider.php:45
 msgid "Yard DeepL"
 msgstr "Yard DeepL"
 
 #. Description of the plugin
 #: yard-deepl.php:9
-msgid ""
-"This plugin registers secure API endpoints that allow you to request "
-"translations directly from DeepL without exposing your Deepl API-key"
-msgstr ""
-"Deze plugin registreert beveiligde API-eindpunten waarmee je vertalingen "
-"direct bij DeepL kunt opvragen zonder je DeepL API-sleutel bloot te stellen "
-"aan de buitenwereld"
+msgid "This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key"
+msgstr "Deze plugin registreert beveiligde API-eindpunten waarmee je vertalingen direct bij DeepL kunt opvragen zonder je DeepL API-sleutel bloot te stellen aan de buitenwereld"
 
 #. Author of the plugin
 #: yard-deepl.php:11
@@ -169,10 +166,6 @@ msgstr "Chinees (vereenvoudigd)"
 msgid "Chinese (Traditional)"
 msgstr "Chinees (traditioneel)"
 
-#: src/Providers/MetaBoxServiceProvider.php:34
-msgid "Yard Deepl"
-msgstr ""
-
 #: src/Providers/MetaBoxServiceProvider.php:71
 msgid "Disable translation cache when this object contains dynamic content."
 msgstr "Schakel de vertalingscache uit wanneer dit object dynamische inhoud bevat."
@@ -213,14 +206,9 @@ msgstr "website"
 #. Translators: %s is the link to the Deepl API documentation website.
 #: src/Views/admin/partials/settings/settings-description-general.php:16
 #, php-format
-msgid "To query the Deepl API, an API key is required. You can find more "
-"information on their %s."
-msgstr "Om de Deepl API te bevragen, is een API-sleutel vereist. Meer informatie "
-"vind je op hun %s."
+msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
+msgstr "Om de Deepl API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
 
 #: src/Views/admin/settings-page.php:15
 msgid "Save"
 msgstr "Opslaan"
-
-#~ msgid "Yard | Digital"
-#~ msgstr "Yard | Digital"
