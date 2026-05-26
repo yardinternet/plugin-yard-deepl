@@ -31,7 +31,7 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 	{
 		add_meta_box(
 			'yard-deepl',
-			__( 'Yard Deepl', 'yard-deepl' ),
+			__( 'Yard DeepL', 'yard-deepl' ),
 			array( $this, 'render_meta_boxes' ),
 			$this->get_cache_metabox_post_types(),
 			'side',
