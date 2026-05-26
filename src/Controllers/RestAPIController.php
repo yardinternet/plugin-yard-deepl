@@ -72,7 +72,7 @@ class RestAPIController
 		try {
 			$translation = $this->service->handle_translation( $object_id, $text, $target_lang, $user_has_cache_capability, $cached_translation );
 
-			if ( empty( $translation ) ) {
+			if ( array() === $translation ) {
 				throw new Exception( 'Failed to translate text.', 500 );
 			}
 		} catch ( Exception $e ) {
@@ -93,7 +93,7 @@ class RestAPIController
 	{
 		$client_ip = $this->get_client_ip();
 
-		if ( empty( $client_ip ) ) {
+		if ( '' === $client_ip ) {
 			return true;
 		}
 
