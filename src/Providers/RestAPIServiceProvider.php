@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use YDPL\Contracts\ServiceProviderInterface;
 use YDPL\Controllers\RestAPIController;
 use YDPL\Singletons\SiteOptionsSingleton;
+use WP_REST_Request;
 
 /**
  * @since 0.0.1
@@ -82,11 +83,18 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 	}
 
 	/**
+	 * Reads nonce from WP_REST_Request; falls back to legacy YDPL_NONCE_REST_NAME action.
+	 *
 	 * @since 0.0.1
 	 */
-	public function verify_nonce(): bool
+	public function verify_nonce( WP_REST_Request $request ): bool
 	{
-		$nonce = sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_WP_NONCE'] ?? '' ) );
-		return (bool) wp_verify_nonce( $nonce, 'wp_rest' );
+		$nonce = sanitize_text_field( $request->get_header( 'X-WP-Nonce' ) ?? '' );
+
+		if ( wp_verify_nonce( $nonce, 'wp_rest' ) ) {
+			return true;
+		}
+
+		return (bool) wp_verify_nonce( $nonce, YDPL_NONCE_REST_NAME );
 	}
 }
