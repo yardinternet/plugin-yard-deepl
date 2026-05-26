@@ -40,7 +40,7 @@ function ydpl_url( string $path ): string
 }
 
 /**
- * Generates a full plugin path by appending the given path to the base plugin URL.
+ * Generates a full plugin path by appending the given path to the base plugin directory path.
  *
  * @package Yard_Deepl
  * @author  Yard | Digital Agency
