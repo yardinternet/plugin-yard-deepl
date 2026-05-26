@@ -40,36 +40,37 @@ class RestAPIController
 	 */
 	public function handle_translate_request( WP_REST_Request $request ): WP_REST_Response
 	{
-		$text        = $request->get_param( 'text' );
-		$target_lang = $request->get_param( 'target_lang' );
-		$object_id   = $request->get_param( 'object_id' );
-		$origin      = $request->get_header( 'origin' );
+		$text        = (array) ( $request->get_param( 'text' ) ?? array() );
+		$target_lang = (string) ( $request->get_param( 'target_lang' ) ?? '' );
+		$object_id   = (int) ( $request->get_param( 'object_id' ) ?? 0 );
+		$origin      = (string) ( $request->get_header( 'origin' ) ?? '' );
 
-		if ( is_null( $origin ) || home_url() !== $origin ) {
+		if ( 0 < strlen( $origin ) && ! $this->is_same_origin( $origin ) ) {
 			return $this->set_failure_response( 403, 'Invalid origin. Origin does not match the site URL.' );
 		}
 
 		// Are required by Deepl.
-		if ( empty( $text ) || empty( $target_lang ) ) {
+		if ( array() === $text || 1 > strlen( $target_lang ) ) {
 			return $this->set_failure_response( 400, 'Invalid input parameters.' );
 		}
 
 		// Is required when configured as such in the plugin settings.
-		if ( $this->options->rest_api_param_object_id_is_mandatory() && empty( $object_id ) ) {
+		if ( $this->options->rest_api_param_object_id_is_mandatory() && 0 === $object_id ) {
 			return $this->set_failure_response( 400, 'Invalid input parameters.' );
 		}
 
 		$user_has_cache_capability = current_user_can( apply_filters( 'yard::deepl/cache_capability', 'edit_posts' ) );
+		$cached_translation        = ( 0 < $object_id ) ? $this->service->object_has_cached_translation( $object_id, $target_lang ) : null;
 
 		// Apply rate limit check if object ID is absent or translation is not cached when an object ID is present.
-		if ( empty( $object_id ) || ! $this->service->object_has_cached_translation( (int) $object_id, $target_lang ) ) {
+		if ( is_null( $cached_translation ) ) {
 			if ( $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
 				return $this->set_failure_response( 429, 'Rate limit exceeded.' );
 			}
 		}
 
 		try {
-			$translation = $this->service->handle_translation( (int) $object_id, $text, $target_lang, $user_has_cache_capability );
+			$translation = $this->service->handle_translation( $object_id, $text, $target_lang, $user_has_cache_capability, $cached_translation );
 
 			if ( empty( $translation ) ) {
 				throw new Exception( 'Failed to translate text.', 500 );
@@ -120,6 +121,23 @@ class RestAPIController
 		}
 
 		return $remote_address;
+	}
+
+	/**
+	 * @since NEXT
+	 */
+	protected function is_same_origin( string $origin ): bool
+	{
+		$home   = wp_parse_url( home_url() );
+		$parsed = wp_parse_url( $origin );
+
+		if ( ! $home || ! $parsed ) {
+			return false;
+		}
+
+		return ( $home['scheme'] ?? '' ) === ( $parsed['scheme'] ?? '' )
+			&& ( $home['host'] ?? '' ) === ( $parsed['host'] ?? '' )
+			&& ( $home['port'] ?? null ) === ( $parsed['port'] ?? null );
 	}
 
 	/**
