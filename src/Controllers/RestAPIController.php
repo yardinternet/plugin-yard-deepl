@@ -49,16 +49,6 @@ class RestAPIController
 			return $this->set_failure_response( 403, 'Invalid origin. Origin does not match the site URL.' );
 		}
 
-		// Are required by Deepl.
-		if ( array() === $text || 1 > strlen( $target_lang ) ) {
-			return $this->set_failure_response( 400, 'Invalid input parameters.' );
-		}
-
-		// Is required when configured as such in the plugin settings.
-		if ( $this->options->rest_api_param_object_id_is_mandatory() && 0 === $object_id ) {
-			return $this->set_failure_response( 400, 'Invalid input parameters.' );
-		}
-
 		$user_has_cache_capability = current_user_can( apply_filters( 'yard::deepl/cache_capability', 'edit_posts' ) );
 		$cached_translation        = ( 0 < $object_id ) ? ( $this->service->get_cached_translation( $object_id, $target_lang ) ?? array() ) : null;
 

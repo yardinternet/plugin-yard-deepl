@@ -54,6 +54,7 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						'type'              => 'array',
 						'default'           => array(),
 						'required'          => true,
+						'minItems'          => 1,
 						'sanitize_callback' => function ( $value, $request, $param ) {
 							return array_map( 'sanitize_text_field', $value );
 						},
@@ -61,6 +62,7 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 					'target_lang' => array(
 						'description'       => 'The target language in which the provided text should be translated to.',
 						'type'              => 'string',
+						'minLength'         => 2,
 						'default'           => 'NL',
 						'required'          => true,
 						'sanitize_callback' => function ( $value, $request, $param ) {
@@ -71,7 +73,13 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						'description'       => 'The ID of the object to translate.',
 						'required'          => $this->options->rest_api_param_object_id_is_mandatory(),
 						'validate_callback' => function ( $value, $request, $param ) {
-							return is_numeric( $value );
+							if ( ! is_numeric( $value ) ) {
+								return false;
+							}
+
+							$value = intval( $value );
+
+							return $value >= 0;
 						},
 						'sanitize_callback' => function ( $value, $request, $param ) {
 							return intval( $value );
