@@ -135,9 +135,24 @@ class RestAPIController
 			return false;
 		}
 
-		return ( $home['scheme'] ?? '' ) === ( $parsed['scheme'] ?? '' )
+		$home_scheme   = $home['scheme'] ?? '';
+		$parsed_scheme = $parsed['scheme'] ?? '';
+
+		return $home_scheme === $parsed_scheme
 			&& ( $home['host'] ?? '' ) === ( $parsed['host'] ?? '' )
-			&& ( $home['port'] ?? null ) === ( $parsed['port'] ?? null );
+			&& $this->normalize_port( $home['port'] ?? null, $home_scheme ) === $this->normalize_port( $parsed['port'] ?? null, $parsed_scheme );
+	}
+
+	/**
+	 * @since NEXT
+	 */
+	protected function normalize_port( ?int $port, string $scheme ): int
+	{
+		if ( null !== $port ) {
+			return $port;
+		}
+
+		return 'https' === $scheme ? 443 : 80;
 	}
 
 	/**
