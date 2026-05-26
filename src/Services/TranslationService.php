@@ -41,7 +41,9 @@ class TranslationService
 	 */
 	public function handle_translation_with_object_id( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null ): array
 	{
-		$cached_translation = $cached_translation ?? $this->get_cached_translation( $object_id, $target_lang );
+		if ( null === $cached_translation ) {
+			$cached_translation = $this->get_cached_translation( $object_id, $target_lang );
+		}
 
 		if ( $cached_translation ) {
 			return $cached_translation;

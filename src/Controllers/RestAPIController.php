@@ -60,10 +60,10 @@ class RestAPIController
 		}
 
 		$user_has_cache_capability = current_user_can( apply_filters( 'yard::deepl/cache_capability', 'edit_posts' ) );
-		$cached_translation        = ( 0 < $object_id ) ? $this->service->get_cached_translation( $object_id, $target_lang ) : null;
+		$cached_translation        = ( 0 < $object_id ) ? ( $this->service->get_cached_translation( $object_id, $target_lang ) ?? array() ) : null;
 
 		// Apply rate limit check if object ID is absent or translation is not cached when an object ID is present.
-		if ( is_null( $cached_translation ) ) {
+		if ( ! $cached_translation ) {
 			if ( $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
 				return $this->set_failure_response( 429, 'Rate limit exceeded.' );
 			}
