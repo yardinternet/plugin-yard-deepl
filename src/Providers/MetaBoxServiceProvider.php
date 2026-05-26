@@ -33,7 +33,7 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 			'yard-deepl',
 			__( 'Yard Deepl', 'yard-deepl' ),
 			array( $this, 'render_meta_boxes' ),
-			apply_filters( 'yard::deepl/cache_metabox_post_types', array( 'page' ) ),
+			$this->get_cache_metabox_post_types(),
 			'side',
 			'high'
 		);
@@ -141,11 +141,26 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 		}
 
 		// Only allow updates for supported post types.
-		$post_types = apply_filters( 'yard::deepl/cache_metabox_post_types', array( 'page' ) );
+		$post_types = $this->get_cache_metabox_post_types();
 		if ( ! in_array( get_post_type( $post_id ), $post_types, true ) ) {
 			return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * @since NEXT
+	 */
+	private function get_cache_metabox_post_types(): array
+	{
+		$post_types = apply_filters_deprecated(
+			'yard::deepl/disable_cache_metabox_post_types',
+			array( array( 'page' ) ),
+			'NEXT',
+			'yard::deepl/cache_metabox_post_types'
+		);
+
+		return apply_filters( 'yard::deepl/cache_metabox_post_types', $post_types );
 	}
 }
