@@ -71,7 +71,7 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 		$html .= '<div class="ydpl-metabox-row">';
 		$html .= sprintf( '<p>%s</p>', esc_html__( 'Disable translation cache when this object contains dynamic content.', 'yard-deepl' ) );
 		$html .= '<label for="ydpl_disable_deepl_translation_cache">';
-		$html .= sprintf( '<input type="checkbox" name="ydpl_disable_deepl_translation_cache" id="ydpl_disable_deepl_translation_cache" value="1"%s />', esc_attr( checked( $cache_is_disabled, 1, false ) ) );
+		$html .= sprintf( '<input type="checkbox" name="ydpl_disable_deepl_translation_cache" id="ydpl_disable_deepl_translation_cache" value="1"%s />', checked( $cache_is_disabled, 1, false ) );
 		$html .= sprintf( ' %s</label></div>', esc_html__( 'Disable translation cache?', 'yard-deepl' ) );
 
 		$html .= '<div class="ydpl-metabox-row">';
