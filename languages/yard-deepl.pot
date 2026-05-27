@@ -212,6 +212,18 @@ msgstr ""
 msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
 msgstr ""
 
+#: src/Providers/AdminColumnsServiceProvider.php:53
+msgid "Translation cache"
+msgstr ""
+
+#: src/Providers/AdminColumnsServiceProvider.php:70
+msgid "No languages configured"
+msgstr ""
+
+#: src/Providers/AdminColumnsServiceProvider.php:77
+msgid "No cached translations"
+msgstr ""
+
 #: src/Views/admin/settings-page.php:15
 msgid "Save"
 msgstr ""
