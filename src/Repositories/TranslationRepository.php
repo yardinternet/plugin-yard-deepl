@@ -56,6 +56,30 @@ class TranslationRepository
 	}
 
 	/**
+	 * Deletes all cached translations and their modified timestamps for every language.
+	 *
+	 * Removes both the cached translation data (_translation_<lang>) and the
+	 * staleness timestamp (_translation_modified_<lang>) written by store_translation().
+	 * Returns silently when the object does not exist.
+	 *
+	 * @since NEXT
+	 */
+	public function delete_cached_translations( int $object_id ): void
+	{
+		if ( ! $this->translated_object_exists( $object_id ) ) {
+			return;
+		}
+
+		$meta_keys = array_keys( get_post_meta( $object_id ) );
+
+		foreach ( $meta_keys as $key ) {
+			if ( 0 === strpos( $key, '_translation_' ) || 0 === strpos( $key, '_translation_modified_' ) ) {
+				delete_post_meta( $object_id, $key );
+			}
+		}
+	}
+
+	/**
 	 * @since 0.0.1
 	 *
 	 * @throws ObjectNotFoundException
