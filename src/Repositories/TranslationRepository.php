@@ -46,6 +46,37 @@ class TranslationRepository
 	}
 
 	/**
+	 * Returns the language codes from $language_codes that have a valid, non-stale cache entry.
+	 *
+	 * Fetches all post meta in one call for efficiency. A language is considered
+	 * cached when its translation data exists and its modified timestamp is at
+	 * least as recent as the post's own post_modified date.
+	 *
+	 * @since NEXT
+	 */
+	public function get_cached_languages( int $object_id, array $language_codes ): array
+	{
+		if ( ! $this->translated_object_exists( $object_id ) ) {
+			return array();
+		}
+
+		$post_modified = get_post_field( 'post_modified', $object_id );
+		$all_meta      = get_post_meta( $object_id );
+		$cached        = array();
+
+		foreach ( $language_codes as $lang ) {
+			$translation_value    = $all_meta[ "_translation_$lang" ][0] ?? null;
+			$translation_modified = $all_meta[ "_translation_modified_$lang" ][0] ?? null;
+
+			if ( $translation_value && $translation_modified && strtotime( $translation_modified ) >= strtotime( $post_modified ) ) {
+				$cached[] = $lang;
+			}
+		}
+
+		return $cached;
+	}
+
+	/**
 	 * @since 0.0.1
 	 */
 	protected function translated_object_exists( string $object_id ): bool

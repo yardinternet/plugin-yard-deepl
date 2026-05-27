@@ -5,6 +5,7 @@ const defaultConfig = require( '@wordpress/scripts/config/webpack.config' ); // 
 module.exports = {
 	...defaultConfig,
 	entry: {
+		'admin-columns': [ './assets/css/admin-columns.css' ],
 		editor: [ './assets/css/editor.css' ],
 		main: [ './assets/js/translation.js' ],
 	},

@@ -209,6 +209,18 @@ msgstr "website"
 msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
 msgstr "Om de Deepl API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
 
+#: src/Providers/AdminColumnsServiceProvider.php:53
+msgid "Translation cache"
+msgstr "Vertaalcache"
+
+#: src/Providers/AdminColumnsServiceProvider.php:70
+msgid "No languages configured"
+msgstr "Geen talen geconfigureerd"
+
+#: src/Providers/AdminColumnsServiceProvider.php:77
+msgid "No cached translations"
+msgstr "Geen gecachede vertalingen"
+
 #: src/Views/admin/settings-page.php:15
 msgid "Save"
 msgstr "Opslaan"

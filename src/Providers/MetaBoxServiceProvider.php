@@ -13,12 +13,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use YDPL\Contracts\ServiceProviderInterface;
 use YDPL\Repositories\TranslationRepository;
+use YDPL\Traits\CachePostTypesTrait;
 
 /**
  * @since 1.1.0
  */
 class MetaBoxServiceProvider implements ServiceProviderInterface
 {
+	use CachePostTypesTrait;
+
 	public function register(): void
 	{
 		add_action( 'add_meta_boxes', array( $this, 'register_meta_boxes' ), 999 );
@@ -142,20 +145,5 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 		}
 
 		return true;
-	}
-
-	/**
-	 * @since NEXT
-	 */
-	private function get_cache_metabox_post_types(): array
-	{
-		$post_types = apply_filters_deprecated(
-			'yard::deepl/disable_cache_metabox_post_types',
-			array( array( 'page' ) ),
-			'NEXT',
-			'yard::deepl/cache_metabox_post_types'
-		);
-
-		return apply_filters( 'yard::deepl/cache_metabox_post_types', $post_types );
 	}
 }
