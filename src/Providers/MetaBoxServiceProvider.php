@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use YDPL\Contracts\ServiceProviderInterface;
+use YDPL\Repositories\TranslationRepository;
 
 /**
  * @since 1.1.0
@@ -116,13 +117,7 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 			return;
 		}
 
-		$meta_keys = get_post_meta( $post_id );
-
-		foreach ( $meta_keys as $key => $value ) {
-			if ( strpos( $key, '_translation_' ) === 0 ) {
-				delete_post_meta( $post_id, $key );
-			}
-		}
+		( new TranslationRepository() )->delete_cached_translations( $post_id );
 	}
 
 	/**
