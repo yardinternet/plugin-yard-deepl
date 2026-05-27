@@ -70,13 +70,11 @@ class TranslationService
 
 	/**
 	 * @since NEXT
+	 *
+	 * @throws ObjectNotFoundException
 	 */
 	public function get_cached_translation( int $object_id, string $target_lang ): ?array
 	{
-		try {
-			return $this->repository->get_cached_translation( $object_id, $target_lang );
-		} catch ( ObjectNotFoundException $e ) {
-			return null;
-		}
+		return $this->repository->get_cached_translation( $object_id, $target_lang );
 	}
 }

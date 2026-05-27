@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use Exception;
 use WP_REST_Request;
 use WP_REST_Response;
+use YDPL\Exceptions\ObjectNotFoundException;
 use YDPL\Services\TranslationService;
 use YDPL\Singletons\SiteOptionsSingleton;
 use YDPL\Traits\ErrorLog;
@@ -50,7 +51,16 @@ class RestAPIController
 		}
 
 		$user_has_cache_capability = current_user_can( apply_filters( 'yard::deepl/cache_capability', 'edit_posts' ) );
-		$cached_translation        = ( 0 < $object_id ) ? ( $this->service->get_cached_translation( $object_id, $target_lang ) ?? array() ) : null;
+
+		if ( 0 < $object_id ) {
+			try {
+				$cached_translation = $this->service->get_cached_translation( $object_id, $target_lang ) ?? array();
+			} catch ( ObjectNotFoundException $e ) {
+				return $this->set_failure_response( 404, 'Object not found.' );
+			}
+		} else {
+			$cached_translation = null;
+		}
 
 		// Apply rate limit check if object ID is absent or translation is not cached when an object ID is present.
 		if ( ! $cached_translation ) {
