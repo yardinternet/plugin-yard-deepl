@@ -8,12 +8,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-05-21T12:17:13+00:00\n"
-"PO-Revision-Date: 2026-05-26T08:32:35+00:00\n"
+"PO-Revision-Date: 2026-05-27T14:36:10+00:00\n"
 "Language: \n"
 
 #. Plugin Name of the plugin
 #: yard-deepl.php:8
-#: src/Providers/MetaBoxServiceProvider.php:34
+#: src/Providers/MetaBoxServiceProvider.php:35
 #: src/Providers/SettingsServiceProvider.php:44
 #: src/Providers/SettingsServiceProvider.php:45
 msgid "Yard DeepL"
@@ -27,7 +27,7 @@ msgstr "Deze plugin registreert beveiligde API-eindpunten waarmee je vertalingen
 #. Author of the plugin
 #: yard-deepl.php:11
 msgid "Yard | Digital Agency"
-msgstr ""
+msgstr "Yard | Digital Agency"
 
 #. Author URI of the plugin
 #: yard-deepl.php:12
@@ -166,19 +166,19 @@ msgstr "Chinees (vereenvoudigd)"
 msgid "Chinese (Traditional)"
 msgstr "Chinees (traditioneel)"
 
-#: src/Providers/MetaBoxServiceProvider.php:71
+#: src/Providers/MetaBoxServiceProvider.php:72
 msgid "Disable translation cache when this object contains dynamic content."
 msgstr "Schakel de vertalingscache uit wanneer dit object dynamische inhoud bevat."
 
-#: src/Providers/MetaBoxServiceProvider.php:74
+#: src/Providers/MetaBoxServiceProvider.php:75
 msgid "Disable translation cache?"
 msgstr "Vertalingscache uitschakelen?"
 
-#: src/Providers/MetaBoxServiceProvider.php:77
+#: src/Providers/MetaBoxServiceProvider.php:78
 msgid "Clear cached translations on save."
 msgstr "Verwijder vertaalcache bij opslaan."
 
-#: src/Providers/MetaBoxServiceProvider.php:80
+#: src/Providers/MetaBoxServiceProvider.php:81
 msgid "Clear translation cache?"
 msgstr "Vertaalcache wissen?"
 

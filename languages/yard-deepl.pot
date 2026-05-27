@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-26T08:32:32+00:00\n"
+"POT-Creation-Date: 2026-05-27T14:36:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: yard-deepl\n"
 
 #. Plugin Name of the plugin
 #: yard-deepl.php:8
-#: src/Providers/MetaBoxServiceProvider.php:34
+#: src/Providers/MetaBoxServiceProvider.php:35
 #: src/Providers/SettingsServiceProvider.php:44
 #: src/Providers/SettingsServiceProvider.php:45
 msgid "Yard DeepL"
@@ -169,19 +169,19 @@ msgstr ""
 msgid "Chinese (Traditional)"
 msgstr ""
 
-#: src/Providers/MetaBoxServiceProvider.php:71
+#: src/Providers/MetaBoxServiceProvider.php:72
 msgid "Disable translation cache when this object contains dynamic content."
 msgstr ""
 
-#: src/Providers/MetaBoxServiceProvider.php:74
+#: src/Providers/MetaBoxServiceProvider.php:75
 msgid "Disable translation cache?"
 msgstr ""
 
-#: src/Providers/MetaBoxServiceProvider.php:77
+#: src/Providers/MetaBoxServiceProvider.php:78
 msgid "Clear cached translations on save."
 msgstr ""
 
-#: src/Providers/MetaBoxServiceProvider.php:80
+#: src/Providers/MetaBoxServiceProvider.php:81
 msgid "Clear translation cache?"
 msgstr ""
 
