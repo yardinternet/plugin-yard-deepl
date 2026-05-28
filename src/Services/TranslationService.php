@@ -51,6 +51,10 @@ class TranslationService
 
 		$translation = $this->handle_translation_without_object_id( $text, $target_lang );
 
+		if ( ! $cache ) {
+			$this->repository->increment_uncached_request_count( $object_id, $target_lang );
+		}
+
 		if ( $cache ) {
 			$this->repository->store_translation( $object_id, $target_lang, $translation );
 		}

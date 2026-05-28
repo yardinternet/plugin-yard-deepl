@@ -217,9 +217,16 @@ msgstr "Vertaalcache"
 msgid "No languages configured"
 msgstr "Geen talen geconfigureerd"
 
-#: src/Providers/AdminColumnsServiceProvider.php:77
+#: src/Providers/AdminColumnsServiceProvider.php:105
 msgid "No cached translations"
 msgstr "Geen gecachede vertalingen"
+
+#. Translators: %d is the number of uncached DeepL API calls made for this post and language.
+#: src/Providers/AdminColumnsServiceProvider.php:94
+msgid "%d uncached call"
+msgid_plural "%d uncached calls"
+msgstr[0] "%d aanroep zonder cache"
+msgstr[1] "%d aanroepen zonder cache"
 
 #: src/Views/admin/settings-page.php:15
 msgid "Save"

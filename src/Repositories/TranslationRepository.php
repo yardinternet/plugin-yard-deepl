@@ -46,23 +46,31 @@ class TranslationRepository
 	}
 
 	/**
-	 * Returns the language codes from $language_codes that have a valid, non-stale cache entry.
+	 * Returns data needed to render the admin list-table column in a single meta fetch.
 	 *
-	 * Fetches all post meta in one call for efficiency. A language is considered
-	 * cached when its translation data exists and its modified timestamp is at
-	 * least as recent as the post's own post_modified date.
+	 * 'cached_languages'        — ISO codes from $language_codes whose cache is valid and non-stale.
+	 * 'uncached_request_counts' — map of ISO code => cumulative uncached visitor API calls, only for
+	 *                             languages that have at least one recorded call.
 	 *
 	 * @since NEXT
+	 *
+	 * @return array{ cached_languages: string[], uncached_request_counts: array<string, int> }
 	 */
-	public function get_cached_languages( int $object_id, array $language_codes ): array
+	public function get_column_data( int $object_id, array $language_codes ): array
 	{
+		$empty = array(
+			'cached_languages'        => array(),
+			'uncached_request_counts' => array(),
+		);
+
 		if ( ! $this->translated_object_exists( $object_id ) ) {
-			return array();
+			return $empty;
 		}
 
 		$post_modified = get_post_field( 'post_modified', $object_id );
 		$all_meta      = get_post_meta( $object_id );
 		$cached        = array();
+		$counts        = array();
 
 		foreach ( $language_codes as $lang ) {
 			$translation_value    = $all_meta[ "_translation_$lang" ][0] ?? null;
@@ -71,9 +79,39 @@ class TranslationRepository
 			if ( $translation_value && $translation_modified && strtotime( $translation_modified ) >= strtotime( $post_modified ) ) {
 				$cached[] = $lang;
 			}
+
+			$count = (int) ( $all_meta[ "_ydpl_uncached_request_count_$lang" ][0] ?? 0 );
+
+			if ( 0 < $count ) {
+				$counts[ $lang ] = $count;
+			}
 		}
 
-		return $cached;
+		return array(
+			'cached_languages'        => $cached,
+			'uncached_request_counts' => $counts,
+		);
+	}
+
+	/**
+	 * Increments the per-language count of uncached visitor API calls for this post.
+	 *
+	 * Only called for requests from visitors who lack cache-write capability, so the
+	 * count reflects API spend that caching would have prevented. Returns silently
+	 * when the object does not exist.
+	 *
+	 * @since NEXT
+	 */
+	public function increment_uncached_request_count( int $object_id, string $target_lang ): void
+	{
+		if ( ! $this->translated_object_exists( $object_id ) ) {
+			return;
+		}
+
+		$key     = "_ydpl_uncached_request_count_$target_lang";
+		$current = (int) get_post_meta( $object_id, $key, true );
+
+		update_post_meta( $object_id, $key, $current + 1 );
 	}
 
 	/**
@@ -123,5 +161,6 @@ class TranslationRepository
 
 		update_post_meta( $object_id, "_translation_$target_lang", $translation );
 		update_post_meta( $object_id, "_translation_modified_$target_lang", current_time( 'mysql' ) );
+		delete_post_meta( $object_id, "_ydpl_uncached_request_count_$target_lang" );
 	}
 }
