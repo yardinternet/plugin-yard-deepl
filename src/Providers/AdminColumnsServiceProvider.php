@@ -67,27 +67,47 @@ class AdminColumnsServiceProvider implements ServiceProviderInterface
 		$configured_languages = ydpl_resolve_from_container( 'ydpl.site_options' )->configured_supported_languages();
 
 		if ( array() === $configured_languages ) {
-			echo '<span class="ydpl-cache-status ydpl-cache-status--none" aria-label="' . esc_attr__( 'No languages configured', 'yard-deepl' ) . '">—</span>';
+			echo '<span class="ydpl-cache-status--none" aria-label="' . esc_attr__( 'No languages configured', 'yard-deepl' ) . '">—</span>';
 
 			return;
 		}
 
-		$cached_languages = $this->repository->get_cached_languages( $post_id, $configured_languages );
+		$column_data     = $this->repository->get_column_data( $post_id, $configured_languages );
+		$cached_langs    = $column_data['cached_languages'];
+		$uncached_counts = $column_data['uncached_request_counts'];
 
-		if ( array() === $cached_languages ) {
-			echo '<span class="ydpl-cache-status ydpl-cache-status--none" aria-label="' . esc_attr__( 'No cached translations', 'yard-deepl' ) . '">—</span>';
+		$badges = '';
+
+		foreach ( $configured_languages as $lang ) {
+			if ( in_array( $lang, $cached_langs, true ) ) {
+				$badges .= sprintf(
+					'<span class="ydpl-cache-badge ydpl-cache-badge--cached">%s</span>',
+					esc_html( $lang )
+				);
+			} elseif ( isset( $uncached_counts[ $lang ] ) ) {
+				$count   = $uncached_counts[ $lang ];
+				$badges .= sprintf(
+					'<span class="ydpl-cache-badge ydpl-cache-badge--uncached" title="%s">%s <span class="ydpl-badge-count">%s</span></span>',
+					esc_attr(
+						sprintf(
+							/* translators: %d: number of uncached DeepL API calls made for this post and language */
+							_n( '%d uncached call', '%d uncached calls', $count, 'yard-deepl' ),
+							$count
+						)
+					),
+					esc_html( $lang ),
+					esc_html( number_format_i18n( $count ) )
+				);
+			}
+		}
+
+		if ( '' === $badges ) {
+			echo '<span class="ydpl-cache-status--none" aria-label="' . esc_attr__( 'No cached translations', 'yard-deepl' ) . '">—</span>';
 
 			return;
 		}
 
-		echo '<div class="ydpl-cache-badges">';
-		foreach ( $cached_languages as $lang ) {
-			printf(
-				'<span class="ydpl-cache-badge">%s</span>',
-				esc_html( $lang )
-			);
-		}
-		echo '</div>';
+		echo '<div class="ydpl-cache-badges">' . $badges . '</div>';
 	}
 
 	/**
