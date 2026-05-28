@@ -28,9 +28,7 @@ class TranslationRepository
 			throw new ObjectNotFoundException( 'Translated object not found.', 404 );
 		}
 
-		$is_disabled = get_post_meta( $object_id, 'ydpl_disable_deepl_translation_cache', true );
-
-		if ( ! is_string( $is_disabled ) || ( 0 < strlen( $is_disabled ) && '1' === $is_disabled ) ) {
+		if ( $this->is_cache_disabled( $object_id ) ) {
 			return null;
 		}
 
@@ -63,7 +61,7 @@ class TranslationRepository
 			'uncached_request_counts' => array(),
 		);
 
-		if ( ! $this->translated_object_exists( $object_id ) ) {
+		if ( ! $this->translated_object_exists( $object_id ) || $this->is_cache_disabled( $object_id ) ) {
 			return $empty;
 		}
 
@@ -105,7 +103,7 @@ class TranslationRepository
 	 */
 	public function increment_uncached_request_count( int $object_id, string $target_lang ): void
 	{
-		if ( ! $this->translated_object_exists( $object_id ) ) {
+		if ( ! $this->translated_object_exists( $object_id ) || $this->is_cache_disabled( $object_id ) ) {
 			return;
 		}
 
@@ -160,8 +158,19 @@ class TranslationRepository
 			throw new ObjectNotFoundException( 'Translated object not found.', 404 );
 		}
 
+		if ( $this->is_cache_disabled( $object_id ) ) {
+			return;
+		}
+
 		update_post_meta( $object_id, "_translation_$target_lang", $translation );
 		update_post_meta( $object_id, "_translation_modified_$target_lang", current_time( 'mysql' ) );
 		delete_post_meta( $object_id, "_ydpl_uncached_request_count_$target_lang" );
+	}
+
+	protected function is_cache_disabled( int $object_id ): bool
+	{
+		$is_disabled = get_post_meta( $object_id, 'ydpl_disable_deepl_translation_cache', true );
+
+		return is_string( $is_disabled ) && 0 < strlen( $is_disabled ) && '1' === $is_disabled;
 	}
 }
