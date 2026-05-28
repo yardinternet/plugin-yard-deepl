@@ -1,70 +1,38 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yard-deepl\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-06T17:21:36+00:00\n"
-"PO-Revision-Date: 2024-09-06T17:21:36+00:00\n"
+"POT-Creation-Date: 2026-05-21T12:17:13+00:00\n"
+"PO-Revision-Date: 2026-05-27T14:36:10+00:00\n"
 "Language: \n"
 
 #. Plugin Name of the plugin
+#: yard-deepl.php:8
+#: src/Providers/MetaBoxServiceProvider.php:35
 #: src/Providers/SettingsServiceProvider.php:44
 #: src/Providers/SettingsServiceProvider.php:45
-#: src/Providers/MetaboxServiceProvider.php:34
 msgid "Yard DeepL"
 msgstr "Yard DeepL"
 
 #. Description of the plugin
+#: yard-deepl.php:9
 msgid "This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key"
 msgstr "Deze plugin registreert beveiligde API-eindpunten waarmee je vertalingen direct bij DeepL kunt opvragen zonder je DeepL API-sleutel bloot te stellen aan de buitenwereld"
 
 #. Author of the plugin
-msgid "Yard | Digital"
-msgstr "Yard | Digital"
+#: yard-deepl.php:11
+msgid "Yard | Digital Agency"
+msgstr "Yard | Digital Agency"
 
 #. Author URI of the plugin
+#: yard-deepl.php:12
 msgid "https://www.yard.nl"
 msgstr "https://www.yard.nl"
-
-#: src/Providers/MetaboxServiceProvider.php:51
-msgid "Disable translation cache when this object contains dynamic content."
-msgstr "Schakel de vertalingscache uit wanneer dit object dynamische inhoud bevat."
-
-#: src/Providers/MetaboxServiceProvider.php:76
-msgid "Disable translation cache?"
-msgstr "Vertalingscache uitschakelen?"
-
-#: src/Providers/SettingsServiceProvider.php:66
-msgid "Settings"
-msgstr "Instellingen"
-
-#: src/Providers/SettingsServiceProvider.php:73
-msgid "Deepl API key"
-msgstr "Deepl API-sleutel"
-
-#: src/Providers/SettingsServiceProvider.php:82
-msgid "Deepl supported languages"
-msgstr "Deepl ondersteunde talen"
-
-#: src/Providers/SettingsServiceProvider.php:98
-msgid "Parameter object_id mandatory"
-msgstr "Parameter object_id verplicht"
-
-#: src/Views/admin/settings-page.php:15
-msgid "Save"
-msgstr "Opslaan"
-
-#: src/Views/admin/partials/settings/settings-description-general.php:10
-msgid "website"
-msgstr "website"
-
-#: src/Views/admin/partials/settings/settings-description-general.php:16
-msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
-msgstr "Om de Deepl API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
 
 #: config/php-di.php:25
 msgid "Arabic"
@@ -197,3 +165,69 @@ msgstr "Chinees (vereenvoudigd)"
 #: config/php-di.php:153
 msgid "Chinese (Traditional)"
 msgstr "Chinees (traditioneel)"
+
+#: src/Providers/MetaBoxServiceProvider.php:72
+msgid "Disable translation cache when this object contains dynamic content."
+msgstr "Schakel de vertalingscache uit wanneer dit object dynamische inhoud bevat."
+
+#: src/Providers/MetaBoxServiceProvider.php:75
+msgid "Disable translation cache?"
+msgstr "Vertalingscache uitschakelen?"
+
+#: src/Providers/MetaBoxServiceProvider.php:78
+msgid "Clear cached translations on save."
+msgstr "Verwijder vertaalcache bij opslaan."
+
+#: src/Providers/MetaBoxServiceProvider.php:81
+msgid "Clear translation cache?"
+msgstr "Vertaalcache wissen?"
+
+#: src/Providers/SettingsServiceProvider.php:69
+msgid "Settings"
+msgstr "Instellingen"
+
+#: src/Providers/SettingsServiceProvider.php:76
+msgid "Deepl API key"
+msgstr "Deepl API-sleutel"
+
+#: src/Providers/SettingsServiceProvider.php:85
+msgid "Deepl supported languages"
+msgstr "Deepl ondersteunde talen"
+
+#: src/Providers/SettingsServiceProvider.php:101
+msgid "Parameter object_id mandatory"
+msgstr "Parameter object_id verplicht"
+
+#. Translators: %s is the URL to the Deepl API documentation page.
+#: src/Views/admin/partials/settings/settings-description-general.php:10
+msgid "website"
+msgstr "website"
+
+#. Translators: %s is the link to the Deepl API documentation website.
+#: src/Views/admin/partials/settings/settings-description-general.php:16
+#, php-format
+msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
+msgstr "Om de Deepl API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
+
+#: src/Providers/AdminColumnsServiceProvider.php:53
+msgid "Translation cache"
+msgstr "Vertaalcache"
+
+#: src/Providers/AdminColumnsServiceProvider.php:70
+msgid "No languages configured"
+msgstr "Geen talen geconfigureerd"
+
+#: src/Providers/AdminColumnsServiceProvider.php:105
+msgid "No cached translations"
+msgstr "Geen gecachede vertalingen"
+
+#. Translators: %d is the number of uncached DeepL API calls made for this post and language.
+#: src/Providers/AdminColumnsServiceProvider.php:94
+msgid "%d uncached call"
+msgid_plural "%d uncached calls"
+msgstr[0] "%d aanroep zonder cache"
+msgstr[1] "%d aanroepen zonder cache"
+
+#: src/Views/admin/settings-page.php:15
+msgid "Save"
+msgstr "Opslaan"

@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use YDPL\Contracts\ServiceProviderInterface;
 use YDPL\Controllers\RestAPIController;
 use YDPL\Singletons\SiteOptionsSingleton;
+use WP_REST_Request;
 
 /**
  * @since 0.0.1
@@ -53,13 +54,19 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						'type'              => 'array',
 						'default'           => array(),
 						'required'          => true,
+						'minItems'          => 1,
 						'sanitize_callback' => function ( $value, $request, $param ) {
+							if ( ! is_array( $value ) ) {
+								return $value;
+							}
+
 							return array_map( 'sanitize_text_field', $value );
 						},
 					),
 					'target_lang' => array(
 						'description'       => 'The target language in which the provided text should be translated to.',
 						'type'              => 'string',
+						'minLength'         => 2,
 						'default'           => 'NL',
 						'required'          => true,
 						'sanitize_callback' => function ( $value, $request, $param ) {
@@ -70,7 +77,13 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						'description'       => 'The ID of the object to translate.',
 						'required'          => $this->options->rest_api_param_object_id_is_mandatory(),
 						'validate_callback' => function ( $value, $request, $param ) {
-							return is_numeric( $value );
+							if ( ! is_numeric( $value ) ) {
+								return false;
+							}
+
+							$value = intval( $value );
+
+							return $value >= 0;
 						},
 						'sanitize_callback' => function ( $value, $request, $param ) {
 							return intval( $value );
@@ -82,10 +95,18 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 	}
 
 	/**
+	 * Reads nonce from WP_REST_Request; falls back to legacy YDPL_NONCE_REST_NAME action.
+	 *
 	 * @since 0.0.1
 	 */
-	public function verify_nonce(): bool
+	public function verify_nonce( WP_REST_Request $request ): bool
 	{
-		return wp_verify_nonce( sanitize_text_field( wp_unslash( $_SERVER['HTTP_NONCE'] ?? '' ) ), YDPL_NONCE_REST_NAME ) || is_user_logged_in();
+		$nonce = sanitize_text_field( $request->get_header( 'X-WP-Nonce' ) ?? '' );
+
+		if ( wp_verify_nonce( $nonce, 'wp_rest' ) ) {
+			return true;
+		}
+
+		return (bool) wp_verify_nonce( $nonce, YDPL_NONCE_REST_NAME );
 	}
 }
