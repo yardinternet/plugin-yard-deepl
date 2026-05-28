@@ -9,7 +9,7 @@ Requires at least: 6.0
 Requires PHP: 8.0
 Stable tag: 1.1.0
 Tags: deepl, translating, secure
-Tested up to: 6.7.1
+Tested up to: 6.8.5
 
 This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your DeepL API-key.
 
@@ -34,6 +34,16 @@ A metabox labeled **Yard DeepL** is displayed on the edit screen of supported po
 
 -   **Disable translation cache:** When checked, the cache is bypassed for this object. Useful for posts with dynamic content that should always be translated fresh.
 -   **Clear translation cache:** When checked and the post is saved, all cached translations for this object are deleted.
+
+### Admin: Translation Cache Column
+
+A **Translation cache** column is added to the post list screen of all supported post types. Its purpose is to notify editors which posts should be cached as soon as possible to avoid unnecessary DeepL API costs.
+
+-   **Green badge per language** (e.g. `NL`, `EN-US`): a valid, up-to-date cached translation exists for that language. Visitor requests are served from cache at no cost.
+-   **Grey badge with a count per language** (e.g. `EN-US 42`): no cache exists for that language and visitors have triggered that many live DeepL API calls. Hovering the badge shows the full count as a tooltip. These posts are the most urgent to cache.
+-   **—**: the post has never been requested for translation, or caching is disabled for this post.
+
+The uncached call count is only incremented for visitor requests (users without cache-write capability) and is automatically reset per language once a cache entry is stored. Posts with the **Disable translation cache** option enabled are excluded from the column entirely.
 
 ## External Services
 
@@ -142,6 +152,7 @@ xhr.send( data );
 -   Add: rate limiting for unauthenticated / low-privilege requests (3 req / 60 s per IP)
 -   Add: cache creation restricted to users with `edit_posts` capability (configurable via filter)
 -   Add: `yard::deepl/cache_capability` filter
+-   Add: Translation cache column on post list screens showing cached languages and per-language uncached call counts, to help editors prioritise which posts to cache
 -   Change: deprecated `yard::deepl/disable_cache_metabox_post_types` in favour of `yard::deepl/cache_metabox_post_types`
 -   Change: nonce validation now also accepts the standard `wp_rest` nonce action as a fallback
 
