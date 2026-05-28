@@ -56,6 +56,10 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						'required'          => true,
 						'minItems'          => 1,
 						'sanitize_callback' => function ( $value, $request, $param ) {
+							if ( ! is_array( $value ) ) {
+								return $value;
+							}
+
 							return array_map( 'sanitize_text_field', $value );
 						},
 					),
