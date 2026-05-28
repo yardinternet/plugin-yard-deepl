@@ -133,6 +133,11 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 			return false;
 		}
 
+		// Verify the current user can edit this post.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return false;
+		}
+
 		// Skip autosave to avoid overwriting values during revisions or autosaves.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return false;
