@@ -67,16 +67,17 @@ class TranslationRepository
 			return $empty;
 		}
 
-		$post_modified = get_post_field( 'post_modified', $object_id );
-		$all_meta      = get_post_meta( $object_id );
-		$cached        = array();
-		$counts        = array();
+		$post_modified           = get_post_field( 'post_modified', $object_id );
+		$post_modified_timestamp = strtotime( $post_modified );
+		$all_meta                = get_post_meta( $object_id );
+		$cached                  = array();
+		$counts                  = array();
 
 		foreach ( $language_codes as $lang ) {
 			$translation_value    = $all_meta[ "_translation_$lang" ][0] ?? null;
 			$translation_modified = $all_meta[ "_translation_modified_$lang" ][0] ?? null;
 
-			if ( $translation_value && $translation_modified && strtotime( $translation_modified ) >= strtotime( $post_modified ) ) {
+			if ( $translation_value && $translation_modified && strtotime( $translation_modified ) >= $post_modified_timestamp ) {
 				$cached[] = $lang;
 			}
 
@@ -117,7 +118,7 @@ class TranslationRepository
 	/**
 	 * @since 0.0.1
 	 */
-	protected function translated_object_exists( string $object_id ): bool
+	protected function translated_object_exists( int $object_id ): bool
 	{
 		$object = get_post( $object_id );
 
