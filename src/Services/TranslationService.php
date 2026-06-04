@@ -73,7 +73,7 @@ class TranslationService
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 *
 	 * @throws ObjectNotFoundException
 	 */

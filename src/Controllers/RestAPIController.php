@@ -87,7 +87,7 @@ class RestAPIController
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	protected function is_rate_limit_exceeded(): bool
 	{
@@ -110,7 +110,7 @@ class RestAPIController
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	protected function get_client_ip(): string
 	{
@@ -124,7 +124,7 @@ class RestAPIController
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	protected function is_same_origin( string $origin ): bool
 	{
@@ -144,7 +144,7 @@ class RestAPIController
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	protected function normalize_port( ?int $port, string $scheme ): int
 	{

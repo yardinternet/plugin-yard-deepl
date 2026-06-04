@@ -68,7 +68,7 @@ function ydpl_asset_url( string $path ): string
  *
  * @package Yard_Deepl
  * @author  Yard | Digital Agency
- * @since   NEXT
+ * @since   2.0.0
  */
 function ydpl_asset_path( string $path ): string
 {

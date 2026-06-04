@@ -19,7 +19,7 @@ use YDPL\Traits\CachePostTypesTrait;
  * target languages already have a valid, non-stale cached translation so editors
  * can spot at a glance which posts will trigger a live DeepL API call.
  *
- * @since NEXT
+ * @since 2.0.0
  */
 class AdminColumnsServiceProvider implements ServiceProviderInterface
 {
@@ -33,7 +33,7 @@ class AdminColumnsServiceProvider implements ServiceProviderInterface
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	public function register(): void
 	{
@@ -46,7 +46,7 @@ class AdminColumnsServiceProvider implements ServiceProviderInterface
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	public function add_column( array $columns ): array
 	{
@@ -56,7 +56,7 @@ class AdminColumnsServiceProvider implements ServiceProviderInterface
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	public function render_column( string $column, int $post_id ): void
 	{
@@ -111,7 +111,7 @@ class AdminColumnsServiceProvider implements ServiceProviderInterface
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	public function enqueue_styles( string $hook_suffix ): void
 	{
