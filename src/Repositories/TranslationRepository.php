@@ -50,7 +50,7 @@ class TranslationRepository
 	 * 'uncached_request_counts' — map of ISO code => cumulative uncached visitor API calls, only for
 	 *                             languages that have at least one recorded call.
 	 *
-	 * @since NEXT
+	 * @since 2.0.0
 	 *
 	 * @return array{ cached_languages: string[], uncached_request_counts: array<string, int> }
 	 */
@@ -99,7 +99,7 @@ class TranslationRepository
 	 * count reflects API spend that caching would have prevented. Returns silently
 	 * when the object does not exist.
 	 *
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	public function increment_uncached_request_count( int $object_id, string $target_lang ): void
 	{
@@ -130,7 +130,7 @@ class TranslationRepository
 	 * staleness timestamp (_translation_modified_<lang>) written by store_translation().
 	 * Returns silently when the object does not exist.
 	 *
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	public function delete_cached_translations( int $object_id ): void
 	{

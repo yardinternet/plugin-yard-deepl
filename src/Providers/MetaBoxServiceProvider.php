@@ -101,7 +101,7 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	private function set_disable_cache_metabox_value( int $post_id ): void
 	{
@@ -110,7 +110,7 @@ class MetaBoxServiceProvider implements ServiceProviderInterface
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.0.0
 	 */
 	private function clear_translation_cache( int $post_id ): void
 	{

@@ -6,9 +6,9 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 6.0
 Requires PHP: 8.0
-Stable tag: 1.1.0
+Stable tag: 2.0.0
 Tags: deepl, translating, secure
-Tested up to: 6.8.5
+Tested up to: 7.0
 
 This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your DeepL API-key.
 
@@ -121,7 +121,7 @@ Response:
 
 == Changelog ==
 
-= NEXT: unreleased =
+= 2.0.0: June 04, 2026 =
 
 * Add: same-origin check for REST API requests
 * Add: rate limiting for unauthenticated / low-privilege requests (3 req / 60 s per IP)
