@@ -7,11 +7,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $api_key                               = $api_key ?? '';
+$base_url                              = $base_url ?? '';
+$default_base_url                      = $default_base_url ?? '';
 $settings_field_id                     = $settings_field_id ?? '';
 $supported_languages                   = is_array( $supported_languages ?? null ) ? $supported_languages : array();
 $configured_supported_languages        = is_array( $configured_supported_languages ?? null ) ? $configured_supported_languages : array();
 $rest_api_param_object_id_is_mandatory = $rest_api_param_object_id_is_mandatory ?? true;
 ?>
+
+<?php if ( $settings_field_id === 'ydpl_base_url' ) : ?>
+<input type="text" id="ydpl_base_url" name="ydpl_options[ydpl_base_url]" value="<?php echo esc_attr( $base_url ); ?>" placeholder="<?php echo esc_attr( $default_base_url ); ?>" class="regular-text">
+<?php endif; ?>
 
 <?php if ( $settings_field_id === 'ydpl_api_key' ) : ?>
 <input type="password" name="ydpl_options[ydpl_api_key]" value="<?php echo esc_attr( $api_key ); ?>">

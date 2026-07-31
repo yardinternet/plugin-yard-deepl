@@ -7,8 +7,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-21T12:17:13+00:00\n"
-"PO-Revision-Date: 2026-05-27T14:36:10+00:00\n"
+"POT-Creation-Date: 2026-07-31T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-07-31T00:00:00+00:00\n"
 "Language: \n"
 
 #. Plugin Name of the plugin
@@ -21,7 +21,7 @@ msgstr "Yard DeepL"
 
 #. Description of the plugin
 #: yard-deepl.php:9
-msgid "This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key"
+msgid "This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your DeepL API-key"
 msgstr "Deze plugin registreert beveiligde API-eindpunten waarmee je vertalingen direct bij DeepL kunt opvragen zonder je DeepL API-sleutel bloot te stellen aan de buitenwereld"
 
 #. Author of the plugin
@@ -187,27 +187,35 @@ msgid "Settings"
 msgstr "Instellingen"
 
 #: src/Providers/SettingsServiceProvider.php:76
-msgid "Deepl API key"
-msgstr "Deepl API-sleutel"
+msgid "DeepL API base URL"
+msgstr "DeepL API basis-URL"
 
 #: src/Providers/SettingsServiceProvider.php:85
-msgid "Deepl supported languages"
-msgstr "Deepl ondersteunde talen"
+msgid "DeepL API key"
+msgstr "DeepL API-sleutel"
 
-#: src/Providers/SettingsServiceProvider.php:101
+#: src/Providers/SettingsServiceProvider.php:94
+msgid "DeepL supported languages"
+msgstr "DeepL ondersteunde talen"
+
+#: src/Providers/SettingsServiceProvider.php:110
 msgid "Parameter object_id mandatory"
 msgstr "Parameter object_id verplicht"
 
-#. Translators: %s is the URL to the Deepl API documentation page.
+#: src/Controllers/SettingsController.php:112
+msgid "The DeepL API base URL must be a valid https://*.deepl.com/v2/translate URL. The previous value has been kept."
+msgstr "De DeepL API basis-URL moet een geldige https://*.deepl.com/v2/translate-URL zijn. De vorige waarde is behouden."
+
+#. Translators: %s is the URL to the DeepL API documentation page.
 #: src/Views/admin/partials/settings/settings-description-general.php:10
 msgid "website"
 msgstr "website"
 
-#. Translators: %s is the link to the Deepl API documentation website.
+#. Translators: %s is the link to the DeepL API documentation website.
 #: src/Views/admin/partials/settings/settings-description-general.php:16
 #, php-format
-msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
-msgstr "Om de Deepl API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
+msgid "To query the DeepL API, an API key is required. You can find more information on their %s."
+msgstr "Om de DeepL API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
 
 #: src/Providers/AdminColumnsServiceProvider.php:53
 msgid "Translation cache"

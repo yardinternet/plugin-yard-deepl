@@ -56,6 +56,8 @@ This plugin connects to the DeepL API to provide translations for content.
 -   **Privacy Policy:** [DeepL Privacy Policy](https://www.deepl.com/privacy)
 -   **Terms of Service:** [DeepL Terms of Service](https://www.deepl.com/pro-license)
 
+The API base URL defaults to `https://api.deepl.com/v2/translate` and can be overridden on the plugin's settings page, for example to use a DeepL Free API account (`https://api-free.deepl.com/v2/translate`).
+
 ## Installation
 
 1. Upload plugin directory to the `/wp-content/plugins/` directory
@@ -145,6 +147,10 @@ xhr.send( data );
 | ~~`yard::deepl/disable_cache_metabox_post_types`~~ | —              | **Deprecated.** Use `yard::deepl/cache_metabox_post_types` instead.                                                                       |
 
 ## Changelog
+
+### NEXT
+
+-   Add: configurable DeepL API base URL setting, defaulting to `https://api.deepl.com/v2/translate`
 
 ### 2.0.0 (June 04, 2026)
 

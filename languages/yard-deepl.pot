@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-27T14:36:10+00:00\n"
+"POT-Creation-Date: 2026-07-31T00:00:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: yard-deepl\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #. Description of the plugin
 #: yard-deepl.php:9
-msgid "This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key"
+msgid "This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your DeepL API-key"
 msgstr ""
 
 #. Author of the plugin
@@ -190,26 +190,34 @@ msgid "Settings"
 msgstr ""
 
 #: src/Providers/SettingsServiceProvider.php:76
-msgid "Deepl API key"
+msgid "DeepL API base URL"
 msgstr ""
 
 #: src/Providers/SettingsServiceProvider.php:85
-msgid "Deepl supported languages"
+msgid "DeepL API key"
 msgstr ""
 
-#: src/Providers/SettingsServiceProvider.php:101
+#: src/Providers/SettingsServiceProvider.php:94
+msgid "DeepL supported languages"
+msgstr ""
+
+#: src/Providers/SettingsServiceProvider.php:110
 msgid "Parameter object_id mandatory"
 msgstr ""
 
-#. Translators: %s is the URL to the Deepl API documentation page.
+#: src/Controllers/SettingsController.php:112
+msgid "The DeepL API base URL must be a valid https://*.deepl.com/v2/translate URL. The previous value has been kept."
+msgstr ""
+
+#. Translators: %s is the URL to the DeepL API documentation page.
 #: src/Views/admin/partials/settings/settings-description-general.php:10
 msgid "website"
 msgstr ""
 
-#. Translators: %s is the link to the Deepl API documentation website.
+#. Translators: %s is the link to the DeepL API documentation website.
 #: src/Views/admin/partials/settings/settings-description-general.php:16
 #, php-format
-msgid "To query the Deepl API, an API key is required. You can find more information on their %s."
+msgid "To query the DeepL API, an API key is required. You can find more information on their %s."
 msgstr ""
 
 #: src/Providers/AdminColumnsServiceProvider.php:53

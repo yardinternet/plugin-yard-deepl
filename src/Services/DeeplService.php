@@ -53,7 +53,7 @@ class DeeplService
 	 */
 	private function start_service(): void
 	{
-		$this->client = new DeeplClient( $this->options->api_key() );
+		$this->client = new DeeplClient( $this->options->api_key(), $this->options->base_url() );
 	}
 
 	/**
