@@ -6,7 +6,7 @@
  * @author  Yard | Digital Agency
  *
  * Plugin Name: Yard DeepL
- * Description: This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key
+ * Description: This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your DeepL API-key
  * Version: 2.0.0
  * Author: Yard | Digital Agency
  * Author URI: https://www.yard.nl
@@ -14,6 +14,7 @@
  * Text Domain: yard-deepl
  * Domain Path: /languages
  * Requires at least: 6.0
+ * Requires PHP: 8.0
  */
 
 /**

@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use YDPL\Clients\DeeplClient;
+
 /**
  * @since 0.0.1
  */
@@ -48,6 +50,24 @@ class SiteOptionsSingleton
 	public function api_key(): string
 	{
 		return $this->options['ydpl_api_key'] ?? '';
+	}
+
+	/**
+	 * @since NEXT
+	 */
+	public function base_url(): string
+	{
+		return $this->raw_base_url() ?: DeeplClient::DEFAULT_BASE_URL;
+	}
+
+	/**
+	 * The base URL as actually stored, without falling back to the default.
+	 *
+	 * @since NEXT
+	 */
+	public function raw_base_url(): string
+	{
+		return $this->options['ydpl_base_url'] ?? '';
 	}
 
 	/**

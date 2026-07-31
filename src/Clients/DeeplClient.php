@@ -6,12 +6,15 @@ use Exception;
 
 class DeeplClient
 {
-	private string $apiKey;
-	private string $baseUrl = 'https://api.deepl.com/v2/translate';
+	public const DEFAULT_BASE_URL = 'https://api.deepl.com/v2/translate';
 
-	public function __construct( string $apiKey )
+	private string $apiKey;
+	private string $baseUrl;
+
+	public function __construct( string $apiKey, string $baseUrl = '' )
 	{
-		$this->apiKey = $apiKey;
+		$this->apiKey  = $apiKey;
+		$this->baseUrl = '' !== $baseUrl ? $baseUrl : self::DEFAULT_BASE_URL;
 	}
 
 	/**

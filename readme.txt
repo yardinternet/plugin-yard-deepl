@@ -14,7 +14,7 @@ This plugin registers secure API endpoints that allow you to request translation
 
 == Description ==
 
-This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your Deepl API-key. These endpoints are only accessible when a valid nonce is provided. When providing translations to website visitors, you can configure which languages are supported for translation.
+This plugin registers secure API endpoints that allow you to request translations directly from DeepL without exposing your DeepL API-key. These endpoints are only accessible when a valid nonce is provided. When providing translations to website visitors, you can configure which languages are supported for translation.
 
 == Caching Mechanism ==
 
@@ -53,6 +53,8 @@ This plugin connects to the DeepL API to provide translations for content.
 - **Conditions:** Data is sent when a request for translation is initiated.
 - **Privacy Policy:** [DeepL Privacy Policy](https://www.deepl.com/privacy)
 - **Terms of Service:** [DeepL Terms of Service](https://www.deepl.com/pro-license)
+
+The API base URL defaults to `https://api.deepl.com/v2/translate` and can be overridden on the plugin's settings page, for example to use a DeepL Free API account (`https://api-free.deepl.com/v2/translate`).
 
 == Installation ==
 
@@ -120,6 +122,10 @@ Response:
 * `yard::deepl/disable_cache_metabox_post_types` — Deprecated. Use `yard::deepl/cache_metabox_post_types` instead.
 
 == Changelog ==
+
+= NEXT =
+
+* Add: configurable DeepL API base URL setting, defaulting to `https://api.deepl.com/v2/translate`
 
 = 2.0.0: June 04, 2026 =
 

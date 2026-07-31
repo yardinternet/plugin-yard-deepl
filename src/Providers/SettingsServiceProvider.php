@@ -72,8 +72,17 @@ class SettingsServiceProvider implements ServiceProviderInterface
 		);
 
 		add_settings_field(
+			'ydpl_base_url',
+			__( 'DeepL API base URL', 'yard-deepl' ),
+			array( $this->controller, 'section_fields_render' ),
+			'yard-deepl',
+			'ydpl_section_general',
+			array( 'settings_field_id' => 'ydpl_base_url' )
+		);
+
+		add_settings_field(
 			'ydpl_api_key',
-			__( 'Deepl API key', 'yard-deepl' ),
+			__( 'DeepL API key', 'yard-deepl' ),
 			array( $this->controller, 'section_fields_render' ),
 			'yard-deepl',
 			'ydpl_section_general',
@@ -82,7 +91,7 @@ class SettingsServiceProvider implements ServiceProviderInterface
 
 		add_settings_field(
 			'ydpl_supported_target_languages',
-			__( 'Deepl supported languages', 'yard-deepl' ),
+			__( 'DeepL supported languages', 'yard-deepl' ),
 			array( $this->controller, 'section_fields_render' ),
 			'yard-deepl',
 			'ydpl_section_general',
