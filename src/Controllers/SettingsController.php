@@ -87,7 +87,7 @@ class SettingsController
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.1.0
 	 */
 	private function sanitize_base_url_setting( array $settings ): array
 	{

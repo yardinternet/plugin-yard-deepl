@@ -7,7 +7,7 @@ License: EUPL v1.2
 License URI: <https://www.gnu.org/licenses/gpl-2.0.html>
 Requires at least: 6.0
 Requires PHP: 8.0
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 Tags: deepl, translating, secure
 Tested up to: 7.0
 
@@ -148,7 +148,7 @@ xhr.send( data );
 
 ## Changelog
 
-### NEXT
+### 2.1.0 (Aug 03, 2026)
 
 -   Add: configurable DeepL API base URL setting, defaulting to `https://api.deepl.com/v2/translate`
 

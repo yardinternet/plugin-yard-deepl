@@ -53,7 +53,7 @@ class SiteOptionsSingleton
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.1.0
 	 */
 	public function base_url(): string
 	{
@@ -63,7 +63,7 @@ class SiteOptionsSingleton
 	/**
 	 * The base URL as actually stored, without falling back to the default.
 	 *
-	 * @since NEXT
+	 * @since 2.1.0
 	 */
 	public function raw_base_url(): string
 	{
