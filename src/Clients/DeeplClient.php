@@ -39,19 +39,7 @@ class DeeplClient
 	/**
 	 * Builds the /v2/translate request body.
 	 *
-	 * `source_lang` is left out of the body altogether unless DeepL supports the
-	 * code, because DeepL answers an unsupported one with HTTP 400 and this
-	 * client turns that into a 500 for the whole request. An absent key makes
-	 * DeepL auto-detect, which is the last fallback the resolution chain wants.
-	 * The key has to be genuinely absent: an empty string is a 400 as well.
-	 *
-	 * The argument is normalised here rather than assumed to arrive normalised,
-	 * so a caller handing over a raw tag such as 'nl-NL' sends NL instead of
-	 * silently dropping the step. That is what makes this the single choke point
-	 * for the payload: no caller can reach DeepL with a code it does not accept,
-	 * and none has to know the normalisation rules to get its code across.
-	 *
-	 * @since 2.2.0
+	 * @since NEXT
 	 */
 	public static function buildPayload( array $text, string $targetLang, string $sourceLang ): array
 	{

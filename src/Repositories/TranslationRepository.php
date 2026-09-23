@@ -45,7 +45,7 @@ class TranslationRepository
 	}
 
 	/**
-	 * @since 2.2.0
+	 * @since NEXT
 	 */
 	protected function cache_key( string $source_lang, string $target_lang ): string
 	{
@@ -53,7 +53,7 @@ class TranslationRepository
 	}
 
 	/**
-	 * @since 2.2.0
+	 * @since NEXT
 	 */
 	protected function modified_key( string $source_lang, string $target_lang ): string
 	{
@@ -82,17 +82,7 @@ class TranslationRepository
 			return $empty;
 		}
 
-		/**
-		 * No request context is available here, so the source language is
-		 * resolved exactly the way the controller resolves it once the request
-		 * value is out of the picture: site locale, then auto-detect. Sharing
-		 * the resolution keeps this column reading the same cache keys the
-		 * controller writes.
-		 *
-		 * @since 2.2.0
-		 */
 		$source_lang = LanguageCode::to_source_language( get_locale() );
-
 		$post_modified           = get_post_field( 'post_modified', $object_id );
 		$post_modified_timestamp = strtotime( $post_modified );
 		$all_meta                = get_post_meta( $object_id );

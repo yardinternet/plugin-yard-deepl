@@ -51,18 +51,7 @@ class RestAPIController
 		 * Request value first, then the site locale, then DeepL's own
 		 * auto-detect, which an empty string stands for here.
 		 *
-		 * The request value has already been normalised by the REST sanitize
-		 * callback, but it is normalised and checked again: the server is the
-		 * authority on the source language and must not assume the callback
-		 * ran. A step is dropped unless DeepL really supports the code, so a
-		 * well formed but unsupported tag such as 'fy' — or a three-letter
-		 * locale such as 'nds_NL', which normalises to nothing — falls through
-		 * instead of earning an HTTP 400 or being mistranslated as Dutch.
-		 *
-		 * Dutch sites are unaffected: 'nl-NL' from the document and 'nl_NL'
-		 * from get_locale() both resolve to the supported code 'NL'.
-		 *
-		 * @since 2.2.0
+		 * @since NEXT
 		 */
 		$source_lang = LanguageCode::to_source_language( (string) ( $request->get_param( 'source_lang' ) ?? '' ) );
 
@@ -80,18 +69,7 @@ class RestAPIController
 		 * Whether this request will actually reach DeepL, which is what the rate
 		 * limiter is there to meter.
 		 *
-		 * A cache entry merely existing no longer answers that question. A partial
-		 * entry now sends the strings it is missing to DeepL and merges the result
-		 * back, so gating the limiter on `! $cached_translation` let anyone pair a
-		 * warm object ID with text of their own choosing: every string missed,
-		 * every string went to the API, and the limiter was never consulted.
-		 *
-		 * The gate is therefore the very set of strings the service will send,
-		 * decided by the service's own helper on the same cache entry the service
-		 * is handed below, so the two cannot drift apart. Without an object ID
-		 * there is no entry to consult and the whole request goes to the API.
-		 *
-		 * @since 2.2.0
+		 * @since NEXT
 		 */
 		if ( 0 < $object_id ) {
 			try {
