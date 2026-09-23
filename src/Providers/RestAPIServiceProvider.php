@@ -89,6 +89,15 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 							return intval( $value );
 						},
 					),
+					'source_lang' => array(
+						'description'       => 'The language the supplied text is written in. Optional; falls back to the site locale.',
+						'type'              => 'string',
+						'required'          => false,
+						'default'           => '',
+						'sanitize_callback' => function ( $value, $request, $param ) {
+							return \YDPL\Support\LanguageCode::normalize( sanitize_text_field( $value ) );
+						},
+					),
 				),
 			)
 		);
