@@ -45,11 +45,29 @@ class TranslationRepository
 	}
 
 	/**
+	 * The language suffix a cached translation is stored under.
+	 *
+	 * Normalising here keeps equivalent spellings ( 'nl', 'nl_NL', 'NL' ) on one
+	 * entry instead of fragmenting the cache. The source is dropped entirely when
+	 * it is empty or not a DeepL source language, because those requests are sent
+	 * without `source_lang` and auto-detected: they share the target-only key the
+	 * plugin used before source languages existed.
+	 *
+	 * @since NEXT
+	 */
+	protected function language_suffix( string $source_lang, string $target_lang ): string
+	{
+		$source = LanguageCode::to_source_language( $source_lang );
+
+		return '' !== $source ? sprintf( '%s_%s', $source, $target_lang ) : $target_lang;
+	}
+
+	/**
 	 * @since NEXT
 	 */
 	protected function cache_key( string $source_lang, string $target_lang ): string
 	{
-		return sprintf( '_translation_%s_%s', $source_lang, $target_lang );
+		return '_translation_' . $this->language_suffix( $source_lang, $target_lang );
 	}
 
 	/**
@@ -57,7 +75,7 @@ class TranslationRepository
 	 */
 	protected function modified_key( string $source_lang, string $target_lang ): string
 	{
-		return sprintf( '_translation_modified_%s_%s', $source_lang, $target_lang );
+		return '_translation_modified_' . $this->language_suffix( $source_lang, $target_lang );
 	}
 
 	/**
@@ -82,7 +100,7 @@ class TranslationRepository
 			return $empty;
 		}
 
-		$source_lang = LanguageCode::to_source_language( get_locale() );
+		$source_lang             = LanguageCode::to_source_language( get_locale() );
 		$post_modified           = get_post_field( 'post_modified', $object_id );
 		$post_modified_timestamp = strtotime( $post_modified );
 		$all_meta                = get_post_meta( $object_id );
