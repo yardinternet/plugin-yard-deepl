@@ -15,6 +15,7 @@ use WP_REST_Response;
 use YDPL\Exceptions\ObjectNotFoundException;
 use YDPL\Services\TranslationService;
 use YDPL\Singletons\SiteOptionsSingleton;
+use YDPL\Support\LanguageCode;
 use YDPL\Traits\ErrorLog;
 
 /**
@@ -46,6 +47,22 @@ class RestAPIController
 		$object_id   = (int) ( $request->get_param( 'object_id' ) ?? 0 );
 		$origin      = (string) ( $request->get_header( 'origin' ) ?? '' );
 
+		/**
+		 * Request value first, then the site locale, then Dutch. The request
+		 * value has already been normalised by the REST sanitize callback.
+		 *
+		 * @since 2.2.0
+		 */
+		$source_lang = $request->get_param( 'source_lang' );
+
+		if ( '' === $source_lang ) {
+			$source_lang = LanguageCode::normalize( get_locale() );
+		}
+
+		if ( '' === $source_lang ) {
+			$source_lang = 'NL';
+		}
+
 		if ( 0 < strlen( $origin ) && ! $this->is_same_origin( $origin ) ) {
 			return $this->set_failure_response( 403, 'Invalid origin. Origin does not match the site URL.' );
 		}
@@ -70,7 +87,7 @@ class RestAPIController
 		}
 
 		try {
-			$translation = $this->service->handle_translation( $object_id, $text, $target_lang, $user_has_cache_capability, $cached_translation );
+			$translation = $this->service->handle_translation( $object_id, $text, $target_lang, $user_has_cache_capability, $cached_translation, $source_lang );
 
 			if ( array() === $translation ) {
 				throw new Exception( 'Failed to translate text.', 500 );

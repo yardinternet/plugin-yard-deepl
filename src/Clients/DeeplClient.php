@@ -24,11 +24,12 @@ class DeeplClient
 	 *
 	 * @throws Exception If the API call fails.
 	 */
-	public function translateText( array $text, string $targetLang ): array
+	public function translateText( array $text, string $targetLang, string $sourceLang = 'NL' ): array
 	{
 		$payload = array(
 			'text'        => $text,
 			'target_lang' => $targetLang,
+			'source_lang' => $sourceLang,
 		);
 
 		$response = $this->makeRequest( $payload );

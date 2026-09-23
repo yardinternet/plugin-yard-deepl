@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use YDPL\Contracts\ServiceProviderInterface;
 use YDPL\Controllers\RestAPIController;
 use YDPL\Singletons\SiteOptionsSingleton;
+use YDPL\Support\LanguageCode;
 use WP_REST_Request;
 
 /**
@@ -95,7 +96,7 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						'required'          => false,
 						'default'           => '',
 						'sanitize_callback' => function ( $value, $request, $param ) {
-							return \YDPL\Support\LanguageCode::normalize( sanitize_text_field( $value ) );
+							return LanguageCode::normalize( sanitize_text_field( $value ) );
 						},
 					),
 				),

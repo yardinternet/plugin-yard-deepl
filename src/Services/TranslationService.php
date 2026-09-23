@@ -27,19 +27,19 @@ class TranslationService
 	/**
 	 * @since 0.0.1
 	 */
-	public function handle_translation( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null ): array
+	public function handle_translation( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null, string $source_lang = 'NL' ): array
 	{
 		if ( 0 < $object_id ) {
-			return $this->handle_translation_with_object_id( $object_id, $text, $target_lang, $cache, $cached_translation );
+			return $this->handle_translation_with_object_id( $object_id, $text, $target_lang, $cache, $cached_translation, $source_lang );
 		}
 
-		return $this->handle_translation_without_object_id( $text, $target_lang );
+		return $this->handle_translation_without_object_id( $text, $target_lang, $source_lang );
 	}
 
 	/**
 	 * @since 0.0.1
 	 */
-	public function handle_translation_with_object_id( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null ): array
+	public function handle_translation_with_object_id( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null, string $source_lang = 'NL' ): array
 	{
 		if ( null === $cached_translation ) {
 			$cached_translation = $this->get_cached_translation( $object_id, $target_lang );
@@ -49,7 +49,7 @@ class TranslationService
 			return $cached_translation;
 		}
 
-		$translation = $this->handle_translation_without_object_id( $text, $target_lang );
+		$translation = $this->handle_translation_without_object_id( $text, $target_lang, $source_lang );
 
 		if ( ! $cache ) {
 			$this->repository->increment_uncached_request_count( $object_id, $target_lang );
@@ -65,9 +65,9 @@ class TranslationService
 	/**
 	 * @since 0.0.1
 	 */
-	public function handle_translation_without_object_id( array $text, string $target_lang ): array
+	public function handle_translation_without_object_id( array $text, string $target_lang, string $source_lang = 'NL' ): array
 	{
-		$translation = DeeplService::get_instance()->translate( $text, $target_lang );
+		$translation = DeeplService::get_instance()->translate( $text, $target_lang, $source_lang );
 
 		return $translation;
 	}
