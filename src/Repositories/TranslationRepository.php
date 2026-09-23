@@ -47,12 +47,6 @@ class TranslationRepository
 	/**
 	 * The language suffix a cached translation is stored under.
 	 *
-	 * Normalising here keeps equivalent spellings ( 'nl', 'nl_NL', 'NL' ) on one
-	 * entry instead of fragmenting the cache. The source is dropped entirely when
-	 * it is empty or not a DeepL source language, because those requests are sent
-	 * without `source_lang` and auto-detected: they share the target-only key the
-	 * plugin used before source languages existed.
-	 *
 	 * @since NEXT
 	 */
 	protected function language_suffix( string $source_lang, string $target_lang ): string
