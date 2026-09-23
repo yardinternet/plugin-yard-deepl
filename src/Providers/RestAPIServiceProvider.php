@@ -96,7 +96,7 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						'required'          => false,
 						'default'           => '',
 						'sanitize_callback' => function ( $value, $request, $param ) {
-							return LanguageCode::normalize( sanitize_text_field( $value ) );
+							return LanguageCode::to_source_language( sanitize_text_field( (string) ( $value ?? '' ) ) );
 						},
 					),
 				),

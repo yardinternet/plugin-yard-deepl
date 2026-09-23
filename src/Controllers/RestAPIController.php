@@ -48,19 +48,26 @@ class RestAPIController
 		$origin      = (string) ( $request->get_header( 'origin' ) ?? '' );
 
 		/**
-		 * Request value first, then the site locale, then Dutch. The request
-		 * value has already been normalised by the REST sanitize callback.
+		 * Request value first, then the site locale, then DeepL's own
+		 * auto-detect, which an empty string stands for here.
+		 *
+		 * The request value has already been normalised by the REST sanitize
+		 * callback, but it is normalised and checked again: the server is the
+		 * authority on the source language and must not assume the callback
+		 * ran. A step is dropped unless DeepL really supports the code, so a
+		 * well formed but unsupported tag such as 'fy' — or a three-letter
+		 * locale such as 'nds_NL', which normalises to nothing — falls through
+		 * instead of earning an HTTP 400 or being mistranslated as Dutch.
+		 *
+		 * Dutch sites are unaffected: 'nl-NL' from the document and 'nl_NL'
+		 * from get_locale() both resolve to the supported code 'NL'.
 		 *
 		 * @since 2.2.0
 		 */
-		$source_lang = $request->get_param( 'source_lang' );
+		$source_lang = LanguageCode::to_source_language( (string) ( $request->get_param( 'source_lang' ) ?? '' ) );
 
 		if ( '' === $source_lang ) {
-			$source_lang = LanguageCode::normalize( get_locale() );
-		}
-
-		if ( '' === $source_lang ) {
-			$source_lang = 'NL';
+			$source_lang = LanguageCode::to_source_language( get_locale() );
 		}
 
 		if ( 0 < strlen( $origin ) && ! $this->is_same_origin( $origin ) ) {

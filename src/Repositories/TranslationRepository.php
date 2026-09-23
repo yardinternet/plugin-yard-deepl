@@ -83,16 +83,15 @@ class TranslationRepository
 		}
 
 		/**
-		 * No request context is available here, so the source language is resolved
-		 * the same way the controller falls back: site locale, then Dutch.
+		 * No request context is available here, so the source language is
+		 * resolved exactly the way the controller resolves it once the request
+		 * value is out of the picture: site locale, then auto-detect. Sharing
+		 * the resolution keeps this column reading the same cache keys the
+		 * controller writes.
 		 *
 		 * @since 2.2.0
 		 */
-		$source_lang = LanguageCode::normalize( get_locale() );
-
-		if ( '' === $source_lang ) {
-			$source_lang = 'NL';
-		}
+		$source_lang = LanguageCode::to_source_language( get_locale() );
 
 		$post_modified           = get_post_field( 'post_modified', $object_id );
 		$post_modified_timestamp = strtotime( $post_modified );
