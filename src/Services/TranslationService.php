@@ -42,7 +42,7 @@ class TranslationService
 	public function handle_translation_with_object_id( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null, string $source_lang = 'NL' ): array
 	{
 		if ( null === $cached_translation ) {
-			$cached_translation = $this->get_cached_translation( $object_id, $target_lang );
+			$cached_translation = $this->get_cached_translation( $object_id, $target_lang, $source_lang );
 		}
 
 		if ( $cached_translation ) {
@@ -56,7 +56,7 @@ class TranslationService
 		}
 
 		if ( $cache ) {
-			$this->repository->store_translation( $object_id, $target_lang, $translation );
+			$this->repository->store_translation( $object_id, $target_lang, $translation, $source_lang );
 		}
 
 		return $translation;
@@ -77,8 +77,8 @@ class TranslationService
 	 *
 	 * @throws ObjectNotFoundException
 	 */
-	public function get_cached_translation( int $object_id, string $target_lang ): ?array
+	public function get_cached_translation( int $object_id, string $target_lang, string $source_lang = 'NL' ): ?array
 	{
-		return $this->repository->get_cached_translation( $object_id, $target_lang );
+		return $this->repository->get_cached_translation( $object_id, $target_lang, $source_lang );
 	}
 }

@@ -71,7 +71,7 @@ class RestAPIController
 
 		if ( 0 < $object_id ) {
 			try {
-				$cached_translation = $this->service->get_cached_translation( $object_id, $target_lang ) ?? array();
+				$cached_translation = $this->service->get_cached_translation( $object_id, $target_lang, $source_lang ) ?? array();
 			} catch ( ObjectNotFoundException $e ) {
 				return $this->set_failure_response( 404, 'Object not found.' );
 			}

@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use WP_Post;
 use YDPL\Exceptions\ObjectNotFoundException;
+use YDPL\Support\LanguageCode;
 
 /**
  * @since 0.0.1
@@ -22,7 +23,7 @@ class TranslationRepository
 	 *
 	 * @throws ObjectNotFoundException
 	 */
-	public function get_cached_translation( int $object_id, string $target_lang ): ?array
+	public function get_cached_translation( int $object_id, string $target_lang, string $source_lang = 'NL' ): ?array
 	{
 		if ( ! $this->translated_object_exists( $object_id ) ) {
 			throw new ObjectNotFoundException( 'Translated object not found.', 404 );
@@ -33,14 +34,30 @@ class TranslationRepository
 		}
 
 		$post_modified        = get_post_field( 'post_modified', $object_id );
-		$cached_translation   = get_post_meta( $object_id, "_translation_$target_lang", true );
-		$translation_modified = get_post_meta( $object_id, "_translation_modified_$target_lang", true );
+		$cached_translation   = get_post_meta( $object_id, $this->cache_key( $source_lang, $target_lang ), true );
+		$translation_modified = get_post_meta( $object_id, $this->modified_key( $source_lang, $target_lang ), true );
 
 		if ( ! $cached_translation || strtotime( $translation_modified ) < strtotime( $post_modified ) ) {
 			return null;
 		}
 
 		return $cached_translation;
+	}
+
+	/**
+	 * @since 2.2.0
+	 */
+	protected function cache_key( string $source_lang, string $target_lang ): string
+	{
+		return sprintf( '_translation_%s_%s', $source_lang, $target_lang );
+	}
+
+	/**
+	 * @since 2.2.0
+	 */
+	protected function modified_key( string $source_lang, string $target_lang ): string
+	{
+		return sprintf( '_translation_modified_%s_%s', $source_lang, $target_lang );
 	}
 
 	/**
@@ -65,6 +82,18 @@ class TranslationRepository
 			return $empty;
 		}
 
+		/**
+		 * No request context is available here, so the source language is resolved
+		 * the same way the controller falls back: site locale, then Dutch.
+		 *
+		 * @since 2.2.0
+		 */
+		$source_lang = LanguageCode::normalize( get_locale() );
+
+		if ( '' === $source_lang ) {
+			$source_lang = 'NL';
+		}
+
 		$post_modified           = get_post_field( 'post_modified', $object_id );
 		$post_modified_timestamp = strtotime( $post_modified );
 		$all_meta                = get_post_meta( $object_id );
@@ -72,8 +101,8 @@ class TranslationRepository
 		$counts                  = array();
 
 		foreach ( $language_codes as $lang ) {
-			$translation_value    = $all_meta[ "_translation_$lang" ][0] ?? null;
-			$translation_modified = $all_meta[ "_translation_modified_$lang" ][0] ?? null;
+			$translation_value    = $all_meta[ $this->cache_key( $source_lang, $lang ) ][0] ?? null;
+			$translation_modified = $all_meta[ $this->modified_key( $source_lang, $lang ) ][0] ?? null;
 
 			if ( $translation_value && $translation_modified && strtotime( $translation_modified ) >= $post_modified_timestamp ) {
 				$cached[] = $lang;
@@ -152,7 +181,7 @@ class TranslationRepository
 	 *
 	 * @throws ObjectNotFoundException
 	 */
-	public function store_translation( int $object_id, string $target_lang, array $translation ): void
+	public function store_translation( int $object_id, string $target_lang, array $translation, string $source_lang = 'NL' ): void
 	{
 		if ( ! $this->translated_object_exists( $object_id ) ) {
 			throw new ObjectNotFoundException( 'Translated object not found.', 404 );
@@ -162,8 +191,8 @@ class TranslationRepository
 			return;
 		}
 
-		update_post_meta( $object_id, "_translation_$target_lang", $translation );
-		update_post_meta( $object_id, "_translation_modified_$target_lang", current_time( 'mysql' ) );
+		update_post_meta( $object_id, $this->cache_key( $source_lang, $target_lang ), $translation );
+		update_post_meta( $object_id, $this->modified_key( $source_lang, $target_lang ), current_time( 'mysql' ) );
 		delete_post_meta( $object_id, "_ydpl_uncached_request_count_$target_lang" );
 	}
 
