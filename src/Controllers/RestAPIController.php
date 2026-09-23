@@ -76,18 +76,38 @@ class RestAPIController
 
 		$user_has_cache_capability = current_user_can( apply_filters( 'yard::deepl/cache_capability', 'edit_posts' ) );
 
+		/**
+		 * Whether this request will actually reach DeepL, which is what the rate
+		 * limiter is there to meter.
+		 *
+		 * A cache entry merely existing no longer answers that question. A partial
+		 * entry now sends the strings it is missing to DeepL and merges the result
+		 * back, so gating the limiter on `! $cached_translation` let anyone pair a
+		 * warm object ID with text of their own choosing: every string missed,
+		 * every string went to the API, and the limiter was never consulted.
+		 *
+		 * The gate is therefore the very set of strings the service will send,
+		 * decided by the service's own helper on the same cache entry the service
+		 * is handed below, so the two cannot drift apart. Without an object ID
+		 * there is no entry to consult and the whole request goes to the API.
+		 *
+		 * @since 2.2.0
+		 */
 		if ( 0 < $object_id ) {
 			try {
 				$cached_translation = $this->service->get_cached_translation( $object_id, $target_lang, $source_lang ) ?? array();
 			} catch ( ObjectNotFoundException $e ) {
 				return $this->set_failure_response( 404, 'Object not found.' );
 			}
+
+			$request_reaches_api = array() !== TranslationService::untranslated_text( $cached_translation, $text );
 		} else {
-			$cached_translation = null;
+			$cached_translation  = null;
+			$request_reaches_api = true;
 		}
 
-		// Apply rate limit check if object ID is absent or translation is not cached when an object ID is present.
-		if ( ! $cached_translation ) {
+		// Apply the rate limit to every request that costs an API call, and only to those. A full cache hit is free and consumes nobody's quota.
+		if ( $request_reaches_api ) {
 			if ( $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
 				return $this->set_failure_response( 429, 'Rate limit exceeded.' );
 			}

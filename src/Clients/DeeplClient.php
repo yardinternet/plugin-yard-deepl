@@ -45,8 +45,11 @@ class DeeplClient
 	 * DeepL auto-detect, which is the last fallback the resolution chain wants.
 	 * The key has to be genuinely absent: an empty string is a 400 as well.
 	 *
-	 * This is the single choke point for the payload, so no caller can reach
-	 * DeepL with a code it does not accept.
+	 * The argument is normalised here rather than assumed to arrive normalised,
+	 * so a caller handing over a raw tag such as 'nl-NL' sends NL instead of
+	 * silently dropping the step. That is what makes this the single choke point
+	 * for the payload: no caller can reach DeepL with a code it does not accept,
+	 * and none has to know the normalisation rules to get its code across.
 	 *
 	 * @since 2.2.0
 	 */
@@ -57,8 +60,10 @@ class DeeplClient
 			'target_lang' => $targetLang,
 		);
 
-		if ( LanguageCode::is_supported_source( $sourceLang ) ) {
-			$payload['source_lang'] = strtoupper( trim( $sourceLang ) );
+		$source_lang = LanguageCode::to_source_language( $sourceLang );
+
+		if ( '' !== $source_lang ) {
+			$payload['source_lang'] = $source_lang;
 		}
 
 		return $payload;

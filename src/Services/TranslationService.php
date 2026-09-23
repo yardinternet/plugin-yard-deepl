@@ -27,7 +27,7 @@ class TranslationService
 	/**
 	 * @since 0.0.1
 	 */
-	public function handle_translation( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null, string $source_lang = 'NL' ): array
+	public function handle_translation( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null, string $source_lang = '' ): array
 	{
 		if ( 0 < $object_id ) {
 			return $this->handle_translation_with_object_id( $object_id, $text, $target_lang, $cache, $cached_translation, $source_lang );
@@ -39,7 +39,7 @@ class TranslationService
 	/**
 	 * @since 0.0.1
 	 */
-	public function handle_translation_with_object_id( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null, string $source_lang = 'NL' ): array
+	public function handle_translation_with_object_id( int $object_id, array $text, string $target_lang, bool $cache = false, ?array $cached_translation = null, string $source_lang = '' ): array
 	{
 		if ( null === $cached_translation ) {
 			$cached_translation = $this->get_cached_translation( $object_id, $target_lang, $source_lang );
@@ -91,7 +91,7 @@ class TranslationService
 	/**
 	 * @since 0.0.1
 	 */
-	public function handle_translation_without_object_id( array $text, string $target_lang, string $source_lang = 'NL' ): array
+	public function handle_translation_without_object_id( array $text, string $target_lang, string $source_lang = '' ): array
 	{
 		$translation = DeeplService::get_instance()->translate( $text, $target_lang, $source_lang );
 
@@ -106,9 +106,15 @@ class TranslationService
 	 * in the request collapse, because paying twice for the same string helps
 	 * nobody.
 	 *
+	 * An empty return is exactly the condition under which this request costs
+	 * nothing, so RestAPIController calls this to decide whether the rate limiter
+	 * applies. It is public and static for that reason: both sides must answer
+	 * the question the same way, and a pure function of the same cache entry and
+	 * the same requested strings cannot answer it differently.
+	 *
 	 * @since 2.2.0
 	 */
-	protected static function untranslated_text( array $cached_translation, array $text ): array
+	public static function untranslated_text( array $cached_translation, array $text ): array
 	{
 		$cached_text = array_column( $cached_translation, 'text' );
 
@@ -127,7 +133,7 @@ class TranslationService
 	 *
 	 * @throws ObjectNotFoundException
 	 */
-	public function get_cached_translation( int $object_id, string $target_lang, string $source_lang = 'NL' ): ?array
+	public function get_cached_translation( int $object_id, string $target_lang, string $source_lang = '' ): ?array
 	{
 		return $this->repository->get_cached_translation( $object_id, $target_lang, $source_lang );
 	}

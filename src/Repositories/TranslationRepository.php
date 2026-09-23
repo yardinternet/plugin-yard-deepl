@@ -23,7 +23,7 @@ class TranslationRepository
 	 *
 	 * @throws ObjectNotFoundException
 	 */
-	public function get_cached_translation( int $object_id, string $target_lang, string $source_lang = 'NL' ): ?array
+	public function get_cached_translation( int $object_id, string $target_lang, string $source_lang = '' ): ?array
 	{
 		if ( ! $this->translated_object_exists( $object_id ) ) {
 			throw new ObjectNotFoundException( 'Translated object not found.', 404 );
@@ -180,7 +180,7 @@ class TranslationRepository
 	 *
 	 * @throws ObjectNotFoundException
 	 */
-	public function store_translation( int $object_id, string $target_lang, array $translation, string $source_lang = 'NL' ): void
+	public function store_translation( int $object_id, string $target_lang, array $translation, string $source_lang = '' ): void
 	{
 		if ( ! $this->translated_object_exists( $object_id ) ) {
 			throw new ObjectNotFoundException( 'Translated object not found.', 404 );
