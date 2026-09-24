@@ -3,6 +3,7 @@
 namespace YDPL\Clients;
 
 use Exception;
+use YDPL\Support\LanguageCode;
 
 class DeeplClient
 {
@@ -24,20 +25,36 @@ class DeeplClient
 	 *
 	 * @throws Exception If the API call fails.
 	 */
-	public function translateText( array $text, string $targetLang ): array
+	public function translateText( array $text, string $targetLang, string $sourceLang = '' ): array
 	{
-		$payload = array(
-			'text'        => $text,
-			'target_lang' => $targetLang,
-		);
-
-		$response = $this->makeRequest( $payload );
+		$response = $this->makeRequest( self::buildPayload( $text, $targetLang, $sourceLang ) );
 
 		if ( isset( $response['translations'] ) && is_array( $response['translations'] ) ) {
 			return $response['translations'];
 		}
 
 		throw new Exception( sprintf( 'DeepL API: Unexpected response: %s', json_encode( $response ) ) );
+	}
+
+	/**
+	 * Builds the /v2/translate request body.
+	 *
+	 * @since NEXT
+	 */
+	public static function buildPayload( array $text, string $targetLang, string $sourceLang ): array
+	{
+		$payload = array(
+			'text'        => $text,
+			'target_lang' => $targetLang,
+		);
+
+		$source_lang = LanguageCode::to_source_language( $sourceLang );
+
+		if ( '' !== $source_lang ) {
+			$payload['source_lang'] = $source_lang;
+		}
+
+		return $payload;
 	}
 
 	/**

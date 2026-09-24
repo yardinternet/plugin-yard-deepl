@@ -15,6 +15,7 @@ use WP_REST_Response;
 use YDPL\Exceptions\ObjectNotFoundException;
 use YDPL\Services\TranslationService;
 use YDPL\Singletons\SiteOptionsSingleton;
+use YDPL\Support\LanguageCode;
 use YDPL\Traits\ErrorLog;
 
 /**
@@ -46,31 +47,52 @@ class RestAPIController
 		$object_id   = (int) ( $request->get_param( 'object_id' ) ?? 0 );
 		$origin      = (string) ( $request->get_header( 'origin' ) ?? '' );
 
+		/**
+		 * Request value first, then the site locale, then DeepL's own
+		 * auto-detect, which an empty string stands for here.
+		 *
+		 * @since NEXT
+		 */
+		$source_lang = LanguageCode::to_source_language( (string) ( $request->get_param( 'source_lang' ) ?? '' ) );
+
+		if ( '' === $source_lang ) {
+			$source_lang = LanguageCode::to_source_language( get_locale() );
+		}
+
 		if ( 0 < strlen( $origin ) && ! $this->is_same_origin( $origin ) ) {
 			return $this->set_failure_response( 403, 'Invalid origin. Origin does not match the site URL.' );
 		}
 
 		$user_has_cache_capability = current_user_can( apply_filters( 'yard::deepl/cache_capability', 'edit_posts' ) );
 
+		/**
+		 * Whether this request will actually reach DeepL, which is what the rate
+		 * limiter is there to meter.
+		 *
+		 * @since NEXT
+		 */
 		if ( 0 < $object_id ) {
 			try {
-				$cached_translation = $this->service->get_cached_translation( $object_id, $target_lang ) ?? array();
+				$cached_translation = $this->service->get_cached_translation( $object_id, $target_lang, $source_lang ) ?? array();
 			} catch ( ObjectNotFoundException $e ) {
 				return $this->set_failure_response( 404, 'Object not found.' );
 			}
+
+			$request_reaches_api = array() !== TranslationService::untranslated_text( $cached_translation, $text );
 		} else {
-			$cached_translation = null;
+			$cached_translation  = null;
+			$request_reaches_api = true;
 		}
 
-		// Apply rate limit check if object ID is absent or translation is not cached when an object ID is present.
-		if ( ! $cached_translation ) {
+		// Apply the rate limit to every request that costs an API call, and only to those. A full cache hit is free and consumes nobody's quota.
+		if ( $request_reaches_api ) {
 			if ( $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
 				return $this->set_failure_response( 429, 'Rate limit exceeded.' );
 			}
 		}
 
 		try {
-			$translation = $this->service->handle_translation( $object_id, $text, $target_lang, $user_has_cache_capability, $cached_translation );
+			$translation = $this->service->handle_translation( $object_id, $text, $target_lang, $user_has_cache_capability, $cached_translation, $source_lang );
 
 			if ( array() === $translation ) {
 				throw new Exception( 'Failed to translate text.', 500 );

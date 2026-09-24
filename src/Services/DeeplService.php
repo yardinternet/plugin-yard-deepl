@@ -61,9 +61,9 @@ class DeeplService
 	 *
 	 * @throws Exception
 	 */
-	public function translate( array $text, string $target_lang ): array
+	public function translate( array $text, string $target_lang, string $source_lang = '' ): array
 	{
-		$result = $this->client->translateText( $text, $target_lang );
+		$result = $this->client->translateText( $text, $target_lang, $source_lang );
 
 		if ( ! $result ) {
 			throw new Exception( 'Failed to translate text.' );

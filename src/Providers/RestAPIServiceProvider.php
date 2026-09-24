@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use YDPL\Contracts\ServiceProviderInterface;
 use YDPL\Controllers\RestAPIController;
 use YDPL\Singletons\SiteOptionsSingleton;
+use YDPL\Support\LanguageCode;
 use WP_REST_Request;
 
 /**
@@ -87,6 +88,15 @@ class RestAPIServiceProvider implements ServiceProviderInterface
 						},
 						'sanitize_callback' => function ( $value, $request, $param ) {
 							return intval( $value );
+						},
+					),
+					'source_lang' => array(
+						'description'       => 'The language the supplied text is written in. Optional; falls back to the site locale.',
+						'type'              => 'string',
+						'required'          => false,
+						'default'           => '',
+						'sanitize_callback' => function ( $value, $request, $param ) {
+							return LanguageCode::to_source_language( sanitize_text_field( (string) ( $value ?? '' ) ) );
 						},
 					),
 				),
