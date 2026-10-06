@@ -19,7 +19,8 @@
 		"brianhenryie/strauss": "^0.15.0",
 		"friendsofphp/php-cs-fixer": "^3.0",
 		"symfony/var-dumper": "^5.1",
-		"wp-coding-standards/wpcs": "^3.0"
+		"wp-coding-standards/wpcs": "^3.0",
+		"pestphp/pest": "^1.23"
 	},
 	"extra": {
 		"strauss": {
@@ -73,13 +74,15 @@
 			"vendor/bin/strauss"
 		],
 		"phpcs": "./vendor/squizlabs/php_codesniffer/bin/phpcs",
-		"phpcbf": "./vendor/squizlabs/php_codesniffer/bin/phpcbf"
+		"phpcbf": "./vendor/squizlabs/php_codesniffer/bin/phpcbf",
+		"test": "./vendor/bin/pest"
 	},
 	"config": {
 		"allow-plugins": {
 			"composer/installers": true,
 			"php-http/discovery": true,
-			"dealerdirect/phpcodesniffer-composer-installer": true
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"pestphp/pest-plugin": true
 		}
 	}
 }
