@@ -58,15 +58,21 @@ class RestAPIController
 			} catch ( ObjectNotFoundException $e ) {
 				return $this->set_failure_response( 404, 'Object not found.' );
 			}
+
+			$missing_texts = $this->service->missing_texts( $text, $cached_translation );
 		} else {
 			$cached_translation = null;
+			$missing_texts      = $text;
 		}
 
-		// Apply rate limit check if object ID is absent or translation is not cached when an object ID is present.
-		if ( ! $cached_translation ) {
-			if ( $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
+		if ( array() !== $missing_texts && $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
+			$partial_translation = $this->service->translations_for( $text, $cached_translation ?? array() );
+
+			if ( array() === $partial_translation ) {
 				return $this->set_failure_response( 429, 'Rate limit exceeded.' );
 			}
+
+			return new WP_REST_Response( $partial_translation );
 		}
 
 		try {
