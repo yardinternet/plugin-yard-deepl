@@ -22,7 +22,7 @@ When providing translations to website visitors, you can configure which languag
 
 Each object that is translated will store its cached translation in the `wp_postmeta` table within the database. This caching mechanism ensures that translations are efficiently reused, reducing unnecessary API requests to DeepL and saving costs.
 
--   **Serving Cached Translations:** If a cached translation is newer than the `post_modified` date of the object, the cached version is served.
+-   **Serving Cached Translations:** Translations are cached per text. If a cached translation is newer than the `post_modified` date of the object, every requested text found in the cache is served from it. Texts that are not cached yet (for example a changed menu or footer) are fetched from DeepL and merged into the cache. The response contains exactly the requested texts.
 -   **Fetching New Translations:** When the `post_modified` date of the object is more recent than the cached translation, a new translation is fetched from DeepL. Once retrieved, this translation is immediately cached for future use.
 -   **Cache Authorization:** Only logged-in users with the `edit_posts` capability (or a custom capability configured via the `yard::deepl/cache_capability` filter) are permitted to create new cache entries. Requests from users without this capability will still return a translation from DeepL, but the result will not be stored in the cache.
 
@@ -91,7 +91,7 @@ When making requests to the API, ensure that the nonce is included in the reques
 
 #### Rate Limiting
 
-To prevent abuse, unauthenticated requests (or requests from users without the cache capability) are limited to **3 requests per 60 seconds** per IP address. Authenticated users with the required cache capability (default: `edit_posts`) are exempt from this rate limit.
+To prevent abuse, unauthenticated requests (or requests from users without the cache capability) are limited to **3 requests per 60 seconds** per IP address. Authenticated users with the required cache capability (default: `edit_posts`) are exempt from this rate limit. Requests that are fully served from cache do not count towards the limit. When a partially cached request is rate limited, the cached texts are returned without calling DeepL.
 
 #### Cache Capability
 
@@ -147,6 +147,11 @@ xhr.send( data );
 | ~~`yard::deepl/disable_cache_metabox_post_types`~~ | —              | **Deprecated.** Use `yard::deepl/cache_metabox_post_types` instead.                                                                       |
 
 ## Changelog
+
+### NEXT
+
+-   Fix: cache translations per text and fetch texts missing from the cache from DeepL instead of serving a stale page snapshot
+-   Change: requests with texts missing from the cache count towards the rate limit; when rate limited, the cached texts are returned instead of an error
 
 ### 2.1.0 (Aug 03, 2026)
 
