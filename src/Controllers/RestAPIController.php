@@ -22,7 +22,7 @@ use YDPL\Traits\ErrorLog;
  */
 class RestAPIController
 {
-	protected const RATE_LIMIT                        = 3;
+	protected const RATE_LIMIT                        = 9;
 	protected const RATE_LIMIT_TIME_WINDOW_IN_SECONDS = 60;
 
 	use ErrorLog;

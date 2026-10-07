@@ -27,7 +27,7 @@ function translate_request( array $text ): WP_REST_Request
 
 function exhaust_rate_limit( RestAPIController $controller ): void
 {
-	foreach ( range( 1, 3 ) as $i ) {
+	foreach ( range( 1, 9 ) as $i ) {
 		$controller->handle_translate_request( translate_request( array( "Tekst $i" ) ) );
 	}
 }
