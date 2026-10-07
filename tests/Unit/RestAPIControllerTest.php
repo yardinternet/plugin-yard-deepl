@@ -48,15 +48,23 @@ it( 'does not count fully cached requests towards the rate limit', function () {
 		->and( $response->data )->toBe( array( pair( 'Menu', 'Menu EN' ) ) );
 } );
 
-it( 'returns the cached part without calling DeepL when rate limited', function () {
-	exhaust_rate_limit( $this->controller );
-	$requests_before = count( $this->service->deepl_requests );
-
-	$response = $this->controller->handle_translate_request( translate_request( array( 'Menu', 'Goedemiddag' ) ) );
+it( 'serves visitors only the cached texts without calling DeepL or counting towards the rate limit', function () {
+	foreach ( range( 1, 5 ) as $i ) {
+		$response = $this->controller->handle_translate_request( translate_request( array( 'Menu', 'Goedemiddag' ) ) );
+	}
 
 	expect( $response->status )->toBe( 200 )
 		->and( $response->data )->toBe( array( pair( 'Menu', 'Menu EN' ) ) )
-		->and( $this->service->deepl_requests )->toHaveCount( $requests_before );
+		->and( $this->service->deepl_requests )->toBe( array() );
+} );
+
+it( 'translates texts missing from the cache for users with the cache capability', function () {
+	$GLOBALS['ydpl_test']['can_cache'] = true;
+
+	$response = $this->controller->handle_translate_request( translate_request( array( 'Menu', 'Goedemiddag' ) ) );
+
+	expect( $response->data )->toBe( array( pair( 'Menu', 'Menu EN' ), pair( 'Goedemiddag', 'EN-GB:Goedemiddag' ) ) )
+		->and( $this->service->deepl_requests )->toBe( array( array( 'Goedemiddag' ) ) );
 } );
 
 it( 'rejects a rate limited request when nothing is cached', function () {
