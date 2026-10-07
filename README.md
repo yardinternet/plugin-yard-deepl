@@ -91,7 +91,7 @@ When making requests to the API, ensure that the nonce is included in the reques
 
 #### Rate Limiting
 
-To prevent abuse, unauthenticated requests (or requests from users without the cache capability) are limited to **3 requests per 60 seconds** per IP address. Authenticated users with the required cache capability (default: `edit_posts`) are exempt from this rate limit. Requests that are fully served from cache do not count towards the limit. When the cache contains any of the requested texts, users without the cache capability are served the cached texts only; DeepL is not called for the missing texts.
+To prevent abuse, unauthenticated requests (or requests from users without the cache capability) are limited to **9 requests per 60 seconds** per IP address. Authenticated users with the required cache capability (default: `edit_posts`) are exempt from this rate limit. Requests that are fully served from cache do not count towards the limit. When the cache contains any of the requested texts, users without the cache capability are served the cached texts only; DeepL is not called for the missing texts.
 
 #### Cache Capability
 
@@ -152,6 +152,7 @@ xhr.send( data );
 
 -   Fix: cache translations per text and fetch texts missing from the cache from DeepL instead of serving a stale page snapshot
 -   Change: users without the cache capability are served the cached texts only, without calling DeepL or counting towards the rate limit; DeepL is only called when none of the requested texts are cached
+-   Change: raise the rate limit from 3 to 9 requests per 60 seconds
 
 ### 2.1.0 (Aug 03, 2026)
 
