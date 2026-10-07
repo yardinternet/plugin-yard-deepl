@@ -65,14 +65,16 @@ class RestAPIController
 			$missing_texts      = $text;
 		}
 
-		if ( array() !== $missing_texts && $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
-			$partial_translation = $this->service->translations_for( $text, $cached_translation ?? array() );
+		if ( ! $user_has_cache_capability ) {
+			$cached_texts = $this->service->translations_for( $text, $cached_translation ?? array() );
 
-			if ( array() === $partial_translation ) {
-				return $this->set_failure_response( 429, 'Rate limit exceeded.' );
+			if ( array() !== $cached_texts ) {
+				return new WP_REST_Response( $cached_texts );
 			}
+		}
 
-			return new WP_REST_Response( $partial_translation );
+		if ( array() !== $missing_texts && $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
+			return $this->set_failure_response( 429, 'Rate limit exceeded.' );
 		}
 
 		try {

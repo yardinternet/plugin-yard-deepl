@@ -74,7 +74,7 @@ The API endpoints registered by this plugin are secured using a WordPress nonce.
 
 When making requests to the API, ensure that the nonce is included in the request headers. The header should be named `X-WP-Nonce`, and it should contain a nonce created with the `wp_rest` action (available via `ydpl.ydpl_api_request_nonce` on the front-end).
 
-Rate limiting: Unauthenticated requests (or requests from users without the cache capability) are limited to 3 requests per 60 seconds per IP address. Authenticated users with the required cache capability (default: edit_posts) are exempt from this rate limit. Requests that are fully served from cache do not count towards the limit. When a partially cached request is rate limited, the cached texts are returned without calling DeepL.
+Rate limiting: Unauthenticated requests (or requests from users without the cache capability) are limited to 3 requests per 60 seconds per IP address. Authenticated users with the required cache capability (default: edit_posts) are exempt from this rate limit. Requests that are fully served from cache do not count towards the limit. When the cache contains any of the requested texts, users without the cache capability are served the cached texts only; DeepL is not called for the missing texts.
 
 Cache capability: Only users with the `edit_posts` capability can trigger cache creation. This can be customized using the `yard::deepl/cache_capability` filter.
 
@@ -126,7 +126,7 @@ Response:
 = NEXT =
 
 * Fix: cache translations per text and fetch texts missing from the cache from DeepL instead of serving a stale page snapshot
-* Change: requests with texts missing from the cache count towards the rate limit; when rate limited, the cached texts are returned instead of an error
+* Change: users without the cache capability are served the cached texts only, without calling DeepL or counting towards the rate limit; DeepL is only called when none of the requested texts are cached
 
 = 2.1.0: Aug 03, 2026 =
 
