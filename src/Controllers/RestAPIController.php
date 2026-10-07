@@ -22,7 +22,7 @@ use YDPL\Traits\ErrorLog;
  */
 class RestAPIController
 {
-	protected const RATE_LIMIT                        = 3;
+	protected const RATE_LIMIT                        = 9;
 	protected const RATE_LIMIT_TIME_WINDOW_IN_SECONDS = 60;
 
 	use ErrorLog;
@@ -58,15 +58,23 @@ class RestAPIController
 			} catch ( ObjectNotFoundException $e ) {
 				return $this->set_failure_response( 404, 'Object not found.' );
 			}
+
+			$missing_texts = $this->service->missing_texts( $text, $cached_translation );
 		} else {
 			$cached_translation = null;
+			$missing_texts      = $text;
 		}
 
-		// Apply rate limit check if object ID is absent or translation is not cached when an object ID is present.
-		if ( ! $cached_translation ) {
-			if ( $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
-				return $this->set_failure_response( 429, 'Rate limit exceeded.' );
+		if ( ! $user_has_cache_capability ) {
+			$cached_texts = $this->service->translations_for( $text, $cached_translation ?? array() );
+
+			if ( array() !== $cached_texts ) {
+				return new WP_REST_Response( $cached_texts );
 			}
+		}
+
+		if ( array() !== $missing_texts && $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
+			return $this->set_failure_response( 429, 'Rate limit exceeded.' );
 		}
 
 		try {
