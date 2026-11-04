@@ -158,7 +158,7 @@ class TranslationRepository
 		$meta_keys = array_keys( get_post_meta( $object_id ) );
 
 		foreach ( $meta_keys as $key ) {
-			if ( 0 === strpos( $key, '_translation_' ) || 0 === strpos( $key, '_ydpl_incomplete_request_count_' ) ) {
+			if ( 0 === strpos( $key, '_translation_' ) || 0 === strpos( $key, '_ydpl_incomplete_request_count_' ) || 0 === strpos( $key, '_ydpl_uncached_request_count_' ) ) {
 				delete_post_meta( $object_id, $key );
 			}
 		}
