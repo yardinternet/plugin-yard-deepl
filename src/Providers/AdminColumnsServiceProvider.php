@@ -72,14 +72,29 @@ class AdminColumnsServiceProvider implements ServiceProviderInterface
 			return;
 		}
 
-		$column_data     = $this->repository->get_column_data( $post_id, $configured_languages );
-		$cached_langs    = $column_data['cached_languages'];
-		$uncached_counts = $column_data['uncached_request_counts'];
+		$column_data       = $this->repository->get_column_data( $post_id, $configured_languages );
+		$cached_langs      = $column_data['cached_languages'];
+		$uncached_counts   = $column_data['uncached_request_counts'];
+		$incomplete_counts = $column_data['incomplete_request_counts'];
 
 		$badges = '';
 
 		foreach ( $configured_languages as $lang ) {
-			if ( in_array( $lang, $cached_langs, true ) ) {
+			if ( in_array( $lang, $cached_langs, true ) && isset( $incomplete_counts[ $lang ] ) ) {
+				$count   = $incomplete_counts[ $lang ];
+				$badges .= sprintf(
+					'<span class="ydpl-cache-badge ydpl-cache-badge--incomplete" title="%s">%s <span class="ydpl-badge-count">%s</span></span>',
+					esc_attr(
+						sprintf(
+							/* translators: %d: number of visitor requests that received only part of their texts from the cache */
+							_n( '%d incomplete response', '%d incomplete responses', $count, 'yard-deepl' ),
+							$count
+						)
+					),
+					esc_html( $lang ),
+					esc_html( number_format_i18n( $count ) )
+				);
+			} elseif ( in_array( $lang, $cached_langs, true ) ) {
 				$badges .= sprintf(
 					'<span class="ydpl-cache-badge ydpl-cache-badge--cached">%s</span>',
 					esc_html( $lang )

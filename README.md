@@ -24,7 +24,7 @@ Each object that is translated will store its cached translation in the `wp_post
 
 -   **Serving Cached Translations:** Translations are cached per text. If a cached translation is newer than the `post_modified` date of the object, every requested text found in the cache is served from it. Texts that are not cached yet (for example a changed menu or footer) are fetched from DeepL and merged into the cache. The response contains exactly the requested texts.
 -   **Fetching New Translations:** When the `post_modified` date of the object is more recent than the cached translation, a new translation is fetched from DeepL. Once retrieved, this translation is immediately cached for future use.
--   **Cache Authorization:** Only logged-in users with the `edit_posts` capability (or a custom capability configured via the `yard::deepl/cache_capability` filter) are permitted to create new cache entries. Requests from users without this capability will still return a translation from DeepL, but the result will not be stored in the cache.
+-   **Cache Authorization:** Only logged-in users with the `edit_posts` capability (or a custom capability configured via the `yard::deepl/cache_capability` filter) are permitted to create new cache entries. Requests from users without this capability never write to the cache: when any of the requested texts are cached, only those cached texts are returned; when none are cached, the texts are translated by DeepL without storing the result.
 
 This approach minimizes the number of API calls to DeepL, ensuring translations are kept up to date only when necessary.
 
@@ -40,10 +40,11 @@ A metabox labeled **Yard DeepL** is displayed on the edit screen of supported po
 A **Translation cache** column is added to the post list screen of all supported post types. Its purpose is to notify editors which posts should be cached as soon as possible to avoid unnecessary DeepL API costs.
 
 -   **Green badge per language** (e.g. `NL`, `EN-US`): a valid, up-to-date cached translation exists for that language. Visitor requests are served from cache at no cost.
+-   **Yellow badge with a count per language** (e.g. `EN-US 3`): a cached translation exists, but that many visitor requests received only part of their texts because the rest is missing from the cache. Hovering the badge shows the full count as a tooltip. An editor visiting the page translates the missing texts, stores them and resets the count.
 -   **Grey badge with a count per language** (e.g. `EN-US 42`): no cache exists for that language and visitors have triggered that many live DeepL API calls. Hovering the badge shows the full count as a tooltip. These posts are the most urgent to cache.
 -   **—**: the post has never been requested for translation, or caching is disabled for this post.
 
-The uncached call count is only incremented for visitor requests (users without cache-write capability) and is automatically reset per language once a cache entry is stored. Posts with the **Disable translation cache** option enabled are excluded from the column entirely.
+The uncached call count is only incremented for visitor requests (users without cache-write capability) and is automatically reset per language once a cache entry is stored. The same applies to the incomplete response count, which is also removed when the cache is cleared. Posts with the **Disable translation cache** option enabled are excluded from the column entirely.
 
 ## External Services
 
@@ -153,6 +154,8 @@ xhr.send( data );
 -   Fix: cache translations per text and fetch texts missing from the cache from DeepL instead of serving a stale page snapshot
 -   Change: users without the cache capability are served the cached texts only, without calling DeepL or counting towards the rate limit; DeepL is only called when none of the requested texts are cached
 -   Change: raise the rate limit from 3 to 9 requests per 60 seconds
+-   Fix: requests from users with the cache capability no longer count towards the visitor rate limit
+-   Add: yellow badge in the translation cache column for cached languages where visitors received only part of their texts
 
 ### 2.1.0 (Aug 03, 2026)
 

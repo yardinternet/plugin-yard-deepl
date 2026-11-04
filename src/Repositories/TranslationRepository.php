@@ -46,19 +46,22 @@ class TranslationRepository
 	/**
 	 * Returns data needed to render the admin list-table column in a single meta fetch.
 	 *
-	 * 'cached_languages'        — ISO codes from $language_codes whose cache is valid and non-stale.
-	 * 'uncached_request_counts' — map of ISO code => cumulative uncached visitor API calls, only for
-	 *                             languages that have at least one recorded call.
+	 * 'cached_languages'          — ISO codes from $language_codes whose cache is valid and non-stale.
+	 * 'uncached_request_counts'   — map of ISO code => cumulative uncached visitor API calls, only for
+	 *                               languages that have at least one recorded call.
+	 * 'incomplete_request_counts' — map of ISO code => visitor requests that received only part of
+	 *                               their texts from the cache, only for languages with at least one.
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return array{ cached_languages: string[], uncached_request_counts: array<string, int> }
+	 * @return array{ cached_languages: string[], uncached_request_counts: array<string, int>, incomplete_request_counts: array<string, int> }
 	 */
 	public function get_column_data( int $object_id, array $language_codes ): array
 	{
 		$empty = array(
-			'cached_languages'        => array(),
-			'uncached_request_counts' => array(),
+			'cached_languages'          => array(),
+			'uncached_request_counts'   => array(),
+			'incomplete_request_counts' => array(),
 		);
 
 		if ( ! $this->translated_object_exists( $object_id ) || $this->is_cache_disabled( $object_id ) ) {
@@ -70,6 +73,7 @@ class TranslationRepository
 		$all_meta                = get_post_meta( $object_id );
 		$cached                  = array();
 		$counts                  = array();
+		$incomplete_counts       = array();
 
 		foreach ( $language_codes as $lang ) {
 			$translation_value    = $all_meta[ "_translation_$lang" ][0] ?? null;
@@ -84,11 +88,18 @@ class TranslationRepository
 			if ( 0 < $count ) {
 				$counts[ $lang ] = $count;
 			}
+
+			$incomplete_count = (int) ( $all_meta[ "_ydpl_incomplete_request_count_$lang" ][0] ?? 0 );
+
+			if ( 0 < $incomplete_count ) {
+				$incomplete_counts[ $lang ] = $incomplete_count;
+			}
 		}
 
 		return array(
-			'cached_languages'        => $cached,
-			'uncached_request_counts' => $counts,
+			'cached_languages'          => $cached,
+			'uncached_request_counts'   => $counts,
+			'incomplete_request_counts' => $incomplete_counts,
 		);
 	}
 
@@ -103,11 +114,23 @@ class TranslationRepository
 	 */
 	public function increment_uncached_request_count( int $object_id, string $target_lang ): void
 	{
+		$this->increment_request_count( $object_id, "_ydpl_uncached_request_count_$target_lang" );
+	}
+
+	/**
+	 * @since NEXT
+	 */
+	public function increment_incomplete_request_count( int $object_id, string $target_lang ): void
+	{
+		$this->increment_request_count( $object_id, "_ydpl_incomplete_request_count_$target_lang" );
+	}
+
+	protected function increment_request_count( int $object_id, string $key ): void
+	{
 		if ( ! $this->translated_object_exists( $object_id ) || $this->is_cache_disabled( $object_id ) ) {
 			return;
 		}
 
-		$key     = "_ydpl_uncached_request_count_$target_lang";
 		$current = (int) get_post_meta( $object_id, $key, true );
 
 		update_post_meta( $object_id, $key, $current + 1 );
@@ -124,12 +147,6 @@ class TranslationRepository
 	}
 
 	/**
-	 * Deletes all cached translations and their modified timestamps for every language.
-	 *
-	 * Removes both the cached translation data (_translation_<lang>) and the
-	 * staleness timestamp (_translation_modified_<lang>) written by store_translation().
-	 * Returns silently when the object does not exist.
-	 *
 	 * @since 2.0.0
 	 */
 	public function delete_cached_translations( int $object_id ): void
@@ -141,7 +158,7 @@ class TranslationRepository
 		$meta_keys = array_keys( get_post_meta( $object_id ) );
 
 		foreach ( $meta_keys as $key ) {
-			if ( 0 === strpos( $key, '_translation_' ) || 0 === strpos( $key, '_translation_modified_' ) ) {
+			if ( 0 === strpos( $key, '_translation_' ) || 0 === strpos( $key, '_ydpl_incomplete_request_count_' ) ) {
 				delete_post_meta( $object_id, $key );
 			}
 		}
@@ -165,6 +182,7 @@ class TranslationRepository
 		update_post_meta( $object_id, "_translation_$target_lang", $translation );
 		update_post_meta( $object_id, "_translation_modified_$target_lang", current_time( 'mysql' ) );
 		delete_post_meta( $object_id, "_ydpl_uncached_request_count_$target_lang" );
+		delete_post_meta( $object_id, "_ydpl_incomplete_request_count_$target_lang" );
 	}
 
 	protected function is_cache_disabled( int $object_id ): bool

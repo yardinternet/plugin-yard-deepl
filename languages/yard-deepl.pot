@@ -232,8 +232,15 @@ msgstr ""
 msgid "No cached translations"
 msgstr ""
 
+#. Translators: %d is the number of visitor requests that received only part of their texts from the cache.
+#: src/Providers/AdminColumnsServiceProvider.php:90
+msgid "%d incomplete response"
+msgid_plural "%d incomplete responses"
+msgstr[0] ""
+msgstr[1] ""
+
 #. Translators: %d is the number of uncached DeepL API calls made for this post and language.
-#: src/Providers/AdminColumnsServiceProvider.php:94
+#: src/Providers/AdminColumnsServiceProvider.php:109
 msgid "%d uncached call"
 msgid_plural "%d uncached calls"
 msgstr[0] ""

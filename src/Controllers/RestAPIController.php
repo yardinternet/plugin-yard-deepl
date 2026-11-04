@@ -69,11 +69,15 @@ class RestAPIController
 			$cached_texts = $this->service->translations_for( $text, $cached_translation ?? array() );
 
 			if ( array() !== $cached_texts ) {
+				if ( array() !== $missing_texts ) {
+					$this->service->increment_incomplete_request_count( $object_id, $target_lang );
+				}
+
 				return new WP_REST_Response( $cached_texts );
 			}
 		}
 
-		if ( array() !== $missing_texts && $this->is_rate_limit_exceeded() && ! $user_has_cache_capability ) {
+		if ( ! $user_has_cache_capability && array() !== $missing_texts && $this->is_rate_limit_exceeded() ) {
 			return $this->set_failure_response( 429, 'Rate limit exceeded.' );
 		}
 
