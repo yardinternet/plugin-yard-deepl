@@ -21,7 +21,9 @@ it( 'resets the incomplete request count when a translation is stored', function
 	expect( get_post_meta( 1, '_ydpl_incomplete_request_count_EN-GB', true ) )->toBe( '' );
 } );
 
-it( 'deletes the incomplete request count together with the cached translations', function () {
+it( 'deletes the request counts together with the cached translations', function () {
+	update_post_meta( 1, '_ydpl_uncached_request_count_DE', 5 );
+
 	$this->repository->delete_cached_translations( 1 );
 
 	expect( get_post_meta( 1 ) )->toBe( array() );

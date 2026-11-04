@@ -131,6 +131,7 @@ Response:
 * Change: raise the rate limit from 3 to 9 requests per 60 seconds
 * Fix: requests from users with the cache capability no longer count towards the visitor rate limit
 * Add: yellow badge in the translation cache column for cached languages where visitors received only part of their texts
+* Fix: clearing the translation cache also resets the uncached call count
 
 = 2.1.0: Aug 03, 2026 =
 
