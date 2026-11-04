@@ -72,15 +72,20 @@ class TranslationService
 	}
 
 	/**
-	 * @since 2.2.0
+	 * @since NEXT
 	 */
 	public function missing_texts( array $text, array $cached_translation ): array
 	{
-		return array_values( array_unique( array_diff( $text, array_keys( $this->translations_by_text( $cached_translation ) ) ) ) );
+		$translations_by_text = $this->translations_by_text( $cached_translation );
+		$cached_texts         = array_keys( $translations_by_text );
+		$missing_texts        = array_diff( $text, $cached_texts );
+		$unique_missing_texts = array_unique( $missing_texts );
+
+		return array_values( $unique_missing_texts );
 	}
 
 	/**
-	 * @since 2.2.0
+	 * @since NEXT
 	 */
 	public function translations_for( array $text, array $translation ): array
 	{
@@ -111,6 +116,14 @@ class TranslationService
 		$translation = DeeplService::get_instance()->translate( $text, $target_lang );
 
 		return $translation;
+	}
+
+	/**
+	 * @since NEXT
+	 */
+	public function increment_incomplete_request_count( int $object_id, string $target_lang ): void
+	{
+		$this->repository->increment_incomplete_request_count( $object_id, $target_lang );
 	}
 
 	/**

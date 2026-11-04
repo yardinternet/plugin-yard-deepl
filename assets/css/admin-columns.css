@@ -21,6 +21,11 @@
 	color: #fff;
 }
 
+.ydpl-cache-badge--incomplete {
+	background: #dba617;
+	color: #1d2327;
+}
+
 .ydpl-cache-badge--uncached {
 	background: #f0f0f1;
 	color: #3c434a;

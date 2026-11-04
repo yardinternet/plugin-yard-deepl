@@ -74,3 +74,20 @@ it( 'rejects a rate limited request when nothing is cached', function () {
 
 	expect( $response->status )->toBe( 429 );
 } );
+
+it( 'does not count requests from users with the cache capability towards the rate limit', function () {
+	$GLOBALS['ydpl_test']['can_cache'] = true;
+	exhaust_rate_limit( $this->controller );
+	$GLOBALS['ydpl_test']['can_cache'] = false;
+
+	$response = $this->controller->handle_translate_request( translate_request( array( 'Goedemiddag' ) ) );
+
+	expect( $response->status )->toBe( 200 );
+} );
+
+it( 'counts visitor requests that received only part of their texts from the cache', function () {
+	$this->controller->handle_translate_request( translate_request( array( 'Menu', 'Goedemiddag' ) ) );
+	$this->controller->handle_translate_request( translate_request( array( 'Menu' ) ) );
+
+	expect( get_post_meta( 1, '_ydpl_incomplete_request_count_EN-GB', true ) )->toBe( 1 );
+} );

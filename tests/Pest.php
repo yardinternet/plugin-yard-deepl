@@ -44,7 +44,13 @@ function get_post_field( string $field, int $id ): string
 
 function get_post_meta( int $id, string $key = '', bool $single = false )
 {
-	return $GLOBALS['ydpl_test']['meta'][ $id ][ $key ] ?? '';
+	$meta = $GLOBALS['ydpl_test']['meta'][ $id ] ?? array();
+
+	if ( '' === $key ) {
+		return array_map( fn ( $value ) => array( $value ), $meta );
+	}
+
+	return $meta[ $key ] ?? '';
 }
 
 function update_post_meta( int $id, string $key, $value ): void
@@ -84,7 +90,45 @@ function set_transient( string $key, $value, int $expiration ): void
 
 function ydpl_resolve_from_container( string $key )
 {
+	if ( isset( $GLOBALS['ydpl_test']['languages'] ) ) {
+		return new class( $GLOBALS['ydpl_test']['languages'] ) {
+			public function __construct( private array $languages )
+			{
+			}
+
+			public function configured_supported_languages(): array
+			{
+				return $this->languages;
+			}
+		};
+	}
+
 	return YDPL\Singletons\SiteOptionsSingleton::get_instance( array() );
+}
+
+function esc_attr( string $text ): string
+{
+	return $text;
+}
+
+function esc_html( string $text ): string
+{
+	return $text;
+}
+
+function esc_attr__( string $text, string $domain ): string
+{
+	return $text;
+}
+
+function _n( string $single, string $plural, int $number, string $domain ): string
+{
+	return 1 === $number ? $single : $plural;
+}
+
+function number_format_i18n( int $number ): string
+{
+	return (string) $number;
 }
 
 function fake_deepl_service(): YDPL\Services\TranslationService
