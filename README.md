@@ -24,13 +24,13 @@ Each object that is translated will store its cached translation in the `wp_post
 
 -   **Serving Cached Translations:** Translations are cached per text. If a cached translation is newer than the `post_modified` date of the object, every requested text found in the cache is served from it. Texts that are not cached yet (for example a changed menu or footer) are fetched from DeepL and merged into the cache. The response contains exactly the requested texts.
 -   **Fetching New Translations:** When the `post_modified` date of the object is more recent than the cached translation, a new translation is fetched from DeepL. Once retrieved, this translation is immediately cached for future use.
--   **Cache Authorization:** Only logged-in users with the `edit_posts` capability (or a custom capability configured via the `yard::deepl/cache_capability` filter) are permitted to create new cache entries. Requests from users without this capability never write to the cache: when any of the requested texts are cached, only those cached texts are returned; when none are cached, the texts are translated by DeepL without storing the result.
+-   **Cache Authorization:** Only logged-in users with the `edit_posts` capability (or a custom capability configured via the `yard::deepl/cache_capability` filter) are permitted to create new cache entries. Requests from users without this capability never write to the cache: texts missing from the cache are translated by DeepL and returned together with the cached texts, without storing the result. When the rate limit is reached, only the cached texts are returned.
 
 This approach minimizes the number of API calls to DeepL, ensuring translations are kept up to date only when necessary.
 
 ### Admin: Cache Metabox
 
-A metabox labeled **Yard DeepL** is displayed on the edit screen of supported post types (default: `page`). It provides two options:
+A metabox labeled **Yard DeepL** is displayed on the edit screen of supported post types (default: all public post types except `attachment`). It provides two options:
 
 -   **Disable translation cache:** When checked, the cache is bypassed for this object. Useful for posts with dynamic content that should always be translated fresh.
 -   **Clear translation cache:** When checked and the post is saved, all cached translations for this object are deleted.
@@ -144,7 +144,7 @@ xhr.send( data );
 | Filter                                             | Default        | Description                                                                                                                               |
 | -------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `yard::deepl/cache_capability`                     | `'edit_posts'` | The WordPress capability required to create cache entries. Users without this capability receive translations but results are not cached. |
-| `yard::deepl/cache_metabox_post_types`             | `['page']`     | Post types on which the Yard DeepL cache metabox is displayed.                                                                            |
+| `yard::deepl/cache_metabox_post_types`             | public types   | Post types on which the Yard DeepL cache metabox is displayed.                                                                            |
 | ~~`yard::deepl/disable_cache_metabox_post_types`~~ | —              | **Deprecated.** Use `yard::deepl/cache_metabox_post_types` instead.                                                                       |
 
 ## Changelog
@@ -152,11 +152,12 @@ xhr.send( data );
 ### NEXT
 
 -   Fix: cache translations per text and fetch texts missing from the cache from DeepL instead of serving a stale page snapshot
--   Change: users without the cache capability are served the cached texts only, without calling DeepL or counting towards the rate limit; DeepL is only called when none of the requested texts are cached
+-   Change: users without the cache capability receive texts missing from the cache from DeepL without storing them; when rate limited they receive the cached texts only
 -   Change: raise the rate limit from 3 to 9 requests per 60 seconds
 -   Fix: requests from users with the cache capability no longer count towards the visitor rate limit
 -   Add: yellow badge in the translation cache column for cached languages where visitors received only part of their texts
 -   Fix: clearing the translation cache also resets the uncached call count
+-   Change: the cache metabox and translation cache column are shown on all public post types except `attachment` by default
 
 ### 2.1.0 (Aug 03, 2026)
 

@@ -37,12 +37,21 @@ class AdminColumnsServiceProvider implements ServiceProviderInterface
 	 */
 	public function register(): void
 	{
+		add_action( 'admin_init', array( $this, 'register_columns' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+	}
+
+	/**
+	 * Must run after every post type is registered on init.
+	 *
+	 * @since NEXT
+	 */
+	public function register_columns(): void
+	{
 		foreach ( $this->get_cache_metabox_post_types() as $post_type ) {
 			add_filter( "manage_{$post_type}_posts_columns", array( $this, 'add_column' ) );
 			add_action( "manage_{$post_type}_posts_custom_column", array( $this, 'render_column' ), 10, 2 );
 		}
-
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 	}
 
 	/**

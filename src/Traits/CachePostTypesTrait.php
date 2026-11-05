@@ -26,7 +26,7 @@ trait CachePostTypesTrait
 	{
 		$post_types = apply_filters_deprecated(
 			'yard::deepl/disable_cache_metabox_post_types',
-			array( array( 'page' ) ),
+			array( array_values( array_diff( get_post_types( array( 'public' => true ) ), array( 'attachment' ) ) ) ),
 			'2.0.0',
 			'yard::deepl/cache_metabox_post_types'
 		);
