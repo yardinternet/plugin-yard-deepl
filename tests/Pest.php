@@ -78,6 +78,21 @@ function apply_filters( string $hook, $value )
 	return $value;
 }
 
+function apply_filters_deprecated( string $hook, array $args )
+{
+	return $args[0];
+}
+
+function get_post_types( array $args ): array
+{
+	return array(
+		'post'       => 'post',
+		'page'       => 'page',
+		'attachment' => 'attachment',
+		'pdc-item'   => 'pdc-item',
+	);
+}
+
 function get_transient( string $key )
 {
 	return $GLOBALS['ydpl_test']['transients'][ $key ] ?? false;
