@@ -72,7 +72,7 @@ class TranslationService
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.2.0
 	 */
 	public function missing_texts( array $text, array $cached_translation ): array
 	{
@@ -85,7 +85,7 @@ class TranslationService
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.2.0
 	 */
 	public function translations_for( array $text, array $translation ): array
 	{
@@ -119,7 +119,7 @@ class TranslationService
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.2.0
 	 */
 	public function increment_incomplete_request_count( int $object_id, string $target_lang ): void
 	{

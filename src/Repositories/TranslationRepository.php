@@ -118,7 +118,7 @@ class TranslationRepository
 	}
 
 	/**
-	 * @since NEXT
+	 * @since 2.2.0
 	 */
 	public function increment_incomplete_request_count( int $object_id, string $target_lang ): void
 	{

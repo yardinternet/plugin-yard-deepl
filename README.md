@@ -7,7 +7,7 @@ License: EUPL v1.2
 License URI: <https://www.gnu.org/licenses/gpl-2.0.html>
 Requires at least: 6.0
 Requires PHP: 8.0
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 Tags: deepl, translating, secure
 Tested up to: 7.0
 
@@ -149,7 +149,7 @@ xhr.send( data );
 
 ## Changelog
 
-### NEXT
+### 2.2.0 - (Nov 06, 2026)
 
 -   Fix: cache translations per text and fetch texts missing from the cache from DeepL instead of serving a stale page snapshot
 -   Change: users without the cache capability receive texts missing from the cache from DeepL without storing them; when rate limited they receive the cached texts only

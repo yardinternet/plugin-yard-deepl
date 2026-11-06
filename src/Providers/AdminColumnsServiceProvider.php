@@ -44,7 +44,7 @@ class AdminColumnsServiceProvider implements ServiceProviderInterface
 	/**
 	 * Must run after every post type is registered on init.
 	 *
-	 * @since NEXT
+	 * @since 2.2.0
 	 */
 	public function register_columns(): void
 	{

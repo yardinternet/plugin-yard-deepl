@@ -182,12 +182,14 @@ function pair( string $text, string $translation ): array
 	);
 }
 
-uses()->beforeEach( function () {
-	$GLOBALS['ydpl_test'] = array(
-		'posts'      => array(),
-		'meta'       => array(),
-		'transients' => array(),
-		'can_cache'  => false,
-	);
-	$_SERVER['REMOTE_ADDR'] = '10.0.0.1';
-} )->in( 'Unit' );
+uses()->beforeEach(
+	function () {
+		$GLOBALS['ydpl_test']   = array(
+			'posts'      => array(),
+			'meta'       => array(),
+			'transients' => array(),
+			'can_cache'  => false,
+		);
+		$_SERVER['REMOTE_ADDR'] = '10.0.0.1';
+	}
+)->in( 'Unit' );
