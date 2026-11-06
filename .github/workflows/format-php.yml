@@ -1,0 +1,49 @@
+name: Format PHP
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.php'
+      - 'phpcs.xml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  phpcbf:
+    name: phpcbf
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v5
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer
+
+      # --no-scripts: the post-install scripts remove vendor/, which holds phpcbf.
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-scripts
+
+      # phpcbf exits 1 when it fixed everything and 2 when unfixable violations remain;
+      # both are fine here, only 3 (processing error) should fail the job.
+      - name: Run phpcbf
+        run: composer run phpcbf || [ $? -le 2 ]
+
+      # Pushes made with GITHUB_TOKEN do not trigger new workflow runs, so this cannot loop.
+      - name: Commit formatting changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'style: apply phpcbf changes'
+          file_pattern: '*.php'

@@ -1,0 +1,79 @@
+name: Deploy to WordPress.org
+
+on:
+  push:
+    tags:
+      - "v*"
+      - "[0-9]*"
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Dry run: build and package, but do not commit to WordPress.org SVN'
+        type: boolean
+        default: true
+
+jobs:
+  deploy:
+    name: Deploy new tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v5
+
+      - name: Check the version numbers
+        run: |
+          PLUGIN_VERSION=$(grep -m1 -E '^\s*\*\s*Version:' yard-deepl.php | awk '{print $NF}')
+          STABLE_TAG=$(grep -m1 -E '^Stable tag:' readme.txt | awk '{print $NF}')
+          README_STABLE_TAG=$(grep -m1 -E '^Stable tag:' README.md | awk '{print $NF}')
+          echo "Plugin header: $PLUGIN_VERSION, readme.txt stable tag: $STABLE_TAG, README.md stable tag: $README_STABLE_TAG, ref: $GITHUB_REF_NAME"
+          if [ "$PLUGIN_VERSION" != "$STABLE_TAG" ]; then
+            echo "::error::Plugin header Version and readme.txt Stable tag must be equal."
+            exit 1
+          fi
+          if [ "$PLUGIN_VERSION" != "$README_STABLE_TAG" ]; then
+            echo "::error::Plugin header Version and README.md Stable tag must be equal."
+            exit 1
+          fi
+          if [ "$GITHUB_REF_TYPE" = "tag" ] && [ "${GITHUB_REF_NAME#v}" != "$PLUGIN_VERSION" ]; then
+            echo "::error::Tag must match the plugin header Version."
+            exit 1
+          fi
+          if [ "$GITHUB_REF_TYPE" != "tag" ] && [ "${{ inputs.dry-run }}" != "true" ]; then
+            echo "::error::A real deploy must run from a tag. Pick a tag under 'Use workflow from', or enable dry run."
+            exit 1
+          fi
+          # Used by the deploy action as the SVN tag name.
+          echo "VERSION=$PLUGIN_VERSION" >> "$GITHUB_ENV"
+
+      # No Composer step: vendor-prefixed/ is committed and shipped as-is, and the plugin
+      # never loads vendor/ (excluded via .distignore), so installing would change nothing.
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Build assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: WordPress plugin deploy
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          generate-zip: true
+          dry-run: ${{ inputs.dry-run == true }}
+        env:
+          SLUG: yard-deepl
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+
+      - name: Create GitHub release
+        if: github.ref_type == 'tag' && inputs.dry-run != true
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.deploy.outputs.zip-path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

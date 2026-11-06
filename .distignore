@@ -1,0 +1,25 @@
+# Files and folders excluded from the WordPress.org release (used by 10up/action-wordpress-plugin-deploy).
+/.git
+/.github
+/.wordpress-org
+/node_modules
+/tests
+/vendor
+/assets
+
+.distignore
+.editorconfig
+.gitignore
+.gitattributes
+.DS_Store
+.phpunit.result.cache
+composer.json
+composer.lock
+package.json
+package-lock.json
+phpcs.xml
+phpunit.xml
+webpack.config.js
+README.md
+*.map
+*.zip
