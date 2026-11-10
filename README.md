@@ -73,9 +73,11 @@ If you need to work with development dependencies, follow these steps:
 1. Run `composer install`. This will remove the `vendor` directory and create the `vendor-prefixed` directory.
 2. Run `composer install --no-scripts`. The `--no-scripts` flag prevents the automatic deletion of the `vendor` directory, allowing you to work with the development dependencies. Ensure that the `vendor-prefixed` directory is still present, as the plug-in relies on it.
 
+`vendor-prefixed` is committed to git. After changing Composer packages, commit `vendor-prefixed` together with `composer.lock`; the deploy stops when they don't match.
+
 ### Ready for releasing a new version?
 
-1. Run `composer install --optimize-autoloader`. This will optimize the autoloading rules by converting them into a class map, which improves performance and speeds up autoloading. It is particularly useful for production environments.
+See [docs/RELEASING.md](docs/RELEASING.md) for the release routine and how the GitHub workflows fit together.
 
 ## Usage
 

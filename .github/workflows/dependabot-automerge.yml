@@ -3,5 +3,7 @@ on: pull_request
 
 jobs:
     dependabot-automerge:
+        # Composer PRs are merged by dependabot-vendor-prefixed.yml after vendor-prefixed/ is rebuilt.
+        if: ${{ !startsWith(github.head_ref, 'dependabot/composer/') }}
         uses: yardinternet/workflows/.github/workflows/dependabot-automerge.yml@main
         secrets: inherit

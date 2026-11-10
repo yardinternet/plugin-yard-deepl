@@ -47,8 +47,34 @@ jobs:
           # Used by the deploy action as the SVN tag name.
           echo "VERSION=$PLUGIN_VERSION" >> "$GITHUB_ENV"
 
-      # No Composer step: vendor-prefixed/ is committed (force-added despite .gitignore) and
-      # shipped as-is, and the plugin never loads vendor/ (excluded via .distignore).
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer
+
+      # vendor-prefixed/ is committed and shipped as-is. Regenerate it from composer.lock and fail
+      # when it differs from the committed copy, so a Composer update (e.g. from Dependabot)
+      # can never ship without the matching prefixed code being committed first.
+      # The post-install scripts run Strauss and then remove vendor/, which the plugin never loads.
+      - name: Verify prefixed dependencies match composer.lock
+        run: |
+          COMMITTED="$RUNNER_TEMP/vendor-prefixed-committed"
+          mv vendor-prefixed "$COMMITTED"
+          composer install --no-interaction --prefer-dist
+          if [ ! -f vendor-prefixed/autoload.php ]; then
+            echo "::error::vendor-prefixed/autoload.php was not generated."
+            exit 1
+          fi
+          # Strauss stamps every file with the build date; ignore those lines.
+          if ! diff -r -I 'Modified by .* using' "$COMMITTED" vendor-prefixed; then
+            echo "::error::vendor-prefixed/ is out of date with composer.lock. Run 'composer install' locally and commit vendor-prefixed/."
+            exit 1
+          fi
+          # Ship exactly the committed files.
+          rm -rf vendor-prefixed
+          mv "$COMMITTED" vendor-prefixed
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -65,17 +91,27 @@ jobs:
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         with:
-          generate-zip: true
           dry-run: ${{ inputs.dry-run == true }}
         env:
           SLUG: yard-deepl
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
 
+      # Build the zip from this checkout instead of the action's generate-zip: when the SVN tag
+      # already exists (rerun), the action zips SVN trunk, which may hold a newer version.
+      - name: Build release zip
+        id: zip
+        run: |
+          BUILD_DIR="$RUNNER_TEMP/build"
+          mkdir -p "$BUILD_DIR/yard-deepl"
+          rsync -rc --exclude-from=.distignore ./ "$BUILD_DIR/yard-deepl/"
+          (cd "$BUILD_DIR" && zip -rq yard-deepl.zip yard-deepl)
+          echo "zip-path=$BUILD_DIR/yard-deepl.zip" >> "$GITHUB_OUTPUT"
+
       - name: Create GitHub release
         if: github.ref_type == 'tag' && inputs.dry-run != true
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ steps.deploy.outputs.zip-path }}
+          files: ${{ steps.zip.outputs.zip-path }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

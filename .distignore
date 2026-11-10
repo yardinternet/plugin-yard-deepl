@@ -6,6 +6,7 @@
 /tests
 /vendor
 /assets
+/docs
 
 .distignore
 .editorconfig
