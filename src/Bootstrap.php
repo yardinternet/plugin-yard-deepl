@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use YDPL\Providers\AdminColumnsServiceProvider;
 use YDPL\Providers\AssetsServiceProvider;
 use YDPL\Providers\MetaBoxServiceProvider;
 use YDPL\Providers\RestAPIServiceProvider;
@@ -72,7 +71,6 @@ class Bootstrap
 			new SettingsServiceProvider(),
 			new RestAPIServiceProvider(),
 			new MetaBoxServiceProvider(),
-			new AdminColumnsServiceProvider(),
 		);
 	}
 

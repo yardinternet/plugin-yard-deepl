@@ -35,17 +35,6 @@ A metabox labeled **Yard DeepL** is displayed on the edit screen of supported po
 -   **Disable translation cache:** When checked, the cache is bypassed for this object. Useful for posts with dynamic content that should always be translated fresh.
 -   **Clear translation cache:** When checked and the post is saved, all cached translations for this object are deleted.
 
-### Admin: Translation Cache Column
-
-A **Translation cache** column is added to the post list screen of all supported post types. Its purpose is to notify editors which posts should be cached as soon as possible to avoid unnecessary DeepL API costs.
-
--   **Green badge per language** (e.g. `NL`, `EN-US`): a valid, up-to-date cached translation exists for that language. Visitor requests are served from cache at no cost.
--   **Yellow badge with a count per language** (e.g. `EN-US 3`): a cached translation exists, but that many visitor requests received only part of their texts because the rest is missing from the cache. Hovering the badge shows the full count as a tooltip. An editor visiting the page translates the missing texts, stores them and resets the count.
--   **Grey badge with a count per language** (e.g. `EN-US 42`): no cache exists for that language and visitors have triggered that many live DeepL API calls. Hovering the badge shows the full count as a tooltip. These posts are the most urgent to cache.
--   **—**: the post has never been requested for translation, or caching is disabled for this post.
-
-The uncached call count is only incremented for visitor requests (users without cache-write capability) and is automatically reset per language once a cache entry is stored. The same applies to the incomplete response count, which is also removed when the cache is cleared. Posts with the **Disable translation cache** option enabled are excluded from the column entirely.
-
 ## External Services
 
 This plugin connects to the DeepL API to provide translations for content.
