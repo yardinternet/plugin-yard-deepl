@@ -8,12 +8,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-07-31T00:00:00+00:00\n"
-"PO-Revision-Date: 2026-07-31T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-11-10T15:32:27+00:00\n"
 "Language: \n"
 
 #. Plugin Name of the plugin
 #: yard-deepl.php:8
-#: src/Providers/MetaBoxServiceProvider.php:35
+#: src/Providers/MetaBoxServiceProvider.php:38
 #: src/Providers/SettingsServiceProvider.php:44
 #: src/Providers/SettingsServiceProvider.php:45
 msgid "Yard DeepL"
@@ -166,19 +166,51 @@ msgstr "Chinees (vereenvoudigd)"
 msgid "Chinese (Traditional)"
 msgstr "Chinees (traditioneel)"
 
-#: src/Providers/MetaBoxServiceProvider.php:72
+#: src/Controllers/SettingsController.php:116
+msgid "The DeepL API base URL must be a valid https://*.deepl.com/v2/translate URL. The previous value has been kept."
+msgstr "De DeepL API basis-URL moet een geldige https://*.deepl.com/v2/translate-URL zijn. De vorige waarde is behouden."
+
+#: src/Providers/AdminColumnsServiceProvider.php:68
+msgid "Cache"
+msgstr "Cache"
+
+#: src/Providers/AdminColumnsServiceProvider.php:85
+msgid "No languages configured"
+msgstr "Geen talen geconfigureerd"
+
+#. translators: %d: number of visitor requests that received only part of their texts from the cache
+#: src/Providers/AdminColumnsServiceProvider.php:105
+#, php-format
+msgid "%d incomplete response"
+msgid_plural "%d incomplete responses"
+msgstr[0] "%d onvolledig antwoord"
+msgstr[1] "%d onvolledige antwoorden"
+
+#. translators: %d: number of uncached DeepL API calls made for this post and language
+#: src/Providers/AdminColumnsServiceProvider.php:124
+#, php-format
+msgid "%d uncached call"
+msgid_plural "%d uncached calls"
+msgstr[0] "%d aanroep zonder cache"
+msgstr[1] "%d aanroepen zonder cache"
+
+#: src/Providers/AdminColumnsServiceProvider.php:135
+msgid "No cached translations"
+msgstr "Geen gecachede vertalingen"
+
+#: src/Providers/MetaBoxServiceProvider.php:75
 msgid "Disable translation cache when this object contains dynamic content."
 msgstr "Schakel de vertalingscache uit wanneer dit object dynamische inhoud bevat."
 
-#: src/Providers/MetaBoxServiceProvider.php:75
+#: src/Providers/MetaBoxServiceProvider.php:78
 msgid "Disable translation cache?"
 msgstr "Vertalingscache uitschakelen?"
 
-#: src/Providers/MetaBoxServiceProvider.php:78
+#: src/Providers/MetaBoxServiceProvider.php:81
 msgid "Clear cached translations on save."
 msgstr "Verwijder vertaalcache bij opslaan."
 
-#: src/Providers/MetaBoxServiceProvider.php:81
+#: src/Providers/MetaBoxServiceProvider.php:84
 msgid "Clear translation cache?"
 msgstr "Vertaalcache wissen?"
 
@@ -198,13 +230,13 @@ msgstr "DeepL API-sleutel"
 msgid "DeepL supported languages"
 msgstr "DeepL ondersteunde talen"
 
-#: src/Providers/SettingsServiceProvider.php:110
+#: src/Providers/SettingsServiceProvider.php:103
+msgid "Translation cache column"
+msgstr "Vertaalcache-kolom"
+
+#: src/Providers/SettingsServiceProvider.php:119
 msgid "Parameter object_id mandatory"
 msgstr "Parameter object_id verplicht"
-
-#: src/Controllers/SettingsController.php:112
-msgid "The DeepL API base URL must be a valid https://*.deepl.com/v2/translate URL. The previous value has been kept."
-msgstr "De DeepL API basis-URL moet een geldige https://*.deepl.com/v2/translate-URL zijn. De vorige waarde is behouden."
 
 #. Translators: %s is the URL to the DeepL API documentation page.
 #: src/Views/admin/partials/settings/settings-description-general.php:10
@@ -217,31 +249,9 @@ msgstr "website"
 msgid "To query the DeepL API, an API key is required. You can find more information on their %s."
 msgstr "Om de DeepL API te bevragen, is een API-sleutel vereist. Meer informatie vind je op hun %s."
 
-#: src/Providers/AdminColumnsServiceProvider.php:53
-msgid "Translation cache"
-msgstr "Vertaalcache"
-
-#: src/Providers/AdminColumnsServiceProvider.php:70
-msgid "No languages configured"
-msgstr "Geen talen geconfigureerd"
-
-#: src/Providers/AdminColumnsServiceProvider.php:105
-msgid "No cached translations"
-msgstr "Geen gecachede vertalingen"
-
-#. Translators: %d is the number of visitor requests that received only part of their texts from the cache.
-#: src/Providers/AdminColumnsServiceProvider.php:90
-msgid "%d incomplete response"
-msgid_plural "%d incomplete responses"
-msgstr[0] "%d onvolledig antwoord"
-msgstr[1] "%d onvolledige antwoorden"
-
-#. Translators: %d is the number of uncached DeepL API calls made for this post and language.
-#: src/Providers/AdminColumnsServiceProvider.php:109
-msgid "%d uncached call"
-msgid_plural "%d uncached calls"
-msgstr[0] "%d aanroep zonder cache"
-msgstr[1] "%d aanroepen zonder cache"
+#: src/Views/admin/partials/settings/settings-fields.php:44
+msgid "Show which languages are cached on post list screens"
+msgstr "Toon in overzichten welke talen in de cache staan"
 
 #: src/Views/admin/settings-page.php:15
 msgid "Save"
