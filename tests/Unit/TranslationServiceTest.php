@@ -50,25 +50,22 @@ it(
 	'merges new translations into the cache when the user may cache',
 	function () {
 		given_cached_translation( 1, 'EN-GB', array( pair( 'Menu', 'Menu EN' ) ), '2026-10-02 10:00:00' );
-		update_post_meta( 1, '_ydpl_uncached_request_count_EN-GB', 4 );
 
 		$this->service->handle_translation_with_object_id( 1, array( 'Nieuws' ), 'EN-GB', true );
 
 		expect( get_post_meta( 1, '_translation_EN-GB', true ) )
-		->toEqualCanonicalizing( array( pair( 'Nieuws', 'EN-GB:Nieuws' ), pair( 'Menu', 'Menu EN' ) ) )
-		->and( get_post_meta( 1, '_ydpl_uncached_request_count_EN-GB', true ) )->toBe( '' );
+		->toEqualCanonicalizing( array( pair( 'Nieuws', 'EN-GB:Nieuws' ), pair( 'Menu', 'Menu EN' ) ) );
 	}
 );
 
 it(
-	'keeps the cache untouched and counts the request when the user may not cache',
+	'keeps the cache untouched when the user may not cache',
 	function () {
 		given_cached_translation( 1, 'EN-GB', array( pair( 'Menu', 'Menu EN' ) ), '2026-10-02 10:00:00' );
 
 		$this->service->handle_translation_with_object_id( 1, array( 'Nieuws' ), 'EN-GB' );
 
-		expect( get_post_meta( 1, '_translation_EN-GB', true ) )->toBe( array( pair( 'Menu', 'Menu EN' ) ) )
-		->and( get_post_meta( 1, '_ydpl_uncached_request_count_EN-GB', true ) )->toBe( 1 );
+		expect( get_post_meta( 1, '_translation_EN-GB', true ) )->toBe( array( pair( 'Menu', 'Menu EN' ) ) );
 	}
 );
 

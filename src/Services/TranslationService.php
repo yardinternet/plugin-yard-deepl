@@ -64,8 +64,6 @@ class TranslationService
 
 		if ( $cache ) {
 			$this->repository->store_translation( $object_id, $target_lang, $merged );
-		} else {
-			$this->repository->increment_uncached_request_count( $object_id, $target_lang );
 		}
 
 		return $this->translations_for( $text, $merged );
@@ -116,14 +114,6 @@ class TranslationService
 		$translation = DeeplService::get_instance()->translate( $text, $target_lang );
 
 		return $translation;
-	}
-
-	/**
-	 * @since 2.2.0
-	 */
-	public function increment_incomplete_request_count( int $object_id, string $target_lang ): void
-	{
-		$this->repository->increment_incomplete_request_count( $object_id, $target_lang );
 	}
 
 	/**
