@@ -98,6 +98,15 @@ class SettingsServiceProvider implements ServiceProviderInterface
 			array( 'settings_field_id' => 'ydpl_supported_target_languages' )
 		);
 
+		add_settings_field(
+			'ydpl_admin_column_enabled',
+			__( 'Translation cache column', 'yard-deepl' ),
+			array( $this->controller, 'section_fields_render' ),
+			'yard-deepl',
+			'ydpl_section_general',
+			array( 'settings_field_id' => 'ydpl_admin_column_enabled' )
+		);
+
 		add_settings_section(
 			'ydpl_section_rest_api',
 			'REST API',

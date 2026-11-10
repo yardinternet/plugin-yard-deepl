@@ -87,4 +87,12 @@ class SiteOptionsSingleton
 
 		return 'on' === $value;
 	}
+
+	/**
+	 * @since 2.3.0
+	 */
+	public function admin_column_enabled(): bool
+	{
+		return 'on' === ( $this->options['ydpl_admin_column_enabled'] ?? '' );
+	}
 }

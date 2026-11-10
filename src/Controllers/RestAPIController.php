@@ -68,6 +68,10 @@ class RestAPIController
 		if ( ! $user_has_cache_capability && array() !== $missing_texts ) {
 			$cached_texts = $this->service->translations_for( $text, $cached_translation ?? array() );
 
+			if ( array() !== $cached_texts ) {
+				$this->service->increment_incomplete_request_count( $object_id, $target_lang );
+			}
+
 			if ( $this->is_rate_limit_exceeded() ) {
 				return array() !== $cached_texts
 					? new WP_REST_Response( $cached_texts )

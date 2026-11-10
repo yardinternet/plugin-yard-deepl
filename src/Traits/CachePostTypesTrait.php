@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Provides the list of post types that have DeepL cache support enabled.
  *
+ * Shared between MetaBoxServiceProvider and AdminColumnsServiceProvider so
+ * both always operate on the same set of post types.
+ *
  * @since 2.0.0
  */
 trait CachePostTypesTrait
