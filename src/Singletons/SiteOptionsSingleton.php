@@ -89,7 +89,7 @@ class SiteOptionsSingleton
 	}
 
 	/**
-	 * @since 2.3.0
+	 * @since NEXT
 	 */
 	public function admin_column_enabled(): bool
 	{
