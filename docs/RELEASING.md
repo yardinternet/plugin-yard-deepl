@@ -70,7 +70,7 @@ The steps run in order. If a check fails, the run stops and nothing is published
 
 1. **Check out the tag.** The code exactly as it was when tagged, even if `main` has moved on.
 2. **Check the version numbers.** The version in `yard-deepl.php`, the stable tag in `readme.txt` and `README.md`, and the tag name must all be the same. *Stops if they differ.*
-3. **Check `vendor-prefixed/`.** Rebuilds it from `composer.lock` and compares it with the committed copy, ignoring the Strauss date lines. Then puts the committed copy back, so the release ships exactly what is in git. *Stops if out of date.*
+3. **Check `vendor-prefixed/`.** Rebuilds it from `composer.lock` and compares it with the committed copy, ignoring the Strauss date lines and the order of the classmap entries. Then puts the committed copy back, so the release ships exactly what is in git. *Stops if out of date.*
 4. **Build assets.** `npm ci` and `npm run build` produce `dist/`.
 5. **Upload to WordPress.org.** The 10up action copies the plugin to SVN, without the files in `.distignore`. *Skipped in a dry run.*
 6. **Build the zip** from the same checked-out files, without the files in `.distignore`. Because it uses the tag, a rerun always gives the zip for that version.

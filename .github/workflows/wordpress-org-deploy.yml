@@ -12,6 +12,12 @@ on:
         type: boolean
         default: true
 
+# One deploy at a time, whatever the ref: a tag push and a manual dispatch for the same version
+# could otherwise both pass the SVN tag check and collide. Never cancel a running publish.
+concurrency:
+  group: wordpress-org-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
     name: Deploy new tag
@@ -68,7 +74,9 @@ jobs:
             exit 1
           fi
           # Strauss stamps every file with the build date; ignore those lines.
-          if ! diff -r -I 'Modified by .* using' "$COMMITTED" vendor-prefixed; then
+          # Strauss writes the classmap entries in no fixed order, so that file is compared sorted below.
+          if ! diff -r -I 'Modified by .* using' -x autoload-classmap.php "$COMMITTED" vendor-prefixed \
+            || ! diff <(sort "$COMMITTED/autoload-classmap.php") <(sort vendor-prefixed/autoload-classmap.php); then
             echo "::error::vendor-prefixed/ is out of date with composer.lock. Run 'composer install' locally and commit vendor-prefixed/."
             exit 1
           fi

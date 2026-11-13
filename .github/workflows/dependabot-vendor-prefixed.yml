@@ -46,7 +46,8 @@ jobs:
           fi
 
       # Strauss stamps every file with the build date. Revert files where that is the only change,
-      # so the commit only contains real dependency changes.
+      # so the commit only contains real dependency changes. Strauss also writes the classmap
+      # entries in no fixed order, so revert it when only the order changed.
       - name: Drop date-only changes
         run: |
           git diff --name-only -- vendor-prefixed | while read -r file; do
@@ -54,6 +55,11 @@ jobs:
               git checkout -- "$file"
             fi
           done
+          CLASSMAP=vendor-prefixed/autoload-classmap.php
+          if git ls-files --error-unmatch "$CLASSMAP" >/dev/null 2>&1 \
+            && diff -q <(git show "HEAD:$CLASSMAP" | sort) <(sort "$CLASSMAP") >/dev/null; then
+            git checkout -- "$CLASSMAP"
+          fi
 
       # Pushes made with GITHUB_TOKEN do not trigger new workflow runs, so this cannot loop.
       - name: Commit vendor-prefixed changes
