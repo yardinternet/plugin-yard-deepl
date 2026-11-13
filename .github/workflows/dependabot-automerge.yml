@@ -6,4 +6,8 @@ jobs:
         # Composer PRs are merged by dependabot-vendor-prefixed.yml after vendor-prefixed/ is rebuilt.
         if: ${{ !startsWith(github.head_ref, 'dependabot/composer/') }}
         uses: yardinternet/workflows/.github/workflows/dependabot-automerge.yml@main
+        # The reusable workflow requests these; grant them explicitly so a read-only default token can't block the call.
+        permissions:
+            contents: write
+            pull-requests: write
         secrets: inherit
