@@ -1,0 +1,77 @@
+name: Dependabot vendor-prefixed
+
+# Dependabot Composer PRs only change composer.lock. This rebuilds vendor-prefixed/ from the
+# updated lock file, pushes it to the PR branch and then merges the PR, so the shipped prefixed
+# code always matches composer.lock (the deploy workflow verifies this).
+on: pull_request
+
+# The reusable automerge workflow uses `${{ github.workflow }}-${{ github.ref }}` as its group,
+# and github.workflow keeps the caller's name there. The suffix keeps the groups apart, otherwise
+# the automerge job would cancel this run.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-rebuild
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  rebuild:
+    name: Rebuild vendor-prefixed
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && startsWith(github.head_ref, 'dependabot/composer/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out PR branch
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer
+
+      # The post-install scripts run Strauss and then remove vendor/.
+      - name: Rebuild vendor-prefixed
+        run: |
+          rm -rf vendor-prefixed
+          composer install --no-interaction --prefer-dist
+          if [ ! -f vendor-prefixed/autoload.php ]; then
+            echo "::error::vendor-prefixed/autoload.php was not generated."
+            exit 1
+          fi
+
+      # Strauss stamps every file with the build date. Revert files where that is the only change,
+      # so the commit only contains real dependency changes. Strauss also writes the classmap
+      # entries in no fixed order, so revert it when only the order changed.
+      - name: Drop date-only changes
+        run: |
+          git diff --name-only -- vendor-prefixed | while read -r file; do
+            if git diff -I 'Modified by .* using' --quiet -- "$file"; then
+              git checkout -- "$file"
+            fi
+          done
+          CLASSMAP=vendor-prefixed/autoload-classmap.php
+          if git ls-files --error-unmatch "$CLASSMAP" >/dev/null 2>&1 \
+            && diff -q <(git show "HEAD:$CLASSMAP" | sort) <(sort "$CLASSMAP") >/dev/null; then
+            git checkout -- "$CLASSMAP"
+          fi
+
+      # Pushes made with GITHUB_TOKEN do not trigger new workflow runs, so this cannot loop.
+      - name: Commit vendor-prefixed changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '(chore): update vendor prefixed directory'
+          file_pattern: 'vendor-prefixed'
+
+  # Composer PRs are skipped by the general automerge workflow, so they are merged here,
+  # only after vendor-prefixed/ has been pushed.
+  automerge:
+    name: Automerge
+    needs: rebuild
+    uses: yardinternet/workflows/.github/workflows/dependabot-automerge.yml@main
+    secrets: inherit

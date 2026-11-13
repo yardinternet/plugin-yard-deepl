@@ -1,0 +1,125 @@
+name: Deploy to WordPress.org
+
+on:
+  push:
+    tags:
+      - "v*"
+      - "[0-9]*"
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Dry run: build and package, but do not commit to WordPress.org SVN'
+        type: boolean
+        default: true
+
+# One deploy at a time, whatever the ref: a tag push and a manual dispatch for the same version
+# could otherwise both pass the SVN tag check and collide. Never cancel a running publish.
+concurrency:
+  group: wordpress-org-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy new tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v5
+
+      - name: Check the version numbers
+        run: |
+          PLUGIN_VERSION=$(grep -m1 -E '^\s*\*\s*Version:' yard-deepl.php | awk '{print $NF}' | tr -d '\r')
+          STABLE_TAG=$(grep -m1 -E '^Stable tag:' readme.txt | awk '{print $NF}' | tr -d '\r')
+          README_STABLE_TAG=$(grep -m1 -E '^Stable tag:' README.md | awk '{print $NF}' | tr -d '\r')
+          echo "Plugin header: $PLUGIN_VERSION, readme.txt stable tag: $STABLE_TAG, README.md stable tag: $README_STABLE_TAG, ref: $GITHUB_REF_NAME"
+          if [ "$PLUGIN_VERSION" != "$STABLE_TAG" ]; then
+            echo "::error::Plugin header Version and readme.txt Stable tag must be equal."
+            exit 1
+          fi
+          if [ "$PLUGIN_VERSION" != "$README_STABLE_TAG" ]; then
+            echo "::error::Plugin header Version and README.md Stable tag must be equal."
+            exit 1
+          fi
+          if [ "$GITHUB_REF_TYPE" = "tag" ] && [ "${GITHUB_REF_NAME#v}" != "$PLUGIN_VERSION" ]; then
+            echo "::error::Tag must match the plugin header Version."
+            exit 1
+          fi
+          if [ "$GITHUB_REF_TYPE" != "tag" ] && [ "${{ inputs.dry-run }}" != "true" ]; then
+            echo "::error::A real deploy must run from a tag. Pick a tag under 'Use workflow from', or enable dry run."
+            exit 1
+          fi
+          # Used by the deploy action as the SVN tag name.
+          echo "VERSION=$PLUGIN_VERSION" >> "$GITHUB_ENV"
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer
+
+      # vendor-prefixed/ is committed and shipped as-is. Regenerate it from composer.lock and fail
+      # when it differs from the committed copy, so a Composer update (e.g. from Dependabot)
+      # can never ship without the matching prefixed code being committed first.
+      # The post-install scripts run Strauss and then remove vendor/, which the plugin never loads.
+      - name: Verify prefixed dependencies match composer.lock
+        run: |
+          COMMITTED="$RUNNER_TEMP/vendor-prefixed-committed"
+          mv vendor-prefixed "$COMMITTED"
+          composer install --no-interaction --prefer-dist
+          if [ ! -f vendor-prefixed/autoload.php ]; then
+            echo "::error::vendor-prefixed/autoload.php was not generated."
+            exit 1
+          fi
+          # Strauss stamps every file with the build date; ignore those lines.
+          # Strauss writes the classmap entries in no fixed order, so that file is compared sorted below.
+          if ! diff -r -I 'Modified by .* using' -x autoload-classmap.php "$COMMITTED" vendor-prefixed \
+            || ! diff <(sort "$COMMITTED/autoload-classmap.php") <(sort vendor-prefixed/autoload-classmap.php); then
+            echo "::error::vendor-prefixed/ is out of date with composer.lock. Run 'composer install' locally and commit vendor-prefixed/."
+            exit 1
+          fi
+          # Ship exactly the committed files.
+          rm -rf vendor-prefixed
+          mv "$COMMITTED" vendor-prefixed
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Build assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: WordPress plugin deploy
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          dry-run: ${{ inputs.dry-run == true }}
+        env:
+          SLUG: yard-deepl
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+
+      # Build the zip from this checkout instead of the action's generate-zip: when the SVN tag
+      # already exists (rerun), the action zips SVN trunk, which may hold a newer version.
+      - name: Build release zip
+        id: zip
+        run: |
+          BUILD_DIR="$RUNNER_TEMP/build"
+          mkdir -p "$BUILD_DIR/yard-deepl"
+          rsync -rc --exclude-from=.distignore ./ "$BUILD_DIR/yard-deepl/"
+          (cd "$BUILD_DIR" && zip -rq yard-deepl.zip yard-deepl)
+          echo "zip-path=$BUILD_DIR/yard-deepl.zip" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub release
+        if: github.ref_type == 'tag' && inputs.dry-run != true
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.zip.outputs.zip-path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
